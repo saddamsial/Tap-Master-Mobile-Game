@@ -17,7 +17,7 @@ namespace Core.SystemGame{
         public float Timer { get; set; }
 
         public bool CheckSpread(){
-            if(Input.touchCount == 2 || Input.GetAxis("Mouse ScrollWheel") != 0){
+            if((Input.touchCount == 2 && Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(1).phase != TouchPhase.Ended) || Input.GetAxis("Mouse ScrollWheel") != 0){
                 return true;
             }
             return false;
@@ -45,6 +45,21 @@ namespace Core.SystemGame{
                 Timer = 0;
                 return false;
             }
+        }
+
+        public bool GetLastPosStopFromSpread(out Vector3 pos){
+            if(Input.touchCount == 2){
+                if(Input.GetTouch(0).phase == TouchPhase.Ended){
+                    pos = Input.GetTouch(1).position;
+                    return true;
+                }
+                if(Input.GetTouch(1).phase == TouchPhase.Ended){
+                    pos = Input.GetTouch(0).position;
+                    return true;
+                }
+            }
+            pos = Vector3.positiveInfinity;
+            return false;
         }
 
         public Vector3 GetInputPositionInWorld(){
@@ -77,7 +92,7 @@ namespace Core.SystemGame{
                 return currentMagnitude - prevMagnitude;
             }
             else{
-                return Input.GetAxis("Mouse ScrollWheel");
+                return Input.GetAxis("Mouse ScrollWheel") * 10;
             }
         }
     }

@@ -21,6 +21,7 @@ namespace Core.GamePlay
 
         private Vector3 _maxSizeZoomCamera;
         private Vector3 _minSizeZoomCamera;
+        //private bool _isZooming = false;
 
         private void Awake()
         {
@@ -49,20 +50,25 @@ namespace Core.GamePlay
         {
             if (_InputSystem.Instance.CheckSelectDown())
             {
+                //_isZooming = false;
                 _lastMousePosition = Input.mousePosition;
             }
             else if (_InputSystem.Instance.CheckHold())
             {
                 Vector3 mouseDelta = Input.mousePosition - _lastMousePosition;
                 _lastMousePosition = Input.mousePosition;
-
                 _remainingDelta = mouseDelta * _sensitivity * Time.deltaTime;
             }
 
             if (_InputSystem.Instance.CheckSpread())
             {
+                _remainingDelta = Vector3.zero;
                 float zoomValue = _InputSystem.Instance.GetZoomValue();
                 _zoomCameraValue = zoomValue * Time.deltaTime;
+            }
+             else if (_InputSystem.Instance.GetLastPosStopFromSpread(out Vector3 lastPos))
+            {
+                _lastMousePosition = lastPos;
             }
 
             Vector3 remainTmp = Vector3.Lerp(_lastRemainingDelta, _remainingDelta, _inertia);
