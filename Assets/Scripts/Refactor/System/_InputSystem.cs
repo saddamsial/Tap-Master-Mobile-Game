@@ -16,6 +16,13 @@ namespace Core.SystemGame{
 
         public float Timer { get; set; }
 
+        public bool CheckSpread(){
+            if((Input.touchCount == 2 && Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(1).phase != TouchPhase.Ended) || Input.GetAxis("Mouse ScrollWheel") != 0){
+                return true;
+            }
+            return false;
+        }
+
         public bool CheckSelect(){
             if(Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Ended){
                 return true;
@@ -40,6 +47,21 @@ namespace Core.SystemGame{
             }
         }
 
+        public bool GetLastPosStopFromSpread(out Vector3 pos){
+            if(Input.touchCount == 2){
+                if(Input.GetTouch(0).phase == TouchPhase.Ended){
+                    pos = Input.GetTouch(1).position;
+                    return true;
+                }
+                if(Input.GetTouch(1).phase == TouchPhase.Ended){
+                    pos = Input.GetTouch(0).position;
+                    return true;
+                }
+            }
+            pos = Vector3.positiveInfinity;
+            return false;
+        }
+
         public Vector3 GetInputPositionInWorld(){
             if(Input.GetMouseButtonUp(0)){
                 Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -54,6 +76,24 @@ namespace Core.SystemGame{
             }
 
             return Vector3.positiveInfinity;
+        }
+
+        public float GetZoomValue(){
+            if(Input.touchCount == 2){
+                Touch touchZero = Input.GetTouch(0);
+                Touch touchOne = Input.GetTouch(1);
+
+                Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+                Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+                float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+                float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+                return currentMagnitude - prevMagnitude;
+            }
+            else{
+                return Input.GetAxis("Mouse ScrollWheel") * 10;
+            }
         }
     }
 }
