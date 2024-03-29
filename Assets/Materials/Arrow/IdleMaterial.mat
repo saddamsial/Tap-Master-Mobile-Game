@@ -34,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ArrowTexture:
-        m_Texture: {fileID: 2800000, guid: cb3c76a61983de94a9686bba95c7e945, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a445968481e55c439920345fc4be9b3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -59,6 +59,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Edge:
+        m_Texture: {fileID: 2800000, guid: eb25218a496590a47a54392eafca0032, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -146,6 +150,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSetting: {r: 0.249644, g: 0.5076869, b: 0.7075472, a: 1}
     - _DefaultColor: {r: 0.056959715, g: 0.24223898, b: 0.9433962, a: 0}
+    - _EdgeColor: {r: 0, g: 0, b: 0, a: 0.28235295}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
