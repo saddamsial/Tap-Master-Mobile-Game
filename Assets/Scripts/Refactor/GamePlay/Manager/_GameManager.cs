@@ -25,6 +25,12 @@ namespace Core.GamePlay
             _gamePlayManager.StartLevel(Level);
             _GameEvent.OnGamePlayReset?.Invoke();
         }
+#if UNITY_EDITOR
+        public void StartLevelByTool(){
+            _gamePlayManager.BlockPool.DeSpawnBlock();
+            StartLevel();
+        }
+#endif
 
         public void WinGame()
         {

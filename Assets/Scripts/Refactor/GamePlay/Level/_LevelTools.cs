@@ -1,11 +1,13 @@
 using Core.Extensions;
+using Core.GamePlay;
 using UnityEditor;
 using UnityEngine;
 
 namespace Core.Data{
-    public class _ReadLevelData : MonoBehaviour{
+    public class _LevelTools : MonoBehaviour{
         [SerializeField] private LevelDatas _levelSO;
         [SerializeField] private TextAsset _levelJson;
+        [SerializeField] private int _targetLevel;
 
         public void ReadData(){
             Debug.Log(_levelJson.text);
@@ -25,16 +27,30 @@ namespace Core.Data{
             AssetDatabase.SaveAssets();
             #endif
         }
+
+        public void GotoLevel(){
+            if(_targetLevel < _levelSO.datasControllers.Count){
+                Debug.Log("Goto Level: " + _targetLevel);
+                _PlayerData.UserData.HighestLevel = _targetLevel;
+                _GameManager.Instance.StartLevelByTool();
+            }
+            else{
+                Debug.Log("Level not found");
+            }
+        }
     }
 
     #if UNITY_EDITOR
-    [CustomEditor(typeof(_ReadLevelData))]
-    public class _ReadLevelDataEditor : Editor{
+    [CustomEditor(typeof(_LevelTools))]
+    public class _LevelToolsEditor : Editor{
         public override void OnInspectorGUI(){
             DrawDefaultInspector();
-            var script = (Core.Data._ReadLevelData)target;
+            var script = (Core.Data._LevelTools)target;
             if(GUILayout.Button("Read Data")){
                 script.ReadData();
+            }
+            else if(GUILayout.Button("Goto Level")){
+                script.GotoLevel();
             }
         }
     }
