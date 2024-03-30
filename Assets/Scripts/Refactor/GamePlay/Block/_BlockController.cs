@@ -134,5 +134,7 @@ namespace Core.GamePlay.Block
             get => _obstacleLogicPos;
             set => _obstacleLogicPos = value;
         }
+
+        public bool IsMoving {get; set; }
     }
 }

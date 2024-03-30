@@ -31,11 +31,13 @@ namespace Core.GamePlay.Block
         public override void OnSelect()
         {
             base.OnSelect();
-            if (_isMoving) {
+            if (_isMoving)
+            {
                 IsCanMove = false;
                 return;
             }
             _isMoving = true;
+            _blockController.IsMoving = true;
             if (_GameManager.Instance.BlockPool.CheckCanEscape(_blockController))
             {
                 IsCanMove = true;
@@ -68,20 +70,23 @@ namespace Core.GamePlay.Block
                     .OnComplete(() =>
                     {
                         _isMoving = false;
+                        _blockController.IsMoving = false;
                         _blockController.SetMaterial(_currentMaterial);
                     });
-                
+
                 t.OnStepComplete(() =>
                     {
-                        if(t.ElapsedPercentage() == 1) return;
+                        if (t.ElapsedPercentage() == 1) return;
+                        if (obstacle.IsMoving) return;
                         obstacle.HittedByMovingBlock(-_blockController.transform.right);
                     });
             }
         }
 
-        private void ObstacleHitted(Vector3Int logicPos, Vector3 direction){
+        private void ObstacleHitted(Vector3Int logicPos, Vector3 direction)
+        {
             var obstacle = _GameManager.Instance.BlockPool.GetBlock(_blockController.ObstacleLogicPos);
-            if(obstacle == null) return;
+            if (obstacle == null) return;
             obstacle.transform.DOMove(obstacle.transform.position + -_blockController.transform.right * 0.1f, 0.1f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetEase(Ease.InSine)
@@ -93,8 +98,9 @@ namespace Core.GamePlay.Block
                 {
                     obstacle?.SetMaterial(_currentMaterial);
                 })
-                .OnStepComplete(() => {
-                    obstacle = _GameManager.Instance.BlockPool.GetBlock(obstacle.LogicPos + _NormalizingVector3.IgnoreDecimalPart(-_blockController.transform.right));        
+                .OnStepComplete(() =>
+                {
+                    obstacle = _GameManager.Instance.BlockPool.GetBlock(obstacle.LogicPos + _NormalizingVector3.IgnoreDecimalPart(-_blockController.transform.right));
                 });
         }
     }
