@@ -54,6 +54,10 @@ namespace Core.GamePlay.Block
                 _color = color;
                 _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
             }
+            else{
+                _color = _ConstantBlockSetting.defaultColor;
+                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
+            }
         }
 
         private void SetCurrentTypeBlock(_BlockTypeEnum blockType)
