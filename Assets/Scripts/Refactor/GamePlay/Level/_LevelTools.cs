@@ -27,7 +27,7 @@ namespace Core.Data{
             AssetDatabase.SaveAssets();
             #endif
         }
-
+#if UNITY_EDITOR
         public void GotoLevel(){
             if(_targetLevel < _levelSO.datasControllers.Count){
                 Debug.Log("Goto Level: " + _targetLevel);
@@ -38,6 +38,7 @@ namespace Core.Data{
                 Debug.Log("Level not found");
             }
         }
+#endif
     }
 
     #if UNITY_EDITOR

@@ -35,6 +35,7 @@ namespace Core.GamePlay.Block
             SetUpTypeBlock(movingMaterial, blockedMaterial);
             SetCurrentTypeBlock(_BlockTypeEnum.Moving);
             SetColorIdleBlock(color, isSetColor);
+            IsMoving = false;
         }
 
         private void ResetBlock(){
