@@ -14,7 +14,7 @@ namespace Core.Data{
             _levelSO.datasControllers.Clear();
             //LevelDatas LevelDatas = JsonUtility.FromJson<LevelDatas>((_levelJson.text));
             //_levelSO = LevelDatas;
-            string[] res = _levelJson.text.Split("\n" + "-----------------------------------" + "\n", System.StringSplitOptions.RemoveEmptyEntries);
+            string[] res = _levelJson.text.Split( "-----------------------------------" , System.StringSplitOptions.RemoveEmptyEntries);
             foreach (var data in res){
                 Debug.Log(data);
                 LevelData levelData = JsonUtility.FromJson<LevelData>(data);
@@ -27,7 +27,7 @@ namespace Core.Data{
             AssetDatabase.SaveAssets();
             #endif
         }
-
+#if UNITY_EDITOR
         public void GotoLevel(){
             if(_targetLevel < _levelSO.datasControllers.Count){
                 Debug.Log("Goto Level: " + _targetLevel);
@@ -38,6 +38,7 @@ namespace Core.Data{
                 Debug.Log("Level not found");
             }
         }
+#endif
     }
 
     #if UNITY_EDITOR

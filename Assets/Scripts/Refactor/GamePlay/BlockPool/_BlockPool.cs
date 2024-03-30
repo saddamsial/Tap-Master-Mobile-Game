@@ -144,7 +144,6 @@ namespace Core.GamePlay.BlockPool
             foreach (var block in _blockObjectPool)
             {
                 int t = block.transform.DOKill();
-                Debug.Log(t);
                 ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             }
         }

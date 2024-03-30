@@ -35,6 +35,7 @@ namespace Core.GamePlay.Block
             SetUpTypeBlock(movingMaterial, blockedMaterial);
             SetCurrentTypeBlock(_BlockTypeEnum.Moving);
             SetColorIdleBlock(color, isSetColor);
+            IsMoving = false;
         }
 
         private void ResetBlock(){
@@ -52,6 +53,10 @@ namespace Core.GamePlay.Block
         private void SetColorIdleBlock(Vector3 color, bool isSetColor = false){
             if(isSetColor){
                 _color = color;
+                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
+            }
+            else{
+                _color = _ConstantBlockSetting.defaultColor;
                 _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
             }
         }
@@ -130,5 +135,7 @@ namespace Core.GamePlay.Block
             get => _obstacleLogicPos;
             set => _obstacleLogicPos = value;
         }
+
+        public bool IsMoving {get; set; }
     }
 }
