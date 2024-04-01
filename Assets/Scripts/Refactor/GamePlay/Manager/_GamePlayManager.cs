@@ -32,7 +32,7 @@ namespace Core.GamePlay
             Debug.Log("WinGame");
             _PlayerData.UserData.UpdateWinGameUserDataValue();
             await UniTask.Delay(1500);
-            _blockPool?.DeSpawnBlock();
+            _blockPool?.DeSpawnAllBlocks();
             _GameManager.Instance.NextLevel();
         }
 

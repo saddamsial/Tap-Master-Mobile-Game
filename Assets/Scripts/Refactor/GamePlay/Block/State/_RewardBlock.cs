@@ -1,4 +1,6 @@
+using System;
 using Core.SystemGame;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Core.GamePlay.Block{
@@ -19,6 +21,13 @@ namespace Core.GamePlay.Block{
         public override void OnSelect(){
             base.OnSelect();
             Debug.Log("Reward Block");
+            AnimatedCollectRewardBlock();
+        }
+
+        private void AnimatedCollectRewardBlock(){
+            _meshRenderer.material.DOFade(0, "_SpecialColor", 0.5f).OnComplete(() => {
+                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
+            });
         }
     }
 }

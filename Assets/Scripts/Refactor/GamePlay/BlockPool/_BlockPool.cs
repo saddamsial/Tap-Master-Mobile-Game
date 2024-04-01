@@ -139,13 +139,20 @@ namespace Core.GamePlay.BlockPool
             return true;
         }
 
-        public void DeSpawnBlock()
+        public void DeSpawnAllBlocks()
         {
             foreach (var block in _blockObjectPool)
             {
                 int t = block.transform.DOKill();
                 ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             }
+            _blockObjectPool.Clear();
+        }
+
+        public void DespawnBlock(_BlockController block){
+            block.transform.DOKill();
+            ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+            _blockObjectPool.Remove(block);
         }
 
         public _BlockController GetBlock(Vector3Int logicPos)
