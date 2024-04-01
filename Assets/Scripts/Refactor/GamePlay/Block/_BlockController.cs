@@ -14,18 +14,20 @@ namespace Core.GamePlay.Block
         [SerializeField] private Sprite texture2D;
         [SerializeField] private Vector3 _defaultScale;
         private Dictionary<_BlockTypeEnum, _BlockState> _blockStates = new Dictionary<_BlockTypeEnum, _BlockState>();
-        private _BlockState _currentType;   
+        private _BlockState _currentType;
         private Vector3Int _logicPos;
         private Vector3Int _obstacleLogicPos;
         private Vector3 _color;
         private bool _isInit;
 
-        private void Awake(){
+        private void Awake()
+        {
             //_GameEvent.OnGamePlayReset += ResetBlock;
         }
 
-        private void OnDestroy(){
-         //   _GameEvent.OnGamePlayReset -= ResetBlock;
+        private void OnDestroy()
+        {
+            //   _GameEvent.OnGamePlayReset -= ResetBlock;
         }
 
         public void InitBlock(Material idleMaterial, Material movingMaterial, Material blockedMaterial, Vector3 rotation, Vector3 color, bool isSetColor = false)
@@ -33,12 +35,13 @@ namespace Core.GamePlay.Block
             _meshRenderer.material = idleMaterial;
             AnimationInitBlock(rotation);
             SetUpTypeBlock(movingMaterial, blockedMaterial);
+            InitBlockStates(color, isSetColor);
             SetCurrentTypeBlock(_BlockTypeEnum.Moving);
-            SetColorIdleBlock(color, isSetColor);
             IsMoving = false;
         }
 
-        private void ResetBlock(){
+        private void ResetBlock()
+        {
             this.transform.DOKill();
         }
 
@@ -50,16 +53,19 @@ namespace Core.GamePlay.Block
             _isInit = true;
         }
 
-        private void SetColorIdleBlock(Vector3 color, bool isSetColor = false){
-            _meshRenderer.material.SetInt("_IsIdleBlock", true? 1 : 0);
-            if(isSetColor){
-                _color = color;
-                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
-            }
-            else{
-                _color = _ConstantBlockSetting.defaultColor;
-                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
-            }
+        private void InitBlockStates(Vector3 color, bool isSetColor = false)
+        {
+            _blockStates[_BlockTypeEnum.Moving].Init(isSetColor, color);
+            _blockStates[_BlockTypeEnum.Reward].Init();
+            // _meshRenderer.material.SetInt("_IsIdleBlock", true? 1 : 0);
+            // if(isSetColor){
+            //     _color = color;
+            //     _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
+            // }
+            // else{
+            //     _color = _ConstantBlockSetting.defaultColor;
+            //     _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
+            // }
         }
 
         private void SetCurrentTypeBlock(_BlockTypeEnum blockType)
@@ -73,23 +79,27 @@ namespace Core.GamePlay.Block
             _meshRenderer.material = material;
         }
 
-        public void SetTexture(string typeTexture, Sprite texture){
+        public void SetTexture(string typeTexture, Sprite texture)
+        {
             _meshRenderer.sharedMaterial.SetTexture(typeTexture, texture.texture);
         }
 
-        public void HittedByMovingBlock(Vector3 direction){
+        public void HittedByMovingBlock(Vector3 direction)
+        {
             var t = transform.DOMove(transform.position + direction * 0.1f, 0.1f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetEase(Ease.InSine);
-            t.OnStepComplete(() => {
-                    if(t.ElapsedPercentage() == 1) return;
-                    var thisObstacle = _GameManager.Instance.BlockPool.GetBlock(_logicPos + _NormalizingVector3.ConvertToVector3Int(direction));
-                    if (thisObstacle != null)
-                        thisObstacle.HittedByMovingBlock(direction);
-                });
+            t.OnStepComplete(() =>
+            {
+                if (t.ElapsedPercentage() == 1) return;
+                var thisObstacle = _GameManager.Instance.BlockPool.GetBlock(_logicPos + _NormalizingVector3.ConvertToVector3Int(direction));
+                if (thisObstacle != null)
+                    thisObstacle.HittedByMovingBlock(direction);
+            });
         }
 
-        private void AnimationInitBlock(Vector3 rotation){
+        private void AnimationInitBlock(Vector3 rotation)
+        {
             transform.rotation = Quaternion.Euler(rotation);
             transform.localScale = Vector3.zero;
             transform.DOScale(_defaultScale, 1.5f);
@@ -105,7 +115,7 @@ namespace Core.GamePlay.Block
         private void OnMouseUp()
         {
             StopCoroutine("CaculateHodingTime");
-            if (_InputSystem.Instance.Timer > 0.15f)    
+            if (_InputSystem.Instance.Timer > 0.15f)
                 return;
             OnSelected();
         }
@@ -120,7 +130,8 @@ namespace Core.GamePlay.Block
             }
         }
 
-        private void OnSelected(){
+        private void OnSelected()
+        {
             _currentType.OnSelect();
             _GamePlayManager.Instance.OnBlockSelected(_currentType.IsCanMove);
         }
@@ -137,6 +148,8 @@ namespace Core.GamePlay.Block
             set => _obstacleLogicPos = value;
         }
 
-        public bool IsMoving {get; set; }
+        public MeshRenderer MeshRenderer => _meshRenderer;
+
+        public bool IsMoving { get; set; }
     }
 }

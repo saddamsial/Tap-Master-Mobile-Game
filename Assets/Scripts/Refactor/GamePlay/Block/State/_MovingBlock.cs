@@ -2,7 +2,6 @@ using UnityEngine;
 using DG.Tweening;
 using ObjectPooling;
 using Extensions;
-using Unity.VisualScripting;
 
 namespace Core.GamePlay.Block
 {
@@ -13,13 +12,32 @@ namespace Core.GamePlay.Block
         private Material _blockedMaterial;
         private Material _currentMaterial;
         private bool _isMoving;
-        public _MovingBlock(_BlockController blockController, Material movingMaterial, Material blockedMaterial)
+        private Vector3 _color;
+        public _MovingBlock(_BlockController blockController, Material movingMaterial, Material blockedMaterial) : base(blockController)
         {
             _blockController = blockController;
+            _meshRenderer = _blockController.GetComponent<MeshRenderer>();
             _isMoving = false;
             _currentMaterial = _blockController.GetComponent<MeshRenderer>().material;
             _movingMaterial = movingMaterial;
             _blockedMaterial = blockedMaterial;
+        }
+
+        public override void Init(bool isSetColor = false, Vector3 color = default)
+        {
+            base.Init();
+            _meshRenderer.material.SetInt("_IsIdleBlock", true ? 1 : 0);
+            if (isSetColor)
+            {
+                _color = color;
+                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y / 255, _color.z / 255));
+            }
+            else
+            {
+                _color = _ConstantBlockSetting.defaultColor;
+                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y / 255, _color.z / 255));
+            }
+            SetUp();
         }
 
         public override void SetUp()

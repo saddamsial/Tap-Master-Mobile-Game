@@ -1,7 +1,6 @@
 namespace Core.GamePlay.Block{
     public class _RewardBlock : _BlockState{
-        public _RewardBlock(_BlockController blockController){
-            _blockController = blockController;
+        public _RewardBlock(_BlockController blockController) : base(blockController){
         }
     
         public override void SetUp(){
