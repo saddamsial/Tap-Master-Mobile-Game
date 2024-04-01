@@ -1,3 +1,4 @@
+using Core.SystemGame;
 using UnityEngine;
 
 namespace Core.GamePlay.Block{
@@ -11,10 +12,13 @@ namespace Core.GamePlay.Block{
 
         public override void SetUp(){
             base.SetUp();
+            _blockController.gameObject.layer = _LayerConstant.GOLD_BLOCK;
+            _meshRenderer.material.SetInt("_IsIdleBlock", 0);
         }
 
         public override void OnSelect(){
             base.OnSelect();
+            Debug.Log("Reward Block");
         }
     }
 }

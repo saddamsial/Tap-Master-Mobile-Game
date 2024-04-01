@@ -13,6 +13,8 @@ namespace Core.GamePlay.Block
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private Sprite texture2D;
         [SerializeField] private Vector3 _defaultScale;
+        [SerializeField] public _BlockTypeEnum _blockType;
+
         private Dictionary<_BlockTypeEnum, _BlockState> _blockStates = new Dictionary<_BlockTypeEnum, _BlockState>();
         private _BlockState _currentType;
         private Vector3Int _logicPos;
@@ -68,7 +70,7 @@ namespace Core.GamePlay.Block
             // }
         }
 
-        private void SetCurrentTypeBlock(_BlockTypeEnum blockType)
+        public void SetCurrentTypeBlock(_BlockTypeEnum blockType)
         {
             _currentType = _blockStates[blockType];
             _currentType.SetUp();
@@ -152,4 +154,20 @@ namespace Core.GamePlay.Block
 
         public bool IsMoving { get; set; }
     }
+
+#if UNITY_EDITOR
+    [UnityEditor.CustomEditor(typeof(_BlockController))]
+    public class _BlockControllerEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            var blockController = target as _BlockController;
+            if (GUILayout.Button("Set Type Block"))
+            {
+                blockController.SetCurrentTypeBlock(blockController._blockType);
+            }
+        }
+    }
+#endif
 }
