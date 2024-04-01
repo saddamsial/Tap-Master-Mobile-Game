@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using ObjectPooling;
 using Extensions;
+using Core.SystemGame;
 
 namespace Core.GamePlay.Block
 {
@@ -26,7 +27,6 @@ namespace Core.GamePlay.Block
         public override void Init(bool isSetColor = false, Vector3 color = default)
         {
             base.Init();
-            _meshRenderer.material.SetInt("_IsIdleBlock", true ? 1 : 0);
             if (isSetColor)
             {
                 _color = color;
@@ -43,6 +43,8 @@ namespace Core.GamePlay.Block
         public override void SetUp()
         {
             base.SetUp();
+            _blockController.gameObject.layer = _LayerConstant.IDLE_BLOCK;
+            _meshRenderer.material.SetInt("_IsIdleBlock", 1);
             _isMoving = false;
         }
 
