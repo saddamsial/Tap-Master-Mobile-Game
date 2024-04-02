@@ -22,6 +22,7 @@ namespace Core.GamePlay.Block{
             base.OnSelect();
             Debug.Log("Reward Block");
             AnimatedCollectRewardBlock();
+            _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
         }
 
         private void AnimatedCollectRewardBlock(){
