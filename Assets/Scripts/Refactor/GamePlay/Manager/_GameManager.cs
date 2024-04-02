@@ -27,7 +27,7 @@ namespace Core.GamePlay
         }
 #if UNITY_EDITOR
         public void StartLevelByTool(){
-            _gamePlayManager.BlockPool.DeSpawnBlock();
+            _gamePlayManager.BlockPool.DeSpawnAllBlocks();
             StartLevel();
         }
 #endif

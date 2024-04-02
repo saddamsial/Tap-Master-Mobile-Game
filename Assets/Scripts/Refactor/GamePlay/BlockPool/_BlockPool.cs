@@ -75,6 +75,11 @@ namespace Core.GamePlay.BlockPool
             _blockContainer.transform.position = containerPos;
         }
 
+        public void SpawnSpecialBlock(){
+            var block = _blockObjectPool[0];
+            block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+        }
+
         private void InitLogicPool(int sizeX, int sizeY, int sizeZ)
         {
             if (_isLogicInit) return;
@@ -139,13 +144,20 @@ namespace Core.GamePlay.BlockPool
             return true;
         }
 
-        public void DeSpawnBlock()
+        public void DeSpawnAllBlocks()
         {
             foreach (var block in _blockObjectPool)
             {
                 int t = block.transform.DOKill();
                 ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             }
+            _blockObjectPool.Clear();
+        }
+
+        public void DespawnBlock(_BlockController block){
+            block.transform.DOKill();
+            ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+            _blockObjectPool.Remove(block);
         }
 
         public _BlockController GetBlock(Vector3Int logicPos)
