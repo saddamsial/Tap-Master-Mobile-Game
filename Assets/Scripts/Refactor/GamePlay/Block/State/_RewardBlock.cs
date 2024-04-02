@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design.Serialization;
 using Core.SystemGame;
 using DG.Tweening;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Core.GamePlay.Block{
             Debug.Log("Reward Block");
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
+            _GamePlayManager.Instance.OnBlockSelected(true, true);
         }
 
         private void AnimatedCollectRewardBlock(){
