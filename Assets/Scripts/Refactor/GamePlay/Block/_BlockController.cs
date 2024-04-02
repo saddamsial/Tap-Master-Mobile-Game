@@ -59,15 +59,6 @@ namespace Core.GamePlay.Block
         {
             _blockStates[_BlockTypeEnum.Moving].Init(isSetColor, color);
             _blockStates[_BlockTypeEnum.Reward].Init();
-            // _meshRenderer.material.SetInt("_IsIdleBlock", true? 1 : 0);
-            // if(isSetColor){
-            //     _color = color;
-            //     _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
-            // }
-            // else{
-            //     _color = _ConstantBlockSetting.defaultColor;
-            //     _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y /255, _color.z/255));
-            // }
         }
 
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)

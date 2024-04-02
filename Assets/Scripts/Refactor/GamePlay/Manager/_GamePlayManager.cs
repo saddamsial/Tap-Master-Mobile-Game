@@ -1,5 +1,6 @@
 using Core.Data;
 using Core.GamePlay.BlockPool;
+using Core.SystemGame;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Core.GamePlay
         private _BlockPool _blockPool;
 
         private int _totalBlocks;
+        private int _remainBlocksToHaveSpecialBlock;
 
 
         public void InitGamePlayManager()
@@ -25,6 +27,9 @@ namespace Core.GamePlay
         {
             _blockPool?.InitPool(level);
             _totalBlocks = level.numOfBlocks;
+            _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
+            _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+            _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
         }
 
         private async void WinGame()
@@ -44,6 +49,14 @@ namespace Core.GamePlay
                 if (_totalBlocks == 0)
                 {
                     WinGame();
+                }
+                _remainBlocksToHaveSpecialBlock -= 1;
+                if (_remainBlocksToHaveSpecialBlock == 0)
+                {
+                    _blockPool.SpawnSpecialBlock();
+                    _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
+                    _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+                    _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
                 }
             }
         }

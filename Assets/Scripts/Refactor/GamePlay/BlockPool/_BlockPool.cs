@@ -75,6 +75,11 @@ namespace Core.GamePlay.BlockPool
             _blockContainer.transform.position = containerPos;
         }
 
+        public void SpawnSpecialBlock(){
+            var block = _blockObjectPool[0];
+            block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+        }
+
         private void InitLogicPool(int sizeX, int sizeY, int sizeZ)
         {
             if (_isLogicInit) return;
