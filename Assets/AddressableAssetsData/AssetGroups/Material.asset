@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: cd7298ba575cbfe47931ef4582749a42
   m_SerializeEntries:
-  - m_GUID: 52902d0bcec64c349b34ebbc84774784
-    m_Address: Material1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Materials
   - m_GUID: 191c2cb92237166439c693949015a446
     m_Address: BlockedMaterial
     m_ReadOnly: 0

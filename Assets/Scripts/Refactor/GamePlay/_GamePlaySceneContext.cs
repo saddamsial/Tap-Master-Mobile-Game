@@ -17,7 +17,7 @@ namespace Core.GamePlay
         private void Awake()
         {
             Init();
-            DontDestroyOnLoad();
+            //DontDestroyOnLoad();
         }
 
         // Start is called before the first frame update
@@ -34,11 +34,7 @@ namespace Core.GamePlay
             _PlayerData.SaveUserData();
         }
 
-        private async void DontDestroyOnLoad()
-        {
-            var dontDestroyOnLoad = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyDontDestroyOnLoad);
-            var gameObject = GameObject.Instantiate(dontDestroyOnLoad);
-        }
+        
 
         private void Init()
         {
