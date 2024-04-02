@@ -116,7 +116,7 @@ public class TestMoveBlock : MonoBehaviour
                     if (t.ElapsedPercentage() >= 0.5f)
                     {
                         this.mesh.material = currentMaterial;
-                        SoundManager.instance.PlayFailedSound();
+                        //SoundManager.instance.PlayFailedSound();
                         if (isHitted)
                         {
                             if (GameManager.Instance.allowedVibrating)

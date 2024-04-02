@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Core.Extensions;
 
 namespace Core.ResourceGamePlay
 {
