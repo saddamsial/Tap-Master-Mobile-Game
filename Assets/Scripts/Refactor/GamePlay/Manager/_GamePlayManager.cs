@@ -41,7 +41,7 @@ namespace Core.GamePlay
             _GameManager.Instance.NextLevel();
         }
 
-        public void OnBlockSelected(bool isBlockCanMove = true)
+        public void OnBlockSelected(bool isBlockCanMove = true, bool isSpecialBlock = false)
         {
             if (isBlockCanMove)
             {
@@ -50,7 +50,8 @@ namespace Core.GamePlay
                 {
                     WinGame();
                 }
-                _remainBlocksToHaveSpecialBlock -= 1;
+                if(!isSpecialBlock)
+                    _remainBlocksToHaveSpecialBlock -= 1;
                 if (_remainBlocksToHaveSpecialBlock == 0)
                 {
                     _blockPool.SpawnSpecialBlock();
