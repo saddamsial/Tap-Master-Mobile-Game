@@ -3,6 +3,7 @@ using Core.GamePlay.BlockPool;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
+using MyTools.ScreenSystem;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -16,6 +17,7 @@ namespace Core.GamePlay
 
         private void Awake()
         {
+            _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             Init();
             //DontDestroyOnLoad();
         }
