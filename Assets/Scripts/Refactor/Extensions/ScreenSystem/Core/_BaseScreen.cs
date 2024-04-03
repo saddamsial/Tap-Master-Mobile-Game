@@ -17,17 +17,17 @@ namespace MyTools.ScreenSystem
         private bool _isShown = false;
         public _ScreenTypeEnum ScreenType;
 
-        // Start is called before the first frame update
-        void Start()
-        {
+        // // Start is called before the first frame update
+        // void Start()
+        // {
 
-        }
+        // }
 
-        // Update is called once per frame
-        void Update()
-        {
+        // // Update is called once per frame
+        // void Update()
+        // {
 
-        }
+        // }
 
         public void Show(Action complete = null)
         {
@@ -37,7 +37,7 @@ namespace MyTools.ScreenSystem
             }
             else
             {
-                ShowByAnimation(complete);
+                ShowNotAnim(complete);
             }
         }
 
@@ -49,8 +49,26 @@ namespace MyTools.ScreenSystem
             }
             else
             {
-                HideByAnimation(completed);
+                HideNotAnim(completed);
             }
+        }
+
+        private void ShowNotAnim(Action completed = null)
+        {
+            this.gameObject.SetActive(true);
+            if (_isShown) throw new System.Exception("Screen is already shown");
+            //_animator.Play(_showAnimation.name);
+            _isShown = true;
+            completed?.Invoke();
+        }
+
+        private void HideNotAnim(Action completed = null)
+        {
+            if (!_isShown) throw new System.Exception("Screen is already hidden");
+            //_animator.Play(_hideAnimation.name);
+            _isShown = false;
+            completed?.Invoke();
+            this.gameObject.SetActive(false);
         }
 
         private IEnumerator ShowByAnimation(Action completed = null)

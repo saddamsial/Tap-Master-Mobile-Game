@@ -1,5 +1,6 @@
 using System.Collections;
 using Core.ResourceGamePlay;
+using MyTools.ScreenSystem;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -8,17 +9,19 @@ using UnityEngine.UI;
 
 public class _LoadingSceneController : MonoBehaviour
 {
-    [SerializeField] TMPro.TMP_Text _loadingText;
-    [SerializeField] private int _percent = 100;
-    [SerializeField] private Slider _loadingSlider;
-    [SerializeField] private float _delayTime = 0.1f;
+    // [SerializeField] TMPro.TMP_Text _loadingText;
+    // [SerializeField] private int _percent = 100;
+    // [SerializeField] private Slider _loadingSlider;
+    // [SerializeField] private float _delayTime = 0.1f;
 
+    private bool _isLoadedManager = false;
     private bool _isLoadedAsset = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad();
+        StartCoroutine(LoadLoadingScreen());
     }
     void Start()
     {
@@ -27,13 +30,13 @@ public class _LoadingSceneController : MonoBehaviour
 
     private void RunLoading()
     {
-        StartCoroutine(CounterTime.CounterUp(_percent, _delayTime, OnCouter, OnCounterComplete));
+        //StartCoroutine(CounterTime.CounterUp(_percent, _delayTime, OnCouter, OnCounterComplete));
     }
 
     private void OnCouter(int value)
     {
-        _loadingText.text = $"{value}%";
-        _loadingSlider.value = value / 100f;
+        //_loadingText.text = $"{value}%";
+        //_loadingSlider.value = value / 100f;
     }
 
     private void OnCounterComplete()
@@ -61,6 +64,7 @@ public class _LoadingSceneController : MonoBehaviour
     {
         var dontDestroyOnLoad = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyDontDestroyOnLoad);
         var gameObject = GameObject.Instantiate(dontDestroyOnLoad);
+        _isLoadedManager = true;
     }
 
     private async void LoadAddressables(){
@@ -69,6 +73,12 @@ public class _LoadingSceneController : MonoBehaviour
             await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyBlockedMaterial);
             await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyIdleMaterial);
             _isLoadedAsset = true;
+    }
+
+    private IEnumerator LoadLoadingScreen()
+    {
+        yield return new WaitUntil(() => _isLoadedManager);
+        _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Loading);
     }
 }
 
