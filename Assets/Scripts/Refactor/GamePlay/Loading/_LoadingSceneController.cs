@@ -13,8 +13,11 @@ public class _LoadingSceneController : MonoBehaviour
     [SerializeField] private Slider _loadingSlider;
     [SerializeField] private float _delayTime = 0.1f;
 
+    private bool _isLoadedAsset = false;
+
     // Start is called before the first frame update
-    void Awake(){
+    void Awake()
+    {
         DontDestroyOnLoad();
     }
     void Start()
@@ -40,16 +43,32 @@ public class _LoadingSceneController : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    IEnumerator LoadScene(){
+    IEnumerator LoadScene()
+    {
         //yield return new WaitUntil( () => AdsManager.Instance.canLoadAds);
-        yield return new WaitForEndOfFrame();
+        int count = 0;
+        if(count == 30){
+            LoadAddressables();
+            yield return new WaitUntil(() => _isLoadedAsset);
+        }
+        else 
+            yield return new WaitForEndOfFrame();
         SceneManager.LoadScene(Const.SCENE_GAMEPLAY);
+        count += 1;
     }
 
     private async void DontDestroyOnLoad()
-        {
-            var dontDestroyOnLoad = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyDontDestroyOnLoad);
-            var gameObject = GameObject.Instantiate(dontDestroyOnLoad);
-        }
+    {
+        var dontDestroyOnLoad = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyDontDestroyOnLoad);
+        var gameObject = GameObject.Instantiate(dontDestroyOnLoad);
+    }
+
+    private async void LoadAddressables(){
+            await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyBlock);
+            await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyMovingMaterial);
+            await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyBlockedMaterial);
+            await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyIdleMaterial);
+            _isLoadedAsset = true;
+    }
 }
 
