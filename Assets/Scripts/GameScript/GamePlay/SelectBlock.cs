@@ -26,7 +26,7 @@ public class SelectBlock : MonoBehaviour
             ParticleController.instance.OnClick();
             if (Physics.Raycast(selectPos, GameManager.Instance.mainCam.transform.forward * 60, out hit))
             {
-                SoundManager.instance.PlayClickSound();
+                //SoundManager.instance.PlayClickSound();
                 TestMoveBlock testMoveBlock = hit.collider.gameObject.GetComponentInParent<TestMoveBlock>();
                 if (testMoveBlock.isMoving)
                     return;

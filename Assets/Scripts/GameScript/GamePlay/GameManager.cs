@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
-        SoundManager.instance.PlayWinGameSound();
+        //SoundManager.instance.PlayWinGameSound();
         ParticleController.instance.OnWinGame();
         if (allowedVibrating)
         {
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SoundManager.instance.PlayGameOverSound();
+        //SoundManager.instance.PlayGameOverSound();
         if (allowedVibrating)
         {
             Debug.Log("Vibrate");
