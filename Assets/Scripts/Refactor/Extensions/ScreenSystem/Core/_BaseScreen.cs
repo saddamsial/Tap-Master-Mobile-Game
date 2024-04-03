@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ResourceManagement.ResourceProviders.Simulation;
 
 namespace MyTools.ScreenSystem
 {
@@ -59,6 +57,7 @@ namespace MyTools.ScreenSystem
             if (_isShown) throw new System.Exception("Screen is already shown");
             //_animator.Play(_showAnimation.name);
             _isShown = true;
+            OnCompleteShowItSelf();
             completed?.Invoke();
         }
 
@@ -67,8 +66,9 @@ namespace MyTools.ScreenSystem
             if (!_isShown) throw new System.Exception("Screen is already hidden");
             //_animator.Play(_hideAnimation.name);
             _isShown = false;
-            completed?.Invoke();
             this.gameObject.SetActive(false);
+            OnCompleteHideItSelf();
+            completed?.Invoke();
         }
 
         private IEnumerator ShowByAnimation(Action completed = null)
@@ -78,6 +78,7 @@ namespace MyTools.ScreenSystem
             _animator.Play(_showAnimation.name);
             yield return new WaitForSeconds(_showAnimation.length);
             _isShown = true;
+            OnCompleteShowItSelf();
             completed?.Invoke();
         }
 
@@ -87,8 +88,12 @@ namespace MyTools.ScreenSystem
             _animator.Play(_hideAnimation.name);
             yield return new WaitForSeconds(_hideAnimation.length);
             _isShown = false;
-            completed?.Invoke();
             this.gameObject.SetActive(false);
+            OnCompleteHideItSelf();
+            completed?.Invoke();
         }
+
+        protected virtual void OnCompleteShowItSelf(){}
+        protected virtual void OnCompleteHideItSelf(){}
     }
 }

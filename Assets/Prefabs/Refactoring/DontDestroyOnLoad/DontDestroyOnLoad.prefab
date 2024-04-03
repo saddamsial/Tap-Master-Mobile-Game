@@ -48,7 +48,8 @@ MonoBehaviour:
   preInstantiate: 1
   _screenFolderPath: Assets/Prefabs/Refactoring/UI/Screen
   _screens:
-  - {fileID: 6375445280891602068, guid: d9a9bcd75c2c5d84b81ef39a6f1bb418, type: 3}
+  - {fileID: 5881803956663899931, guid: 82f80574873225348a8f88c1dff23926, type: 3}
+  - {fileID: 5101544107247149521, guid: d9a9bcd75c2c5d84b81ef39a6f1bb418, type: 3}
   _screenCanvas: {fileID: 2386648219991558559}
 --- !u!1 &1859432641605290154
 GameObject:
