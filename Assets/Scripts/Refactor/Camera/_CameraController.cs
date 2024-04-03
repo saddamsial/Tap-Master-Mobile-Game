@@ -3,6 +3,7 @@ using Core.SystemGame;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Core.GamePlay
 {
@@ -26,6 +27,7 @@ namespace Core.GamePlay
         private void Awake()
         {
             _GameEvent.OnGamePlayReset += SetUp;
+            this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack.Add(_BeforeLoadManager.Instance.CameraUI);
         }
 
         private void Start()
