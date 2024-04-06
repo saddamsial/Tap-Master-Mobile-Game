@@ -1,36 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4067ff09fb524c41bbfe5e61f8aa995, type: 3}
-  m_Name: Daily Reward List
-  m_EditorClassIdentifier: 
-  dataList:
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
-  - icon: {fileID: 977264488, guid: 5ceaa5a1e3444b24ea1eab82fe2d1a86, type: 3}
-    amount: 0
-    rewardType: 0
+version https://git-lfs.github.com/spec/v1
+oid sha256:adcbe148695d9e9c1caa75e0a7fc9cec01282e7e608a2dd9f1e4e688d537a469
+size 1195
