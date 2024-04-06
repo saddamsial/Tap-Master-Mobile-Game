@@ -1036,7 +1036,7 @@ GameObject:
   - component: {fileID: 6375445280891602071}
   - component: {fileID: 6375445280891602070}
   - component: {fileID: 6375445280891602069}
-  - component: {fileID: 5881803956663899931}
+  - component: {fileID: 2050869049392127359}
   m_Layer: 5
   m_Name: GamePlayScreen
   m_TagString: Untagged
@@ -1115,7 +1115,7 @@ Animator:
   m_GameObject: {fileID: 6375445280891602056}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e58073349de74ee458416dc9038c2f36, type: 2}
+  m_Controller: {fileID: 9100000, guid: 71fe77faf9399784395cc2c70f393094, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1126,7 +1126,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5881803956663899931
+--- !u!114 &2050869049392127359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1135,14 +1135,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6375445280891602056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d54223aac88a3149b4da2e09d8b0026, type: 3}
+  m_Script: {fileID: 11500000, guid: bb553b41aec85d6468bc7b68bbc92e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showAnimation: {fileID: 0}
-  _hideAnimation: {fileID: 0}
-  _animator: {fileID: 0}
-  _showWithAnimation: 0
+  _showAnimation: {fileID: 7400000, guid: 4db76cb716a87824d9ebc758f4030de8, type: 2}
+  _hideAnimation: {fileID: 7400000, guid: 13d95e29acfa48f49a7219a56852c238, type: 2}
+  _animator: {fileID: 6375445280891602069}
+  _showWithAnimation: 1
   ScreenType: 2
+  _levelText: {fileID: 1664247897064571986}
 --- !u!1 &6394660819789114756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1243,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6851704249926342766}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

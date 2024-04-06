@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +49,12 @@ namespace MyTools.ScreenSystem
             }
             _currentScreenType = screenType;
             _screenDict[_currentScreenType].Show();
+        }
+
+        private void Update(){
+            if(Input.GetKeyDown(KeyCode.A)){
+                _screenDict[_currentScreenType].Hide();
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ namespace MyTools.ScreenSystem
 
         public void Show(Action complete = null)
         {
+            this.gameObject.SetActive(true);
             if (_showWithAnimation)
             {
                 StartCoroutine(ShowByAnimation(complete));
@@ -53,6 +54,7 @@ namespace MyTools.ScreenSystem
 
         private void ShowNotAnim(Action completed = null)
         {
+            OnStartShowItSelf();
             this.gameObject.SetActive(true);
             if (_isShown) throw new System.Exception("Screen is already shown");
             //_animator.Play(_showAnimation.name);
@@ -66,6 +68,7 @@ namespace MyTools.ScreenSystem
             if (!_isShown) throw new System.Exception("Screen is already hidden");
             //_animator.Play(_hideAnimation.name);
             _isShown = false;
+            OnStartHideItSelf();
             this.gameObject.SetActive(false);
             OnCompleteHideItSelf();
             completed?.Invoke();
@@ -75,6 +78,7 @@ namespace MyTools.ScreenSystem
         {
             this.gameObject.SetActive(true);
             if (_isShown) throw new System.Exception("Screen is already shown");
+            OnStartShowItSelf();
             _animator.Play(_showAnimation.name);
             yield return new WaitForSeconds(_showAnimation.length);
             _isShown = true;
@@ -85,6 +89,7 @@ namespace MyTools.ScreenSystem
         private IEnumerator HideByAnimation(Action completed = null)
         {
             if (!_isShown) throw new System.Exception("Screen is already hidden");
+            OnStartHideItSelf();
             _animator.Play(_hideAnimation.name);
             yield return new WaitForSeconds(_hideAnimation.length);
             _isShown = false;
@@ -93,6 +98,8 @@ namespace MyTools.ScreenSystem
             completed?.Invoke();
         }
 
+        protected virtual void OnStartShowItSelf(){}
+        protected virtual void OnStartHideItSelf(){}
         protected virtual void OnCompleteShowItSelf(){}
         protected virtual void OnCompleteHideItSelf(){}
     }
