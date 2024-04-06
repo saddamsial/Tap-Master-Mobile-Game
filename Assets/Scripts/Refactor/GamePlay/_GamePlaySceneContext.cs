@@ -27,7 +27,6 @@ namespace Core.GamePlay
         {
             SetUpCamera();
             InitGame();
-            _PlayerData.StartGame();
             _GameManager.Instance.StartLevel();
         }
 

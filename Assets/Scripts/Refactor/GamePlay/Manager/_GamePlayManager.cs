@@ -49,6 +49,7 @@ namespace Core.GamePlay
                 if (_totalBlocks == 0)
                 {
                     WinGame();
+                    return;
                 }
                 if(!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
