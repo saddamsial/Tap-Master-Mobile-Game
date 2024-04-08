@@ -35,5 +35,9 @@ namespace Core.UI{
             _GameEvent.OnUseBoosterOpenFace?.Invoke();
             _openFrontFaceBoosterButton.SetActive(false);
         }
+
+        public void OnClickUseHintBooster(){
+            _GameEvent.OnUseBoosterHint?.Invoke();
+        }
     }
 }

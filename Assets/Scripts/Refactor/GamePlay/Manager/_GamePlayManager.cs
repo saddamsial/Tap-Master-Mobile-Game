@@ -42,16 +42,18 @@ namespace Core.GamePlay
             _GameManager.Instance.NextLevel();
         }
 
-        public void OnBlockSelected(bool isBlockCanMove = true, bool isSpecialBlock = false)
+        public void OnBlockSelected(bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
             if (isBlockCanMove)
             {
-                _totalBlocks -= 1;
+                _totalBlocks -= blocks;
                 if (_totalBlocks == 0)
                 {
                     WinGame();
                     return;
                 }
+                if(blocks > 1) // only spawn special block when player dont use hint booster by check number of selected blokcs < 2
+                    return;
                 if(!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
                 if (_remainBlocksToHaveSpecialBlock == 0)

@@ -6,5 +6,6 @@ namespace Core.GamePlay{
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;
+        public static Action OnUseBoosterHint;
     }
 }
