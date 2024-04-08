@@ -75,34 +75,34 @@ namespace Core.GamePlay.BlockPool
             _blockContainer.transform.position = containerPos;
         }
 
-        public void SpawnSpecialBlock(){
+        public void SpawnSpecialBlock()
+        {
             var block = _blockObjectPool[0];
             block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
         }
 
-        public void SpawnSpecialBlockInCameraView(Camera camera){
+        public void SpawnSpecialBlockInCameraView(Camera camera)
+        {
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
             int randomIndex = Random.Range(0, _blockObjectPool.Count);
-            // foreach (var block in _blockObjectPool)
-            // {
-            //     if(block.CheckObjectVisible(planes)){
-            //         block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
-            //         return;
-            //     }
-            // }
             for (int k = 0; k < _blockObjectPool.Count; k++)
             {
                 int i = randomIndex;
-                if(_blockObjectPool[i].CheckObjectVisible(planes)){
-                    _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.Reward);
-                    return;
+                if (_blockObjectPool[i].CheckObjectVisible(planes))
+                {
+                    //Debug.Log("Find block in camera view");
+                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.Reward)
+                    {
+                        _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+                        return;
+                    }
                 }
                 i = (i + 1) % _blockObjectPool.Count;
             }
             throw new System.Exception("No block in camera view");
         }
 
-        
+
         public void SetStateElementBlockInPool(int x, int y, int z, bool value)
         {
             _blockLogicPool[x][y][z] = value;
@@ -142,7 +142,8 @@ namespace Core.GamePlay.BlockPool
             _blockObjectPool.Clear();
         }
 
-        public void DespawnBlock(_BlockController block){
+        public void DespawnBlock(_BlockController block)
+        {
             block.transform.DOKill();
             ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             _blockObjectPool.Remove(block);
@@ -152,7 +153,7 @@ namespace Core.GamePlay.BlockPool
         {
             return _blockObjectPool.Find(block => block.LogicPos.Equals(logicPos));
         }
-        
+
         private void InitLogicPool(int sizeX, int sizeY, int sizeZ)
         {
             if (_isLogicInit) return;
@@ -188,7 +189,7 @@ namespace Core.GamePlay.BlockPool
             }
         }
 
-        
+
 
         public List<_BlockController> BlockObjectPool => _blockObjectPool;
     }

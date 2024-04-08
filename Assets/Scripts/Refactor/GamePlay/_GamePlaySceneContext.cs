@@ -4,6 +4,7 @@ using Core.GamePlay.BlockPool;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
+using MyTools.ParticleSystem;
 using MyTools.ScreenSystem;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -59,6 +60,8 @@ namespace Core.GamePlay
         private void InitGame()
         {
             _GameManager.Instance.InitGame(_levelTest, _cameraGamePlay.GetComponentInChildren<Camera>());
+            _ParticleSystemManager.Instance.UICamera = _cameraGamePlay.GetComponentInChildren<Camera>();
+
             // _GameManager.Instance.BlockPool = _blockPool;
             // //_LevelSystem.Instance.BlockPool = _blockPool;
             // _LevelSystem.Instance.InitLevelSystem(_levelTest);
