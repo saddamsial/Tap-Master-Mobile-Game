@@ -90,6 +90,7 @@ namespace Core.GamePlay.BlockPool
                 int i = randomIndex;
                 if (_blockObjectPool[i].CheckObjectVisible(planes))
                 {
+                    //Debug.Log("Find block in camera view");
                     if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.Reward)
                     {
                         _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.Reward);
