@@ -4,6 +4,7 @@ using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
 using Extensions;
+using MyTools.ParticleSystem;
 using UnityEngine;
 
 namespace Core.GamePlay.Block
@@ -65,6 +66,8 @@ namespace Core.GamePlay.Block
         {
             _currentType = blockType;
             _blockStates[_currentType].SetUp();
+            if(blockType == _BlockTypeEnum.Reward)
+                _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position);
         }
 
         public void SetMaterial(Material material)

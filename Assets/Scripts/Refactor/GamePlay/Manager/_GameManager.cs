@@ -19,7 +19,6 @@ namespace Core.GamePlay
             _gamePlayManager = _GamePlayManager.Instance;
             _gamePlayManager.InitGamePlayManager();
             _gamePlayManager.GamePlayCamera = cameraGameplay;
-
         }
 
         public void StartLevel()
