@@ -1,4 +1,5 @@
 using System.Collections;
+using Core.Data;
 using Core.ResourceGamePlay;
 using MyTools.ScreenSystem;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class _LoadingSceneController : MonoBehaviour
     {
         DontDestroyOnLoad();
         StartCoroutine(LoadLoadingScreen());
+        LoadDataUser();
     }
 
     private async void DontDestroyOnLoad()
@@ -34,6 +36,10 @@ public class _LoadingSceneController : MonoBehaviour
     {
         yield return new WaitUntil(() => _isLoadedManager);
         _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Loading);
+    }
+
+    private void LoadDataUser(){
+        _PlayerData.StartGame();
     }
 }
 

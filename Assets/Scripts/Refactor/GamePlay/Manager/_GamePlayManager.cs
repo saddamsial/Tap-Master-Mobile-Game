@@ -11,6 +11,7 @@ namespace Core.GamePlay
         private static _GamePlayManager _instance;
         public static _GamePlayManager Instance => _instance ?? (_instance = new _GamePlayManager());
 
+        private Camera _gamePlayCamera;
         private _BlockPool _blockPool;
 
         private int _totalBlocks;
@@ -49,12 +50,13 @@ namespace Core.GamePlay
                 if (_totalBlocks == 0)
                 {
                     WinGame();
+                    return;
                 }
                 if(!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
                 if (_remainBlocksToHaveSpecialBlock == 0)
                 {
-                    _blockPool.SpawnSpecialBlock();
+                    _blockPool.SpawnSpecialBlockInCameraView(_gamePlayCamera);
                     _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
                     _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
                     _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
@@ -63,5 +65,10 @@ namespace Core.GamePlay
         }
 
         public _BlockPool BlockPool => _blockPool;
+        public Camera GamePlayCamera
+        {
+            get => _gamePlayCamera;
+            set => _gamePlayCamera = value;
+        }
     }
 }

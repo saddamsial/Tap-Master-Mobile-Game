@@ -1,5 +1,6 @@
 using Core.GamePlay.BlockPool;
 using Core.SystemGame;
+using UnityEngine;
 
 namespace Core.GamePlay
 {
@@ -11,12 +12,14 @@ namespace Core.GamePlay
         private _LevelSystem _LevelSystem;
         private _GamePlayManager _gamePlayManager;
 
-        public void InitGame(LevelDatas levelData)
+        public void InitGame(LevelDatas levelData, Camera cameraGameplay)
         {
             _LevelSystem = _LevelSystem.Instance;
             _LevelSystem.InitLevelSystem(levelData);
             _gamePlayManager = _GamePlayManager.Instance;
             _gamePlayManager.InitGamePlayManager();
+            _gamePlayManager.GamePlayCamera = cameraGameplay;
+
         }
 
         public void StartLevel()
