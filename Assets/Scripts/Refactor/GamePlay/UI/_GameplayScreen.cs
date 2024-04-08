@@ -8,6 +8,15 @@ namespace Core.UI{
     public class _GameplayScreen : _BaseScreen{
         [Header("Gameplay Screen Elements")]
         [SerializeField] private TMP_Text _levelText;
+        [SerializeField] private GameObject _openFrontFaceBoosterButton;
+
+        private void Awake(){
+            _GameEvent.OnGamePlayReset += SetupScreen;
+        }
+
+        private void OnDestroy(){
+            _GameEvent.OnGamePlayReset -= SetupScreen;
+        }
 
         protected override void OnStartShowItSelf()
         {
@@ -15,12 +24,16 @@ namespace Core.UI{
             SetupScreen();
         }
 
+
+
         public void SetupScreen(){
             _levelText.text ="Level " + _PlayerData.UserData.HighestLevel;
+            _openFrontFaceBoosterButton.SetActive(true);
         }
 
         public void OnClickUseOpenFrontFaceBooster(){
             _GameEvent.OnUseBoosterOpenFace?.Invoke();
+            _openFrontFaceBoosterButton.SetActive(false);
         }
     }
 }

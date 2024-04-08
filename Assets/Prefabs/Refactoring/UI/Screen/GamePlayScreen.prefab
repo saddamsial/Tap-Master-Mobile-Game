@@ -1339,6 +1339,7 @@ MonoBehaviour:
   _showWithAnimation: 1
   ScreenType: 2
   _levelText: {fileID: 1664247897064571986}
+  _openFrontFaceBoosterButton: {fileID: 5120510335029094580}
 --- !u!1 &6394660819789114756
 GameObject:
   m_ObjectHideFlags: 0
