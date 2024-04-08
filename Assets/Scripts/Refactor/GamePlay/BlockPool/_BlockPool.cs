@@ -82,12 +82,22 @@ namespace Core.GamePlay.BlockPool
 
         public void SpawnSpecialBlockInCameraView(Camera camera){
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
-            foreach (var block in _blockObjectPool)
+            int randomIndex = Random.Range(0, _blockObjectPool.Count);
+            // foreach (var block in _blockObjectPool)
+            // {
+            //     if(block.CheckObjectVisible(planes)){
+            //         block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+            //         return;
+            //     }
+            // }
+            for (int k = 0; k < _blockObjectPool.Count; k++)
             {
-                if(block.CheckObjectVisible(planes)){
-                    block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+                int i = randomIndex;
+                if(_blockObjectPool[i].CheckObjectVisible(planes)){
+                    _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.Reward);
                     return;
                 }
+                i = (i + 1) % _blockObjectPool.Count;
             }
             throw new System.Exception("No block in camera view");
         }
