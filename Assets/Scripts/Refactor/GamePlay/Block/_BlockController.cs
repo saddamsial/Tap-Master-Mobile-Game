@@ -16,7 +16,7 @@ namespace Core.GamePlay.Block
         [SerializeField] public _BlockTypeEnum _blockType;
 
         private Dictionary<_BlockTypeEnum, _BlockState> _blockStates = new Dictionary<_BlockTypeEnum, _BlockState>();
-        private _BlockState _currentType;
+        private _BlockTypeEnum _currentType;
         private Vector3Int _logicPos;
         private Vector3Int _obstacleLogicPos;
         private Vector3 _color;
@@ -63,8 +63,8 @@ namespace Core.GamePlay.Block
 
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)
         {
-            _currentType = _blockStates[blockType];
-            _currentType.SetUp();
+            _currentType = blockType;
+            _blockStates[_currentType].SetUp();
         }
 
         public void SetMaterial(Material material)
@@ -129,8 +129,8 @@ namespace Core.GamePlay.Block
 
         private void OnSelected()
         {
-            _currentType.OnSelect();
-            _GamePlayManager.Instance.OnBlockSelected(_currentType.IsCanMove);
+            _blockStates[_currentType].OnSelect();
+            _GamePlayManager.Instance.OnBlockSelected(_blockStates[_currentType].IsCanMove);
         }
 
         public Vector3Int LogicPos
@@ -148,6 +148,7 @@ namespace Core.GamePlay.Block
         public MeshRenderer MeshRenderer => _meshRenderer;
 
         public bool IsMoving { get; set; }
+        public _BlockTypeEnum CurrentType => _currentType;
     }
 
 #if UNITY_EDITOR
