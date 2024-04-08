@@ -52,21 +52,21 @@ namespace Core.GamePlay.Block
         {
             if (_isInit) return;
             _blockStates.Add(_BlockTypeEnum.Moving, new _MovingBlock(this, movingMaterial, blockedMaterial));
-            _blockStates.Add(_BlockTypeEnum.Reward, new _RewardBlock(this));
+            _blockStates.Add(_BlockTypeEnum.GoldReward, new _RewardBlock(this));
             _isInit = true;
         }
 
         private void InitBlockStates(Vector3 color, bool isSetColor = false)
         {
             _blockStates[_BlockTypeEnum.Moving].Init(isSetColor, color);
-            _blockStates[_BlockTypeEnum.Reward].Init();
+            _blockStates[_BlockTypeEnum.GoldReward].Init();
         }
 
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)
         {
             _currentType = blockType;
             _blockStates[_currentType].SetUp();
-            if(blockType == _BlockTypeEnum.Reward)
+            if(blockType == _BlockTypeEnum.GoldReward)
                 _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position);
         }
 

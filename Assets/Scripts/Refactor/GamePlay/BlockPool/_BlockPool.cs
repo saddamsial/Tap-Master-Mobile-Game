@@ -78,7 +78,7 @@ namespace Core.GamePlay.BlockPool
         public void SpawnSpecialBlock()
         {
             var block = _blockObjectPool[0];
-            block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+            block.SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
         }
 
         public void SpawnSpecialBlockInCameraView(Camera camera)
@@ -91,9 +91,9 @@ namespace Core.GamePlay.BlockPool
                 if (_blockObjectPool[i].CheckObjectVisible(planes))
                 {
                     //Debug.Log("Find block in camera view");
-                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.Reward)
+                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward)
                     {
-                        _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+                        _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
                         return;
                     }
                 }
@@ -188,8 +188,6 @@ namespace Core.GamePlay.BlockPool
                 }
             }
         }
-
-
 
         public List<_BlockController> BlockObjectPool => _blockObjectPool;
     }
