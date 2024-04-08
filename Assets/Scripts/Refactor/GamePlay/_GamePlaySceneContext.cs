@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
 using Core.Data;
 using Core.GamePlay.BlockPool;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
 using MyTools.ScreenSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -13,7 +15,7 @@ namespace Core.GamePlay
     {
         [SerializeField] private LevelDatas _levelTest;
 
-        private _BlockPool _blockPool;
+        private GameObject _cameraGamePlay;
 
         private void Awake()
         {
@@ -23,19 +25,20 @@ namespace Core.GamePlay
         }
 
         // Start is called before the first frame update
-        void Start()
+        async void Start()
         {
-            SetUpCamera();
+            _cameraGamePlay = await SetUpCamera();
             InitGame();
             _GameManager.Instance.StartLevel();
         }
 
-        private void OnApplicationQuit(){
+        private void OnApplicationQuit()
+        {
             Debug.Log("OnApplicationQuit");
             _PlayerData.SaveUserData();
         }
 
-        
+
 
         private void Init()
         {
@@ -43,18 +46,19 @@ namespace Core.GamePlay
             Application.targetFrameRate = 60;
         }
 
-        private async void SetUpCamera()
+        private async Task<GameObject> SetUpCamera()
         {
             var cameraRotation = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyCameraRotation);
-            var gameObject = GameObject.Instantiate(cameraRotation);
+            var cameraObject = (GameObject)Instantiate(cameraRotation);
 #if UNITY_EDITOR
             gameObject.name = cameraRotation.Value.name;
 #endif     
+            return cameraObject;
         }
 
         private void InitGame()
         {
-            _GameManager.Instance.InitGame(_levelTest);
+            _GameManager.Instance.InitGame(_levelTest, _cameraGamePlay.GetComponentInChildren<Camera>());
             // _GameManager.Instance.BlockPool = _blockPool;
             // //_LevelSystem.Instance.BlockPool = _blockPool;
             // _LevelSystem.Instance.InitLevelSystem(_levelTest);

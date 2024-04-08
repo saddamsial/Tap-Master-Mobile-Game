@@ -91,6 +91,10 @@ namespace Core.GamePlay.Block
             });
         }
 
+        public bool CheckObjectVisible(Plane[] planes){
+            return GeometryUtility.TestPlanesAABB(planes, _meshRenderer.bounds);
+        }
+
         private void AnimationInitBlock(Vector3 rotation)
         {
             transform.rotation = Quaternion.Euler(rotation);

@@ -80,41 +80,19 @@ namespace Core.GamePlay.BlockPool
             block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
         }
 
-        private void InitLogicPool(int sizeX, int sizeY, int sizeZ)
-        {
-            if (_isLogicInit) return;
-            _blockLogicPool = new bool[sizeX][][];
-            for (int i = 0; i < sizeX; i++)
+        public void SpawnSpecialBlockInCameraView(Camera camera){
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
+            foreach (var block in _blockObjectPool)
             {
-                _blockLogicPool[i] = new bool[sizeY][];
-                for (int j = 0; j < sizeY; j++)
-                {
-                    _blockLogicPool[i][j] = new bool[sizeZ];
+                if(block.CheckObjectVisible(planes)){
+                    block.SetCurrentTypeBlock(_BlockTypeEnum.Reward);
+                    return;
                 }
             }
-            _isLogicInit = true;
+            throw new System.Exception("No block in camera view");
         }
 
-        private void InitObjectPooling()
-        {
-            _blockObjectPool ??= new List<_BlockController>();
-            _blockObjectPool.Clear();
-        }
-
-        private void ClearLogicPool()
-        {
-            for (int i = 0; i < sizeX; i++)
-            {
-                for (int j = 0; j < sizeY; j++)
-                {
-                    for (int k = 0; k < sizeZ; k++)
-                    {
-                        _blockLogicPool[i][j][k] = false;
-                    }
-                }
-            }
-        }
-
+        
         public void SetStateElementBlockInPool(int x, int y, int z, bool value)
         {
             _blockLogicPool[x][y][z] = value;
@@ -164,6 +142,43 @@ namespace Core.GamePlay.BlockPool
         {
             return _blockObjectPool.Find(block => block.LogicPos.Equals(logicPos));
         }
+        
+        private void InitLogicPool(int sizeX, int sizeY, int sizeZ)
+        {
+            if (_isLogicInit) return;
+            _blockLogicPool = new bool[sizeX][][];
+            for (int i = 0; i < sizeX; i++)
+            {
+                _blockLogicPool[i] = new bool[sizeY][];
+                for (int j = 0; j < sizeY; j++)
+                {
+                    _blockLogicPool[i][j] = new bool[sizeZ];
+                }
+            }
+            _isLogicInit = true;
+        }
+
+        private void InitObjectPooling()
+        {
+            _blockObjectPool ??= new List<_BlockController>();
+            _blockObjectPool.Clear();
+        }
+
+        private void ClearLogicPool()
+        {
+            for (int i = 0; i < sizeX; i++)
+            {
+                for (int j = 0; j < sizeY; j++)
+                {
+                    for (int k = 0; k < sizeZ; k++)
+                    {
+                        _blockLogicPool[i][j][k] = false;
+                    }
+                }
+            }
+        }
+
+        
 
         public List<_BlockController> BlockObjectPool => _blockObjectPool;
     }
