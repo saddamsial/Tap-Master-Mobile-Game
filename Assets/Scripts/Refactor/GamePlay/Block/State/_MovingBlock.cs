@@ -45,6 +45,9 @@ namespace Core.GamePlay.Block
             base.SetUp();
             _blockController.gameObject.layer = _LayerConstant.IDLE_BLOCK;
             _meshRenderer.material.SetInt("_IsIdleBlock", 1);
+            _meshRenderer.material.SetInt("_IsOpenFrontFace", 0);
+            _GameEvent.OnUseBoosterOpenFace -= () => {_meshRenderer.material.SetInt("_IsOpenFrontFace", 1);};
+            _GameEvent.OnUseBoosterOpenFace += () => {_meshRenderer.material.SetInt("_IsOpenFrontFace", 1);};
             _isMoving = false;
         }
 
