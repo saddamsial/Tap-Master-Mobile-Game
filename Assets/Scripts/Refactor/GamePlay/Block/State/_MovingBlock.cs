@@ -30,12 +30,12 @@ namespace Core.GamePlay.Block
             if (isSetColor)
             {
                 _color = color;
-                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y / 255, _color.z / 255));
+                _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, new Color(_color.x / 255, _color.y / 255, _color.z / 255));
             }
             else
             {
                 _color = _ConstantBlockSetting.defaultColor;
-                _meshRenderer.material.SetColor("_ColorSetting", new Color(_color.x / 255, _color.y / 255, _color.z / 255));
+                _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, new Color(_color.x / 255, _color.y / 255, _color.z / 255));
             }
             SetUp();
         }
@@ -44,10 +44,10 @@ namespace Core.GamePlay.Block
         {
             base.SetUp();
             _blockController.gameObject.layer = _LayerConstant.IDLE_BLOCK;
-            _meshRenderer.material.SetInt("_IsIdleBlock", 1);
-            _meshRenderer.material.SetInt("_IsOpenFrontFace", 0);
-            _GameEvent.OnUseBoosterOpenFace -= () => {_meshRenderer.material.SetInt("_IsOpenFrontFace", 1);};
-            _GameEvent.OnUseBoosterOpenFace += () => {_meshRenderer.material.SetInt("_IsOpenFrontFace", 1);};
+            _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_IDLE_BLOCK, 1);
+            _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 0);
+            _GameEvent.OnUseBoosterOpenFace -= () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
+            _GameEvent.OnUseBoosterOpenFace += () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
             _isMoving = false;
         }
 
