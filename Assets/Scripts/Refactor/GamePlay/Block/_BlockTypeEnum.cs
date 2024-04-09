@@ -4,5 +4,6 @@ namespace Core.GamePlay.Block
         Moving,
         GoldReward,
         PuzzleReward,
+        MovingSpecial,
     }
 }

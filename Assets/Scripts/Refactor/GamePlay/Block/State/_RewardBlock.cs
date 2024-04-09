@@ -16,7 +16,7 @@ namespace Core.GamePlay.Block{
         public override void SetUp(){
             base.SetUp();
             _blockController.gameObject.layer = _LayerConstant.GOLD_BLOCK;
-            _meshRenderer.material.SetInt("_IsIdleBlock", 0);
+            _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_IDLE_BLOCK, 0);
         }
 
         public override void OnSelect(){
@@ -28,7 +28,7 @@ namespace Core.GamePlay.Block{
         }
 
         private void AnimatedCollectRewardBlock(){
-            _meshRenderer.material.DOFade(0, "_SpecialColor", 0.5f).OnComplete(() => {
+            _meshRenderer.material.DOFade(0, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0.5f).OnComplete(() => {
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
             });
         }

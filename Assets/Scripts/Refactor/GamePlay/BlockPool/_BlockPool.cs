@@ -5,6 +5,7 @@ using Extensions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using DG.Tweening;
+using Core.SystemGame;
 
 namespace Core.GamePlay.BlockPool
 {
@@ -28,6 +29,12 @@ namespace Core.GamePlay.BlockPool
         public _BlockPool()
         {
             InitLogicPool(sizeX, sizeY, sizeZ);
+            _GameEvent.OnUseBoosterHint += UseBoosterHint;
+        }
+
+        ~_BlockPool()
+        {
+            _GameEvent.OnUseBoosterHint -= UseBoosterHint;
         }
 
         public async void InitPool(LevelData levelData)
@@ -187,6 +194,26 @@ namespace Core.GamePlay.BlockPool
                     }
                 }
             }
+        }
+
+        private void UseBoosterHint(){
+            if(_blockObjectPool.Count < _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT) return;
+            int blockToRemove = _blockObjectPool.Count / 10;
+            blockToRemove = Mathf.Min(blockToRemove, _ConstantGameplayConfig.MAX_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
+            blockToRemove = Mathf.Max(blockToRemove, _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
+            for (int i = 0; i < blockToRemove; i++)
+            {
+                int randomIndex = Random.Range(0, _blockObjectPool.Count);
+                if (_blockObjectPool[randomIndex].CurrentType == _BlockTypeEnum.GoldReward)
+                {
+                    i--;
+                    continue;
+                }
+                _blockObjectPool[randomIndex].SetCurrentTypeBlock(_BlockTypeEnum.MovingSpecial);
+                _blockObjectPool.RemoveAt(randomIndex);
+                //DespawnBlock(_blockObjectPool[randomIndex]);
+            }
+            _GamePlayManager.Instance.OnBlockSelected(true, false, blockToRemove);
         }
 
         public List<_BlockController> BlockObjectPool => _blockObjectPool;

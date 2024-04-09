@@ -7,5 +7,9 @@ namespace Core.SystemGame{
     public class _ConstantGameplayConfig{
         public const int MAX_BLOCKS_TO_SPECIAL = 4;
         public const int MIN_BLOCKS_TO_SPECIAL = 2;
+    
+        public const int MAX_BLOCKS_TO_BE_REMOVED_WHEN_HINT = 10;
+        public const int MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT = 5;
+    
     }
 }
