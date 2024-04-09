@@ -53,6 +53,7 @@ namespace Core.GamePlay.Block
             if (_isInit) return;
             _blockStates.Add(_BlockTypeEnum.Moving, new _MovingBlock(this, movingMaterial, blockedMaterial));
             _blockStates.Add(_BlockTypeEnum.GoldReward, new _RewardBlock(this));
+            _blockStates.Add(_BlockTypeEnum.MovingSpecial, new _SpecialMovingBlock(this));
             _isInit = true;
         }
 
@@ -60,6 +61,7 @@ namespace Core.GamePlay.Block
         {
             _blockStates[_BlockTypeEnum.Moving].Init(isSetColor, color);
             _blockStates[_BlockTypeEnum.GoldReward].Init();
+            _blockStates[_BlockTypeEnum.MovingSpecial].Init();
         }
 
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)
