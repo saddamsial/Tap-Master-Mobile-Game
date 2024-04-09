@@ -1,6 +1,7 @@
 using Core.Data;
 using Core.GamePlay;
 using MyTools.ScreenSystem;
+using PopupSystem;
 using TMPro;
 using UnityEngine;
 
@@ -38,6 +39,10 @@ namespace Core.UI{
 
         public void OnClickUseHintBooster(){
             _GameEvent.OnUseBoosterHint?.Invoke();
+        }
+
+        public void OnClickOpenCollection(){
+            PopupManager.CreateNewInstance<BasePopup>().ActivePopup();
         }
     }
 }
