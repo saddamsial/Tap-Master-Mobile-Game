@@ -1,6 +1,7 @@
 using Core.ResourceGamePlay;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Core.Data
 {
@@ -42,13 +43,13 @@ namespace Core.Data
         private static void LoadUserData()
         {
             var saveData = PlayerPrefs.GetString(_Const.KEY_USER_DATA);
-            var data = JsonUtility.FromJson<_UserData>(saveData);
+            var data = JsonConvert.DeserializeObject<_UserData>(saveData);
             UserData = data;
         }
 
         public static void SaveUserData()
         {
-            string saveData = JsonUtility.ToJson(UserData);
+            string saveData = JsonConvert.SerializeObject(UserData);
             Debug.Log("SaveUserData: " + saveData);
             PlayerPrefs.SetString(_Const.KEY_USER_DATA, saveData);
             {

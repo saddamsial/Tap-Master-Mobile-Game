@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Data;
 using PopupSystem;
 using UnityEngine;
 
@@ -32,11 +33,20 @@ namespace Core.GamePlay.Collection{
                 _listCollections[i].SetupPuzzle(_collectionElementDatas.collectionElementDatas[i]);
             }
         }
-        
+
+        public void SetupCurrentStateCollection(){
+            foreach(var data in _PlayerData.UserData.RuntimeCollectionData){
+                foreach(var puzzlePieceId in data.Value){
+                    _listCollections[data.Key].SetupPuzzleState(puzzlePieceId);
+                }
+            }
+        }
+
         public void Show(){
             base.Show();
             Init();
             SetupCollection();
+            SetupCurrentStateCollection();
         }
 
         public void Exit(){
