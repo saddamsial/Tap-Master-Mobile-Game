@@ -1,5 +1,6 @@
 using Core.Data;
 using Core.GamePlay;
+using Core.GamePlay.Collection;
 using MyTools.ScreenSystem;
 using PopupSystem;
 using TMPro;
@@ -42,7 +43,7 @@ namespace Core.UI{
         }
 
         public void OnClickOpenCollection(){
-            PopupManager.CreateNewInstance<BasePopup>().ActivePopup();
+            PopupManager.CreateNewInstance<_CollectionPopup>().Show();
         }
     }
 }
