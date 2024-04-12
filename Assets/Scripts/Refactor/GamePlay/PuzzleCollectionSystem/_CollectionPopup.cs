@@ -23,6 +23,8 @@ namespace Core.GamePlay.Collection{
             for(int i = 0; i < _collectionElementDatas.collectionElementDatas.Count; i++){
                 var gameObject = SimplePool.Spawn(_collectionElementPrefab,Vector3.zero, Quaternion.identity);
                 gameObject.transform.SetParent(_collectionContainers);
+                gameObject.transform.localScale = Vector3.one;
+                gameObject.transform.localPosition = new Vector3(0,0,-100);
                 var collectionElement = new _CollectionElements(gameObject.transform);
                 _listCollections.Add(collectionElement);
             }

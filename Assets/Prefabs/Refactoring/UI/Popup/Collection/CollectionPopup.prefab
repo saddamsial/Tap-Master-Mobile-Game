@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3890309913197754298}
   - component: {fileID: 3561724547163023514}
   - component: {fileID: 8089366768705779815}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 1291863868215728369}
   - component: {fileID: 4792966729566780221}
   - component: {fileID: 6160324298044652161}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5547855429285093350}
   - component: {fileID: 8743343875713542068}
   - component: {fileID: 7433291466228553112}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Collection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3055991560765996278}
   - component: {fileID: 8196232597171429481}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 6567604850115393676}
   - component: {fileID: 795502542192706894}
   - component: {fileID: 1806652105203142387}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6286988193489793764}
   - component: {fileID: 2773112486903489874}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 8131867505886249925}
   - component: {fileID: 5280265399372035550}
   - component: {fileID: 7994295456674975104}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 1643978197418788962}
   - component: {fileID: 1343818258110602467}
   - component: {fileID: 8049204671859667404}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeadFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 4168397168565154795}
   - component: {fileID: 613356312959758570}
   - component: {fileID: 3679002517304518081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CollectionPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 107515269292352846}
   - component: {fileID: 5286800977545177202}
   - component: {fileID: 4159850731813239374}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,7 +27,9 @@ namespace Core.GamePlay
         private void Awake()
         {
             _GameEvent.OnGamePlayReset += SetUp;
-            this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack.Add(_BeforeLoadManager.Instance.CameraUI);
+            var camera = this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack; 
+            _BeforeLoadManager.Instance.CameraUI.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
+            camera.Add(_BeforeLoadManager.Instance.CameraUI);
         }
 
         private void Start()
