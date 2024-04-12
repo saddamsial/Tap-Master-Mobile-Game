@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: m_7
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 162
+        width: 72
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c40cdf1cc2f56f40a0291b40311d6a6
+      internalID: -1298652202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +147,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      m_0: -327436198
+      m_1: 1212357940
+      m_10: 98975749
+      m_11: 410927225
+      m_12: 1882482480
+      m_13: -143104654
+      m_14: -62098957
+      m_15: 1847913194
+      m_16: 309054103
+      m_17: 1423409035
+      m_2: 405543670
+      m_3: -2086229334
+      m_4: -6448888
+      m_5: -520722913
+      m_6: 121263477
+      m_7: -1298652202
+      m_8: 1529932142
+      m_9: 1651601668
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
