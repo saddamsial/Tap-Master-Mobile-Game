@@ -12,6 +12,10 @@ namespace Core.GamePlay.Shop{
 
 
     public class _ShopPopup : BasePopup{
+        [Header("Shop Data")]
+        [SerializeField] private _ShopElementDatas _shopElementDatas;
+        [SerializeField] private GameObject _shopElementPrefab;
+
         [Header("Shop Elements")]
         [SerializeField] private Transform _previewBlock;
         [SerializeField] private Transform _navigationBar;

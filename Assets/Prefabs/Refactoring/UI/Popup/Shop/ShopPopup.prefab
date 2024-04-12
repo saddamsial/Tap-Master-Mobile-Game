@@ -3478,6 +3478,8 @@ MonoBehaviour:
   wasPlayAnim: 0
   showAnimationClip: {fileID: 7400000, guid: 23fb731880cc78f4ea756a4fe5296455, type: 2}
   hideAnimationClip: {fileID: 7400000, guid: f52d5a6a1bccae14aa239d51d6a3d210, type: 2}
+  _shopElementDatas: {fileID: 11400000, guid: 9bebc0c7538ce9444b6fb4ff22b68df6, type: 2}
+  _shopElementPrefab: {fileID: 684128822898782976, guid: ddb3f90bda4602e45872fd4b33282cc2, type: 3}
   _previewBlock: {fileID: 7272195582997815412}
   _navigationBar: {fileID: 2727885601942173935}
 --- !u!1 &9074127833715296196
