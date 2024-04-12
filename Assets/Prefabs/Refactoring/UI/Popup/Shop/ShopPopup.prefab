@@ -4048,6 +4048,7 @@ MonoBehaviour:
   wasPlayAnim: 0
   showAnimationClip: {fileID: 7400000, guid: 23fb731880cc78f4ea756a4fe5296455, type: 2}
   hideAnimationClip: {fileID: 7400000, guid: f52d5a6a1bccae14aa239d51d6a3d210, type: 2}
+  _previewBlock: {fileID: 7272195582997815412}
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0
