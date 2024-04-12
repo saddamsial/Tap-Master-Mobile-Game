@@ -45,5 +45,9 @@ namespace Core.UI{
         public void OnClickOpenCollection(){
             PopupManager.CreateNewInstance<_CollectionPopup>().Show();
         }
+
+        public void OnClickOpenShop(){
+            PopupManager.CreateNewInstance<BasePopup>().ActivePopup();
+        }
     }
 }
