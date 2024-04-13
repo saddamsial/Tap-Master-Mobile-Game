@@ -3482,6 +3482,7 @@ MonoBehaviour:
   _shopElementPrefab: {fileID: 684128822898782976, guid: ddb3f90bda4602e45872fd4b33282cc2, type: 3}
   _previewBlock: {fileID: 7272195582997815412}
   _navigationBar: {fileID: 2727885601942173935}
+  _elementContainer: {fileID: 6567604850115393676}
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0

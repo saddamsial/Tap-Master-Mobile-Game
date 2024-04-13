@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+using Core.Data;
 using DG.Tweening;
+using DG.Tweening.Plugins.Options;
 using MyTools.Generic;
 using PopupSystem;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Core.GamePlay.Shop{
     public enum _ShopPage{
@@ -19,10 +23,13 @@ namespace Core.GamePlay.Shop{
         [Header("Shop Elements")]
         [SerializeField] private Transform _previewBlock;
         [SerializeField] private Transform _navigationBar;
+        [SerializeField] private Transform _elementContainer;
 
-        private TwoStateElement _gotoBlockPage;
-        private TwoStateElement _gotoColorPage;
-        private TwoStateElement _gotoArrowPage;
+        private Dictionary<_ShopPage, TwoStateElement> _gotoPageButtons;
+
+        private List<_ShopElements> _shopElements;
+        private bool _isInit = false;
+        private _ShopPage _currentPage;
 
         public override void Awake()
         {
@@ -43,21 +50,27 @@ namespace Core.GamePlay.Shop{
         }
 
         public void OnClickGotoArrowPage(){
-            _gotoArrowPage.SetState(true);
-            _gotoBlockPage.SetState(false);
-            _gotoColorPage.SetState(false);
+            _gotoPageButtons[_currentPage].SetState(false);
+            _currentPage = _ShopPage.Arrow;
+            _gotoPageButtons[_currentPage].SetState(true);
+
+            LoadPage();
         }
 
         public void OnClickGotoBlockPage(){
-            _gotoArrowPage.SetState(false);
-            _gotoBlockPage.SetState(true);
-            _gotoColorPage.SetState(false);
+            _gotoPageButtons[_currentPage].SetState(false);
+            _currentPage = _ShopPage.Block;
+            _gotoPageButtons[_currentPage].SetState(true);
+
+            LoadPage();
         }
 
         public void OnClickGotoColorPage(){
-            _gotoArrowPage.SetState(false);
-            _gotoBlockPage.SetState(false);
-            _gotoColorPage.SetState(true);
+            _gotoPageButtons[_currentPage].SetState(false);
+            _currentPage = _ShopPage.Color;
+            _gotoPageButtons[_currentPage].SetState(true);
+
+            LoadPage();
         }
 
         private void SetStateGamePlayCamera(bool state){
@@ -71,13 +84,79 @@ namespace Core.GamePlay.Shop{
         }
 
         private void SetupNavigationButton(){
-            _gotoBlockPage = new TwoStateElement(_navigationBar.GetChild(1));
-            _gotoColorPage = new TwoStateElement(_navigationBar.GetChild(2));
-            _gotoArrowPage = new TwoStateElement(_navigationBar.GetChild(0));
+            _gotoPageButtons = new Dictionary<_ShopPage, TwoStateElement>();
+            _gotoPageButtons.Add(_ShopPage.Block, new TwoStateElement(_navigationBar.GetChild(1)));
+            _gotoPageButtons.Add(_ShopPage.Color, new TwoStateElement(_navigationBar.GetChild(2)));
+            _gotoPageButtons.Add(_ShopPage.Arrow, new TwoStateElement(_navigationBar.GetChild(0)));
 
-            _gotoArrowPage.SetState(true);
-            _gotoBlockPage.SetState(false);
-            _gotoColorPage.SetState(false);
+            OnClickGotoArrowPage();
+        }
+
+        private void LoadPage(){
+            InitShopElements();
+            DespawnShopElements();         
+            switch (_currentPage){
+                case _ShopPage.Block:
+                    var blockData = _shopElementDatas.blockData;
+                    foreach (var data in blockData){
+                        var shopElement = SimplePool.Spawn(_shopElementPrefab, _previewBlock.position, Quaternion.identity).GetComponent<_ShopElements>();
+                        shopElement.transform.SetParent(_elementContainer);
+                        shopElement.transform.localScale = Vector3.one;
+                        shopElement.transform.localPosition = Vector3.zero;
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, false);
+                        _shopElements.Add(shopElement);
+                    }
+                    break;
+                case _ShopPage.Color:
+                    var colorData = _shopElementDatas.colorData;
+                    foreach (var data in colorData){
+                        var shopElement = SimplePool.Spawn(_shopElementPrefab, _previewBlock.position, Quaternion.identity).GetComponent<_ShopElements>();
+                        shopElement.transform.SetParent(_elementContainer);
+                        shopElement.transform.localScale = Vector3.one;
+                        shopElement.transform.localPosition = Vector3.zero;
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, false);
+                        _shopElements.Add(shopElement);
+                    }    
+                    break;
+                case _ShopPage.Arrow:
+                    var arrowData = _shopElementDatas.arrowData;
+                    foreach (var data in arrowData){
+                        var shopElement = SimplePool.Spawn(_shopElementPrefab, _previewBlock.position, Quaternion.identity).GetComponent<_ShopElements>();
+                        shopElement.transform.SetParent(_elementContainer);
+                        shopElement.transform.localScale = Vector3.one;
+                        shopElement.transform.localPosition = Vector3.zero;
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, false);
+                        _shopElements.Add(shopElement);
+                    }    
+                    break;
+            }
+            SetupElementState();
+        }
+
+        private void InitShopElements(){
+            if (_isInit) return;
+            _isInit = true;
+            _shopElements = new List<_ShopElements>();   
+            //SimplePool.Preload(_shopElementPrefab, 9);
+        }
+
+        private void DespawnShopElements(){
+            foreach (var shopElement in _shopElements){
+                shopElement.transform.SetParent(null);
+                SimplePool.Despawn(shopElement.gameObject);
+            }
+            _shopElements.Clear();
+        }
+
+        private void SetupElementState(){
+            var listData = _PlayerData.UserData.RuntimePurchasedShopData[_currentPage];
+            foreach(int id in listData){
+                _shopElements[id].SetState(true);
+            }
+            _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[_currentPage]].SetState(true, true);
         }
     }
 }

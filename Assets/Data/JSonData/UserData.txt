@@ -1,1 +1,1 @@
-{"HighestLevel":5,"RuntimeCollectionData":{"0":[3,5]}}
+{"HighestLevel":0,"RuntimeCollectionData":{"0":[3]},"RuntimePurchasedShopData":{"Arrow":[0],"Block":[0],"Color":[0]},"RuntimeSelectedShopData":{"Arrow":0,"Block":0,"Color":0}}
