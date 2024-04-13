@@ -35,6 +35,9 @@ namespace Core.GamePlay.Shop{
         {
             base.Awake();
             SetupNavigationButton();
+            _GameEvent.OnSelectArrow += (int para) => { Debug.Log("Select Arrow " + para); };
+            _GameEvent.OnSelectBlock += (int para) => { Debug.Log("Select Block " + para); };
+            _GameEvent.OnSelectColor += (int para) => { Debug.Log("Select Color " + para); };
         }
 
         public void Show(){
@@ -103,9 +106,9 @@ namespace Core.GamePlay.Shop{
                         shopElement.transform.SetParent(_elementContainer);
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
-                        shopElement.InitElements();
-                        shopElement.SetUpShopElement(data.Key, false);
                         _shopElements.Add(shopElement);
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }
                     break;
                 case _ShopPage.Color:
@@ -115,9 +118,9 @@ namespace Core.GamePlay.Shop{
                         shopElement.transform.SetParent(_elementContainer);
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
-                        shopElement.InitElements();
-                        shopElement.SetUpShopElement(data.Key, false);
                         _shopElements.Add(shopElement);
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }    
                     break;
                 case _ShopPage.Arrow:
@@ -127,9 +130,9 @@ namespace Core.GamePlay.Shop{
                         shopElement.transform.SetParent(_elementContainer);
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
-                        shopElement.InitElements();
-                        shopElement.SetUpShopElement(data.Key, false);
                         _shopElements.Add(shopElement);
+                        shopElement.InitElements();
+                        shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }    
                     break;
             }

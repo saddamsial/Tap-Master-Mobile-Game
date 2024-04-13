@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6917947453059754647}
   - component: {fileID: 6397619637935389151}
   - component: {fileID: 6354077627666497454}
+  - component: {fileID: 8027923875122873608}
   m_Layer: 5
   m_Name: ShopElement
   m_TagString: Untagged
@@ -92,6 +93,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ea0c20155be0143b810482c5ef91ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8027923875122873608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684128822898782976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d33e12f5d764046bedcb260a16ce42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _typeButton: 2
+  _currenRect: {fileID: 0}
+  _duration: 0.1
+  _target: {x: 0, y: 0}
+  _onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPointerClik:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6354077627666497454}
+        m_TargetAssemblyTypeName: Core.GamePlay.Shop._ShopElements, Assembly-CSharp
+        m_MethodName: OnClickElement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2797600423304249586
 GameObject:
   m_ObjectHideFlags: 0
