@@ -27,7 +27,9 @@ namespace Core.GamePlay
         private void Awake()
         {
             _GameEvent.OnGamePlayReset += SetUp;
-            this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack.Add(_BeforeLoadManager.Instance.CameraUI);
+            var camera = this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack; 
+            _BeforeLoadManager.Instance.CameraUI.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
+            camera.Add(_BeforeLoadManager.Instance.CameraUI);
         }
 
         private void Start()
@@ -43,6 +45,7 @@ namespace Core.GamePlay
 
         public void SetUp()
         {
+            IsInteractable = true;
             _cameraRotation.DORotate(new Vector3(-45, 90, 90), 0.5f);
             SetCameraSize();
         }
@@ -50,6 +53,7 @@ namespace Core.GamePlay
 
         private void LateUpdate()
         {
+            if(!IsInteractable) return;
             if (_InputSystem.Instance.CheckSelectDown())
             {
                 //_isZooming = false;
@@ -144,5 +148,7 @@ namespace Core.GamePlay
             get => _inertia;
             set => _inertia = value;
         }
+
+        public bool IsInteractable { get; set; }
     }
 }

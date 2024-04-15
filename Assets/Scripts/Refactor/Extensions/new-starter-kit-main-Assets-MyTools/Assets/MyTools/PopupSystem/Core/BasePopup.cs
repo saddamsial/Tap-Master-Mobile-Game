@@ -226,7 +226,8 @@ namespace PopupSystem
 		        refStacks.Pop();
 
 	        if (gameObject.activeSelf)
-		        DestroyImmediate(gameObject);
+		        //DestroyImmediate(gameObject); //need to remove, dont destroy popup when it is not active
+				gameObject.SetActive(false);
 
 			PopupManager.Instance.OnPopupClose(this);
 			hideCompletedCallback?.Invoke();

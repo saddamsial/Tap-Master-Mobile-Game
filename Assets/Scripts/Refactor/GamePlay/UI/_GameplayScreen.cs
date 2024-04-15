@@ -1,6 +1,9 @@
 using Core.Data;
 using Core.GamePlay;
+using Core.GamePlay.Collection;
+using Core.GamePlay.Shop;
 using MyTools.ScreenSystem;
+using PopupSystem;
 using TMPro;
 using UnityEngine;
 
@@ -38,6 +41,14 @@ namespace Core.UI{
 
         public void OnClickUseHintBooster(){
             _GameEvent.OnUseBoosterHint?.Invoke();
+        }
+
+        public void OnClickOpenCollection(){
+            PopupManager.CreateNewInstance<_CollectionPopup>().Show();
+        }
+
+        public void OnClickOpenShop(){
+            PopupManager.CreateNewInstance<_ShopPopup>().Show();
         }
     }
 }
