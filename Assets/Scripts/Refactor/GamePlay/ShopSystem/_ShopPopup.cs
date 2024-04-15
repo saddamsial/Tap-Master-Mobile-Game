@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Data;
@@ -42,9 +43,19 @@ namespace Core.GamePlay.Shop
             base.Awake();
             SetupNavigationButton();
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
-            _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
-            _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block); };
-            _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color); };
+            // _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
+            // _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block); };
+            // _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color); };
+            _GameEvent.OnSelectArrow += OnClickElement(_ShopPage.Arrow);
+            _GameEvent.OnSelectBlock += OnClickElement(_ShopPage.Block);
+            _GameEvent.OnSelectColor += OnClickElement(_ShopPage.Color);
+        }
+
+        public override void OnDestroy(){
+            base.OnDestroy();
+            _GameEvent.OnSelectArrow -= OnClickElement(_ShopPage.Arrow);
+            _GameEvent.OnSelectBlock -= OnClickElement(_ShopPage.Block);
+            _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
         }
 
         public void Show()
@@ -98,6 +109,9 @@ namespace Core.GamePlay.Shop
             _previewBlock.DOLocalRotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Incremental);
+            UpdatePreviewBlock(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Arrow], _ShopPage.Arrow);
+            UpdatePreviewBlock(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color], _ShopPage.Color);
+            UpdatePreviewBlock(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block], _ShopPage.Block);
         }
 
         private void SetupNavigationButton()
@@ -187,13 +201,21 @@ namespace Core.GamePlay.Shop
             _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[_currentPage]].SetState(true, true);
             //OnClickElement(_PlayerData.UserData.RuntimeSelectedShopData[_currentPage], _currentPage);
         }
- 
-        private void OnClickElement(int id, _ShopPage type)
-        {
-            _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
-            _PlayerData.UserData.UpdateSelectedData(type, id);
-            _shopElements[id].SetState(true, true);
 
+        private Action<int> OnClickElement(_ShopPage type)
+        {
+            return (int id) =>
+            {
+                _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
+                _PlayerData.UserData.UpdateSelectedData(type, id);
+                _shopElements[id].SetState(true, true);
+
+                UpdatePreviewBlock(id, type);
+            };
+        }
+
+        private void UpdatePreviewBlock(int id, _ShopPage type)
+        {
             switch (type)
             {
                 case _ShopPage.Block:

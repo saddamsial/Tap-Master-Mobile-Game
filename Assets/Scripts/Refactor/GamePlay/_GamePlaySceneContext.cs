@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Core.Data;
 using Core.GamePlay.BlockPool;
+using Core.GamePlay.Shop;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
@@ -15,6 +16,7 @@ namespace Core.GamePlay
     public class _GamePlaySceneContext : MonoBehaviour
     {
         [SerializeField] private LevelDatas _levelTest;
+        [SerializeField] private _ShopElementDatas _shopDatas;
 
         private GameObject _cameraGamePlay;
 
@@ -61,7 +63,7 @@ namespace Core.GamePlay
         {
             _GameManager.Instance.InitGame(_levelTest, _cameraGamePlay.GetComponentInChildren<Camera>());
             _ParticleSystemManager.Instance.UICamera = _cameraGamePlay.GetComponentInChildren<Camera>();
-
+            _GameManager.Instance.BlockElementDatas = _shopDatas;
             // _GameManager.Instance.BlockPool = _blockPool;
             // //_LevelSystem.Instance.BlockPool = _blockPool;
             // _LevelSystem.Instance.InitLevelSystem(_levelTest);

@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Data;
+using Core.GamePlay.Shop;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
 using DG.Tweening;
@@ -26,6 +30,9 @@ namespace Core.GamePlay.Block
         private void Awake()
         {
             //_GameEvent.OnGamePlayReset += ResetBlock;
+            _GameEvent.OnSelectArrow += ChangeArrowOfBlock();
+            _GameEvent.OnSelectColor += ChangeColorOfBlock();
+            _GameEvent.OnSelectBlock += ChangeBlockNormalMap();
         }
 
         private void OnDestroy()
@@ -40,6 +47,11 @@ namespace Core.GamePlay.Block
             SetUpTypeBlock(movingMaterial, blockedMaterial);
             InitBlockStates(color, isSetColor);
             SetCurrentTypeBlock(_BlockTypeEnum.Moving);
+            
+            ChangeArrowOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Arrow]);
+            ChangeColorOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color]);
+            ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
+
             IsMoving = false;
         }
 
@@ -138,6 +150,27 @@ namespace Core.GamePlay.Block
         {
             _blockStates[_currentType].OnSelect();
             _GamePlayManager.Instance.OnBlockSelected(_blockStates[_currentType].IsCanMove);
+        }
+
+        private Action<int> ChangeArrowOfBlock(){
+            return (x) => {
+                var arrowTexture = _GameManager.Instance.BlockElementDatas.arrowData.ElementAt(x).Value;
+                _meshRenderer.material.SetTexture(_ConstantBlockSetting.KEY_ARROW_TEXTTURE, arrowTexture);
+            };
+        }
+
+        private Action<int> ChangeColorOfBlock(){
+            return (x) => {
+                var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value;
+                _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, color);
+            };
+        }
+
+        private Action<int> ChangeBlockNormalMap(){
+            return (x) => {
+                var normalMap = _GameManager.Instance.BlockElementDatas.blockData.ElementAt(x).Value;
+                _meshRenderer.material.SetTexture(_ConstantBlockSetting.KEY_IDLE_NORMALMAP_TEXTURE, normalMap);
+            };
         }
 
         public Vector3Int LogicPos
