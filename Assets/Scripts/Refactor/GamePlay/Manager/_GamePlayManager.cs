@@ -22,6 +22,7 @@ namespace Core.GamePlay
         {
             _totalBlocks = 0;
             _blockPool = new _BlockPool();
+            IsGameplayInteractable = true;
         }
 
         public void StartLevel(LevelData level)
@@ -72,5 +73,7 @@ namespace Core.GamePlay
             get => _gamePlayCamera;
             set => _gamePlayCamera = value;
         }
+
+        public bool IsGameplayInteractable { get; set; }
     }
 }

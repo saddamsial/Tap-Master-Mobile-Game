@@ -90,7 +90,7 @@ namespace Core.GamePlay.Shop
 
         private void SetStateGamePlayCamera(bool state)
         {
-            _GameManager.Instance.CameraController.IsInteractable = state;
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = state;
         }
 
         private void RotateBlock()

@@ -116,6 +116,8 @@ namespace Core.GamePlay.Block
 
         private void OnMouseUp()
         {
+            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
+                return;
             StopCoroutine("CaculateHodingTime");
             if (_InputSystem.Instance.Timer > 0.15f)
                 return;

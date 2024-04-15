@@ -48,5 +48,6 @@ namespace Core.GamePlay
         public LevelData Level { get; set; }
 
         public _CameraController CameraController { get; set; }
+        public _GamePlayManager GamePlayManager => _gamePlayManager;
     }
 }

@@ -45,7 +45,6 @@ namespace Core.GamePlay
 
         public void SetUp()
         {
-            IsInteractable = true;
             _cameraRotation.DORotate(new Vector3(-45, 90, 90), 0.5f);
             SetCameraSize();
         }
@@ -53,7 +52,7 @@ namespace Core.GamePlay
 
         private void LateUpdate()
         {
-            if(!IsInteractable) return;
+            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable) return;
             if (_InputSystem.Instance.CheckSelectDown())
             {
                 //_isZooming = false;
@@ -149,6 +148,5 @@ namespace Core.GamePlay
             set => _inertia = value;
         }
 
-        public bool IsInteractable { get; set; }
     }
 }
