@@ -3483,6 +3483,12 @@ MonoBehaviour:
   _previewBlock: {fileID: 7272195582997815412}
   _navigationBar: {fileID: 2727885601942173935}
   _elementContainer: {fileID: 6567604850115393676}
+  _arrowSpriteIcon: Assets/Materials/Shop/ArrowSpriteIcon
+  _arrowTexture: Assets/Materials/Shop/ArrowSpriteTexture
+  _blockSpriteICon: Assets/Materials/Shop/BlockNormalMapIcon
+  _blockNormalMap: Assets/Materials/Shop/BlockNormalMapTexture
+  _colorSpriteIcon: Assets/Materials/Shop/ColorSpriteIcon
+  _colorTexture: Assets/Materials/Shop/ColorData
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0

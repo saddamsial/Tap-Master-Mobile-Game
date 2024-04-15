@@ -23,6 +23,8 @@ namespace Core.Data{
             UpdatePurchasedData(_ShopPage.Block, 1);
             UpdatePurchasedData(_ShopPage.Color, 0);
             UpdatePurchasedData(_ShopPage.Color, 1);
+            UpdatePurchasedData(_ShopPage.Color, 2);
+            UpdatePurchasedData(_ShopPage.Color, 3);
             UpdateSelectedData(_ShopPage.Arrow, 0);
             UpdateSelectedData(_ShopPage.Block, 0);
             UpdateSelectedData(_ShopPage.Color, 0);

@@ -4,11 +4,10 @@ using System.Linq;
 using Core.Data;
 using Core.GamePlay.Block;
 using DG.Tweening;
-using DG.Tweening.Plugins.Options;
 using MyTools.Generic;
 using PopupSystem;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Core.GamePlay.Shop
 {
@@ -229,5 +228,110 @@ namespace Core.GamePlay.Shop
                     break;
             }
         }
+
+#if UNITY_EDITOR // Load data tools
+        [Header("Data Resources Path")]
+        [SerializeField] private string _arrowSpriteIcon;
+        [SerializeField] private string _arrowTexture;
+        [SerializeField] private string _blockSpriteICon;
+        [SerializeField] private string _blockNormalMap;
+        [SerializeField] private string _colorSpriteIcon;
+        [SerializeField] private string _colorTexture;
+
+        [ContextMenu("Load Data")]
+        private void LoadData()
+        {
+            var listArrowSpriteIcon = System.IO.Directory.GetFiles(_arrowSpriteIcon, "*.png", System.IO.SearchOption.AllDirectories);
+            List<Sprite> listSprite = new List<Sprite>();
+            foreach (var name in listArrowSpriteIcon)
+            {
+                listSprite.Add(AssetDatabase.LoadAssetAtPath<Sprite>(name));
+            }
+
+            var listArrowSpriteTexture = System.IO.Directory.GetFiles(_arrowTexture, "*.png", System.IO.SearchOption.AllDirectories);
+            List<Texture2D> listTexture = new List<Texture2D>();
+            foreach (var name in listArrowSpriteTexture)
+            {
+                listTexture.Add(AssetDatabase.LoadAssetAtPath<Texture2D>(name));
+            }
+
+            var listBlockSpriteIcon = System.IO.Directory.GetFiles(_blockSpriteICon, "*.png", System.IO.SearchOption.AllDirectories);
+            List<Sprite> listBlockSprite = new List<Sprite>();
+            foreach (var name in listBlockSpriteIcon)
+            {
+                listBlockSprite.Add(AssetDatabase.LoadAssetAtPath<Sprite>(name));
+            }
+            
+            var listBlockNormalMap = System.IO.Directory.GetFiles(_blockNormalMap, "*.png", System.IO.SearchOption.AllDirectories);
+            List<Texture2D> listBlockTexture = new List<Texture2D>();
+            foreach (var name in listBlockNormalMap)
+            {
+                listBlockTexture.Add(AssetDatabase.LoadAssetAtPath<Texture2D>(name));
+            }
+
+            var listColorSpriteIcon = System.IO.Directory.GetFiles(_colorSpriteIcon, "*.png", System.IO.SearchOption.AllDirectories);
+            List<Sprite> listColorSprite = new List<Sprite>();
+            foreach (var name in listColorSpriteIcon)
+            {
+                listColorSprite.Add(AssetDatabase.LoadAssetAtPath<Sprite>(name));
+            }
+
+            var listColorTxt = System.IO.Directory.GetFiles(_colorTexture, "*.txt", System.IO.SearchOption.AllDirectories);
+            char[] splitChar = { '\n', '\r' };
+            var colorString = System.IO.File.ReadAllText(listColorTxt[0]).Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
+            List<Color> listColor = new List<Color>();
+            foreach (var color in colorString)
+            {
+                if(ColorUtility.TryParseHtmlString(color, out Color c))
+                {
+                    listColor.Add(c);
+                }
+                else Debug.LogError("Color not valid");
+            }
+
+            _shopElementDatas.arrowData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, Texture2D>();
+            if (listArrowSpriteIcon.Length == listArrowSpriteTexture.Length)
+            {
+                for (int i = 0; i < listArrowSpriteIcon.Length; i++)
+                {
+                    _shopElementDatas.arrowData.Add(listSprite[i], listTexture[i]);
+                }
+            }
+            else
+            {
+                Debug.LogError("Arrow data not match");
+            }
+
+            _shopElementDatas.blockData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, Texture2D>();
+            if (listBlockSprite.Count == listBlockTexture.Count)
+            {
+                for (int i = 0; i < listBlockSprite.Count; i++)
+                {
+                    _shopElementDatas.blockData.Add(listBlockSprite[i], listBlockTexture[i]);
+                }
+            }
+            else
+            {
+                Debug.LogError("Block data not match");
+            }
+
+            _shopElementDatas.colorData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, Color>();
+            if (listColorSprite.Count == listColor.Count)
+            {
+                for (int i = 0; i < listColorSprite.Count; i++)
+                {
+                    _shopElementDatas.colorData.Add(listColorSprite[i], listColor[i]);
+                }
+            }
+            else
+            {
+                Debug.LogError("Color data not match");
+            }
+
+            UnityEditor.EditorUtility.SetDirty(_shopElementDatas);
+            AssetDatabase.SaveAssets();
+        }
+#endif
+
     }
 }
