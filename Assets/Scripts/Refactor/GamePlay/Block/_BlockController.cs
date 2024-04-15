@@ -30,9 +30,10 @@ namespace Core.GamePlay.Block
         private void Awake()
         {
             //_GameEvent.OnGamePlayReset += ResetBlock;
-            _GameEvent.OnSelectArrow += ChangeArrowOfBlock();
-            _GameEvent.OnSelectColor += ChangeColorOfBlock();
-            _GameEvent.OnSelectBlock += ChangeBlockNormalMap();
+            // _GameEvent.OnSelectArrow += ChangeArrowOfBlock();
+            // _GameEvent.OnSelectColor += ChangeColorOfBlock();
+            // _GameEvent.OnSelectBlock += ChangeBlockNormalMap(); 
+            _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
         }
 
         private void OnDestroy()
@@ -150,6 +151,25 @@ namespace Core.GamePlay.Block
         {
             _blockStates[_currentType].OnSelect();
             _GamePlayManager.Instance.OnBlockSelected(_blockStates[_currentType].IsCanMove);
+        }
+
+        private Action<int, _ShopPage> ChangeBlockDisplayed(){
+            return (x, type) => {
+                switch (type)
+                {
+                    case _ShopPage.Arrow:
+                        ChangeArrowOfBlock().Invoke(x);
+                        break;
+                    case _ShopPage.Color:
+                        ChangeColorOfBlock().Invoke(x);
+                        break;
+                    case _ShopPage.Block:
+                        ChangeBlockNormalMap().Invoke(x);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                }
+            };
         }
 
         private Action<int> ChangeArrowOfBlock(){

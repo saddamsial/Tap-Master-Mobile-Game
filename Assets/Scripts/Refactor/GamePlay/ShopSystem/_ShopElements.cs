@@ -44,18 +44,19 @@ namespace Core.GamePlay.Shop
         public void OnClickElement()
         {
             if(!_isInteractable) return;
-            switch (_currentElementType)
-            {
-                case _ShopPage.Arrow:
-                    _GameEvent.OnSelectArrow?.Invoke(_elementId);
-                    break;
-                case _ShopPage.Block:
-                    _GameEvent.OnSelectBlock?.Invoke(_elementId);
-                    break;
-                case _ShopPage.Color:
-                    _GameEvent.OnSelectColor?.Invoke(_elementId);
-                    break;
-            }
+            // switch (_currentElementType)
+            // {
+            //     case _ShopPage.Arrow:
+            //         _GameEvent.OnSelectArrow?.Invoke(_elementId);
+            //         break;
+            //     case _ShopPage.Block:
+            //         _GameEvent.OnSelectBlock?.Invoke(_elementId);
+            //         break;
+            //     case _ShopPage.Color:
+            //         _GameEvent.OnSelectColor?.Invoke(_elementId);
+            //         break;
+            // }
+            _GameEvent.OnSelectShopElement?.Invoke(_elementId, _currentElementType);
             //_GameEvent.OnSelectArrow?.Invoke(_elementId);
         }
     }

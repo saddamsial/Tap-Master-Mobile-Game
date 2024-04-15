@@ -45,16 +45,21 @@ namespace Core.GamePlay.Shop
             // _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
             // _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block); };
             // _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color); };
-            _GameEvent.OnSelectArrow += OnClickElement(_ShopPage.Arrow);
-            _GameEvent.OnSelectBlock += OnClickElement(_ShopPage.Block);
-            _GameEvent.OnSelectColor += OnClickElement(_ShopPage.Color);
+            // _GameEvent.OnSelectArrow += OnClickElement(_ShopPage.Arrow);
+            // _GameEvent.OnSelectBlock += OnClickElement(_ShopPage.Block);
+            // _GameEvent.OnSelectColor += OnClickElement(_ShopPage.Color);
+
+            _GameEvent.OnSelectShopElement += OnClickShopElement();
+
         }
 
         public override void OnDestroy(){
             base.OnDestroy();
-            _GameEvent.OnSelectArrow -= OnClickElement(_ShopPage.Arrow);
-            _GameEvent.OnSelectBlock -= OnClickElement(_ShopPage.Block);
-            _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
+            // _GameEvent.OnSelectArrow -= OnClickElement(_ShopPage.Arrow);
+            // _GameEvent.OnSelectBlock -= OnClickElement(_ShopPage.Block);
+            // _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
+
+            _GameEvent.OnSelectShopElement -= OnClickShopElement();
         }
 
         public void Show()
@@ -199,6 +204,17 @@ namespace Core.GamePlay.Shop
             }
             _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[_currentPage]].SetState(true, true);
             //OnClickElement(_PlayerData.UserData.RuntimeSelectedShopData[_currentPage], _currentPage);
+        }
+
+        private Action<int, _ShopPage> OnClickShopElement(){
+            return (int id, _ShopPage type) =>
+            {
+                _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
+                _PlayerData.UserData.UpdateSelectedData(type, id);
+                _shopElements[id].SetState(true, true);
+
+                UpdatePreviewBlock(id, type);
+            };
         }
 
         private Action<int> OnClickElement(_ShopPage type)
