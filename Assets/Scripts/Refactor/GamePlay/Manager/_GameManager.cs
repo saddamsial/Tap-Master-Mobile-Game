@@ -1,4 +1,5 @@
 using Core.GamePlay.BlockPool;
+using Core.GamePlay.Shop;
 using Core.SystemGame;
 using UnityEngine;
 
@@ -48,5 +49,8 @@ namespace Core.GamePlay
         public LevelData Level { get; set; }
 
         public _CameraController CameraController { get; set; }
+        public _GamePlayManager GamePlayManager => _gamePlayManager;
+
+        public _ShopElementDatas BlockElementDatas { get; set; }
     }
 }
