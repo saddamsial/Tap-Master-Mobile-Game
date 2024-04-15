@@ -35,9 +35,9 @@ namespace Core.GamePlay.Shop{
         {
             base.Awake();
             SetupNavigationButton();
-            _GameEvent.OnSelectArrow += (int para) => { Debug.Log("Select Arrow " + para); };
-            _GameEvent.OnSelectBlock += (int para) => { Debug.Log("Select Block " + para); };
-            _GameEvent.OnSelectColor += (int para) => { Debug.Log("Select Color " + para); };
+            _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
+            _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block);};
+            _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color);};
         }
 
         public void Show(){
@@ -160,6 +160,12 @@ namespace Core.GamePlay.Shop{
                 _shopElements[id].SetState(true);
             }
             _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[_currentPage]].SetState(true, true);
+        }
+
+        private void OnClickElement(int id, _ShopPage type){
+            _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
+            _PlayerData.UserData.UpdateSelectedData(type, id);
+            _shopElements[id].SetState(true, true);
         }
     }
 }

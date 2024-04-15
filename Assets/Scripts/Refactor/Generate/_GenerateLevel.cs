@@ -45,7 +45,6 @@ namespace Generate
         private (Vector3, int)[,,] _stateMatrix = new (Vector3, int)[30, 30, 30];
         private bool _isGenerateCompleted = false;
         private List<int> _currentPath = new List<int>();
-        private int _maxDis = 0;
         private List<Vector3Int> _direction = new List<Vector3Int>(){
             Vector3Int.up,
             Vector3Int.down,

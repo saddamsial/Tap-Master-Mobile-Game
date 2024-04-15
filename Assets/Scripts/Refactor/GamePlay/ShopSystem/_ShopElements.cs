@@ -16,8 +16,8 @@ namespace Core.GamePlay.Shop
 
         public void InitElements()
         {
-            if (_isInit) return;
-            _isInit = true;
+            // if (_isInit) return;
+            // _isInit = true;
             _stateElement = new TwoStateElement(this.transform);
             _icon = this.transform.GetChild(0).GetComponent<Image>();
             _selectedIcon = this.transform.GetChild(2);

@@ -15,7 +15,6 @@ public class _LoadingSceneController : MonoBehaviour
 
 
     private bool _isLoadedManager = false;
-    private bool _isLoadedAsset = false;
 
     // Start is called before the first frame update
     void Awake()

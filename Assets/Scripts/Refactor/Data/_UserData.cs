@@ -18,6 +18,7 @@ namespace Core.Data{
             RuntimeSelectedShopData = new Dictionary<_ShopPage, int>();
             UpdateCollectionData(0, 3);
             UpdatePurchasedData(_ShopPage.Arrow, 0);
+            UpdatePurchasedData(_ShopPage.Arrow, 1);
             UpdatePurchasedData(_ShopPage.Block, 0);
             UpdatePurchasedData(_ShopPage.Color, 0);
             UpdateSelectedData(_ShopPage.Arrow, 0);
