@@ -125,7 +125,7 @@ namespace Core.GamePlay.Shop
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
                         _shopElements.Add(shopElement);
-                        shopElement.InitElements();
+                        shopElement.InitElements(_currentPage);
                         shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }
                     break;
@@ -138,7 +138,7 @@ namespace Core.GamePlay.Shop
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
                         _shopElements.Add(shopElement);
-                        shopElement.InitElements();
+                        shopElement.InitElements(_currentPage);
                         shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }
                     break;
@@ -151,7 +151,7 @@ namespace Core.GamePlay.Shop
                         shopElement.transform.localScale = Vector3.one;
                         shopElement.transform.localPosition = Vector3.zero;
                         _shopElements.Add(shopElement);
-                        shopElement.InitElements();
+                        shopElement.InitElements(_currentPage);
                         shopElement.SetUpShopElement(data.Key, _shopElements.Count - 1, false);
                     }
                     break;
@@ -185,8 +185,9 @@ namespace Core.GamePlay.Shop
                 _shopElements[id].SetState(true);
             }
             _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[_currentPage]].SetState(true, true);
+            //OnClickElement(_PlayerData.UserData.RuntimeSelectedShopData[_currentPage], _currentPage);
         }
-
+ 
         private void OnClickElement(int id, _ShopPage type)
         {
             _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
