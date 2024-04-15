@@ -29,16 +29,12 @@ namespace Core.GamePlay.Block
 
         private void Awake()
         {
-            //_GameEvent.OnGamePlayReset += ResetBlock;
-            // _GameEvent.OnSelectArrow += ChangeArrowOfBlock();
-            // _GameEvent.OnSelectColor += ChangeColorOfBlock();
-            // _GameEvent.OnSelectBlock += ChangeBlockNormalMap(); 
             _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
         }
 
         private void OnDestroy()
         {
-            //   _GameEvent.OnGamePlayReset -= ResetBlock;
+            _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
         }
 
         public void InitBlock(Material idleMaterial, Material movingMaterial, Material blockedMaterial, Vector3 rotation, Vector3 color, bool isSetColor = false)

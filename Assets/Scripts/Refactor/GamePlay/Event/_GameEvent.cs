@@ -9,10 +9,6 @@ namespace Core.GamePlay{
         public static Action OnUseBoosterOpenFace;
         public static Action OnUseBoosterHint;
 
-        // public static Action<int> OnSelectArrow;
-        // public static Action<int> OnSelectBlock;
-        // public static Action<int> OnSelectColor;
-
         public static Action<int, _ShopPage> OnSelectShopElement;
 
     }
