@@ -8,5 +8,7 @@ namespace Core.GamePlay.Block{
         public static string KEY_IS_IDLE_BLOCK = "_IsIdleBlock";
         public static string KEY_IS_OPEN_FRONT_FACE = "_IsOpenFrontFace";
         public static string KEY_IS_SPECIAL_COLOR = "_SpecialColor";
+        public static string KEY_ARROW_TEXTTURE = "_ArrowTexture";
+        public static string KEY_IDLE_NORMALMAP_TEXTURE = "_NormalMapIdleCube";
     }
 }
