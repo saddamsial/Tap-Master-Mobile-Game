@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _typeButton: 0
-  _currenRect: {fileID: 8435689037568610440}
+  _currenRect: {fileID: 2292683565437546082}
   _duration: 0.1
   _target: {x: 0.9, y: 0.9}
   _onPointerDown:
