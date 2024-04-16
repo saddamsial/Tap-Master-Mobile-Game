@@ -1,6 +1,7 @@
 using Core.Data;
 using Core.GamePlay;
 using Core.GamePlay.Collection;
+using Core.GamePlay.LevelSystem;
 using Core.GamePlay.Shop;
 using MyTools.ScreenSystem;
 using PopupSystem;
@@ -49,6 +50,10 @@ namespace Core.UI{
 
         public void OnClickOpenShop(){
             PopupManager.CreateNewInstance<_ShopPopup>().Show();
+        }
+
+        public void OnClickOpenLevel(){
+            PopupManager.CreateNewInstance<_LevelPopup>().Show();
         }
     }
 }
