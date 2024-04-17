@@ -25,13 +25,14 @@ namespace Core.GamePlay.LevelSystem{
                 item.transform.position = Vector3.zero;
                 _listContainedLevelElements.Add(new _LevelElements(item.transform));
             }
+            Debug.Log(_listContainedLevelElements.Count);
         }
 
         public void SetLevelInLine(int line, int maxLevel = -1){
             // int isHaveMaxLevel = maxLevel == -1 ? 0 : 1;
             for(int i = 0; i < _numberOfItemsPerRow; i++){
                 int level = line * _numberOfItemsPerRow + i + 1;
-                if(level < maxLevel){
+                if(level <= maxLevel){
                     _listContainedLevelElements[i].SetLevel(level);
                 }else{
                     _listContainedLevelElements[i].SetLevel(-1);

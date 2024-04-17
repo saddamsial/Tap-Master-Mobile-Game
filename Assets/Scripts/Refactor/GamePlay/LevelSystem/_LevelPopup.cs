@@ -18,6 +18,7 @@ namespace Core.GamePlay.LevelSystem
         [SerializeField]
         int Count = 100;
 
+        private int _maxDataLevelInMode = 30;
         public void Show()
         {
             base.Show();
@@ -43,7 +44,7 @@ namespace Core.GamePlay.LevelSystem
         void OnFillItem(int index, GameObject item)
         {
             //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
-            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, 30);
+            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, _maxDataLevelInMode);
         }
 
         /// <summary>

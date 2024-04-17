@@ -13,6 +13,7 @@ namespace Core.GamePlay.LevelSystem{
         public _LevelElements(Transform levelItem)
         {
             _levelText = levelItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            _levelItem = levelItem;
         }
 
         public void SetLevel(int level){
