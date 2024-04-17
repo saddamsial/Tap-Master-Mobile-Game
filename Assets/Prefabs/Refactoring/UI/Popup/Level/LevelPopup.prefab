@@ -495,14 +495,14 @@ MonoBehaviour:
   _onPointerClik:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Core.GamePlay.Shop._ShopPopup, Assembly-CSharp
-        m_MethodName: OnClickGotoColorPage
-        m_Mode: 1
+      - m_Target: {fileID: 6788360572687779092}
+        m_TargetAssemblyTypeName: Core.GamePlay.LevelSystem._LevelPopup, Assembly-CSharp
+        m_MethodName: GotoLevelPage
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -840,7 +840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3616447405910428783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -993,7 +993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8838245318838717742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1700,10 +1700,10 @@ MonoBehaviour:
   _onPointerClik:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Core.GamePlay.Shop._ShopPopup, Assembly-CSharp
-        m_MethodName: OnClickGotoArrowPage
-        m_Mode: 1
+      - m_Target: {fileID: 6788360572687779092}
+        m_TargetAssemblyTypeName: Core.GamePlay.LevelSystem._LevelPopup, Assembly-CSharp
+        m_MethodName: GotoLevelPage
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1732,7 +1732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6794262510917928838
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2390,14 +2390,14 @@ MonoBehaviour:
   _onPointerClik:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Core.GamePlay.Shop._ShopPopup, Assembly-CSharp
-        m_MethodName: OnClickGotoBlockPage
-        m_Mode: 1
+      - m_Target: {fileID: 6788360572687779092}
+        m_TargetAssemblyTypeName: Core.GamePlay.LevelSystem._LevelPopup, Assembly-CSharp
+        m_MethodName: GotoLevelPage
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2675,7 +2675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6594718226532409735
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2854,6 +2854,7 @@ MonoBehaviour:
   hideAnimationClip: {fileID: 7400000, guid: f52d5a6a1bccae14aa239d51d6a3d210, type: 2}
   List: {fileID: 3572785884774653499}
   Count: 100
+  _navigationBar: {fileID: 2727885601942173935}
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0
