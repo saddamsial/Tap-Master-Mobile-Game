@@ -50,6 +50,7 @@ namespace Core.GamePlay
 
         public _CameraController CameraController { get; set; }
         public _GamePlayManager GamePlayManager => _gamePlayManager;
+        public _LevelSystem LevelSystem => _LevelSystem;
 
         public _ShopElementDatas BlockElementDatas { get; set; }
     }

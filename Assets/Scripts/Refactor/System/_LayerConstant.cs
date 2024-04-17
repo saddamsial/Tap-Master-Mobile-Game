@@ -10,6 +10,10 @@ namespace Core.SystemGame{
     
         public const int MAX_BLOCKS_TO_BE_REMOVED_WHEN_HINT = 10;
         public const int MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT = 5;
+
+        public const int LEVEL_EASY = 30;
+        public const int LEVEL_MEDIUM = 60;
+        public const int LEVEL_MASTER = 89;
     
     }
 }

@@ -12,8 +12,6 @@ using UnityEngine.UI;
 
 public class _LoadingSceneController : MonoBehaviour
 {
-
-
     private bool _isLoadedManager = false;
 
     // Start is called before the first frame update

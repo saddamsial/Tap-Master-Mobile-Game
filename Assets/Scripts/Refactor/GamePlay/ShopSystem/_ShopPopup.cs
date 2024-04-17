@@ -120,10 +120,12 @@ namespace Core.GamePlay.Shop
 
         private void SetupNavigationButton()
         {
-            _gotoPageButtons = new Dictionary<_ShopPage, TwoStateElement>();
-            _gotoPageButtons.Add(_ShopPage.Block, new TwoStateElement(_navigationBar.GetChild(1)));
-            _gotoPageButtons.Add(_ShopPage.Color, new TwoStateElement(_navigationBar.GetChild(2)));
-            _gotoPageButtons.Add(_ShopPage.Arrow, new TwoStateElement(_navigationBar.GetChild(0)));
+            _gotoPageButtons = new Dictionary<_ShopPage, TwoStateElement>
+            {
+                { _ShopPage.Block, new TwoStateElement(_navigationBar.GetChild(1)) },
+                { _ShopPage.Color, new TwoStateElement(_navigationBar.GetChild(2)) },
+                { _ShopPage.Arrow, new TwoStateElement(_navigationBar.GetChild(0)) }
+            };
 
             OnClickGotoArrowPage();
         }

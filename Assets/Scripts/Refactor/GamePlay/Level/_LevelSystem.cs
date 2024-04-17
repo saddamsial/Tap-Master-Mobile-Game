@@ -23,5 +23,7 @@ namespace Core.SystemGame{
         public LevelData GetLevelData(){
             return _levelData.datasControllers[Mathf.Min(_PlayerData.UserData.HighestLevel, _levelData.numberOfLevels - 1)];
         }
+
+        public int MaxLevelCount=> _levelData.numberOfLevels;
     }
 }
