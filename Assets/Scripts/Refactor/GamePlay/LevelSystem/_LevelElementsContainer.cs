@@ -17,9 +17,8 @@ namespace Core.GamePlay.LevelSystem{
         public void Init(int numberOfItems){
             if(_isInit) return;
             _isInit = true;
-            for(int i = 0; i < numberOfItems; i++){
+            for(int i = 0; i < 3; i++){
                 var item = SimplePool.Spawn(_levelItemPrefab, Vector3.zero, Quaternion.identity);
-                //_listContainedLevelElements.Add(item.GetComponent<_LevelElements>());
                 item.transform.SetParent(_container);
                 item.transform.localScale = Vector3.one;
                 item.transform.position = Vector3.zero;

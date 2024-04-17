@@ -41,16 +41,17 @@ namespace Core.GamePlay.LevelSystem
         public void Show()
         {
             base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             if (_isInit) return;
             _isInit = true;
             InitInfinityScroll();
             InitPopupElement();
-            
         }
 
         public void Exit()
         {
             base.Hide();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
         }
 
         #region Infinity Scroll Action
