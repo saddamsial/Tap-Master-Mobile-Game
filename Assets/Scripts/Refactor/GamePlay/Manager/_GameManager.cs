@@ -13,6 +13,7 @@ namespace Core.GamePlay
 
         private _LevelSystem _LevelSystem;
         private _GamePlayManager _gamePlayManager;
+        private int _currentCollectedLevelCoin;
 
         public void InitGame(LevelDatas levelData, Camera cameraGameplay)
         {
@@ -43,7 +44,8 @@ namespace Core.GamePlay
 
         public void NextLevel()
         {
-            StartLevel();
+            var currentLevel = Level.levelIndex - 1;
+            StartLevel(currentLevel + 1);
         }
 
         public void StartLevel(int level){
@@ -61,5 +63,13 @@ namespace Core.GamePlay
         public _LevelSystem LevelSystem => _LevelSystem;
 
         public _ShopElementDatas BlockElementDatas { get; set; }
+        public int CurrentCollectedLevelCoin
+        {
+            get => _currentCollectedLevelCoin;
+            set
+            {
+                _currentCollectedLevelCoin = value;
+            }
+        }
     }
 }

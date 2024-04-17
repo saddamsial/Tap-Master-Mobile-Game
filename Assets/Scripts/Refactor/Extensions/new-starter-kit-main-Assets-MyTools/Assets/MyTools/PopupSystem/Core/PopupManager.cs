@@ -4,6 +4,11 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
+#region Custom Namespace
+using Core.GamePlay;
+using Core.UI.ExtendPopup;
+#endregion
+
 namespace PopupSystem
 {
     public class PopupManager : MonoBehaviour
@@ -72,7 +77,7 @@ namespace PopupSystem
             mInstance = this;
             mTransparentTrans = transparent.transform;
             defaultSortingOrder = canvas.sortingOrder;
-      
+            InitGameEvent();
         }
 
         private void Start()
@@ -84,6 +89,7 @@ namespace PopupSystem
         private void OnDestroy()
         {
             EvtPopupClose -= HandlePopupClose;
+            DisposeGameEvent();
         }
 
         public static T CreateNewInstance<T>()
@@ -291,5 +297,26 @@ namespace PopupSystem
         }
 
         #endregion
+
+        #region Custom Action
+        private void InitGameEvent(){
+            _GameEvent.OnGameWin += ShowPopupWinGame;
+            _GameEvent.OnGameLose += ShowPopupLoseGame;
+        }
+
+        private void DisposeGameEvent(){
+            _GameEvent.OnGameWin -= ShowPopupWinGame;
+            _GameEvent.OnGameLose -= ShowPopupLoseGame;
+        }
+
+        private void ShowPopupWinGame(){
+            CreateNewInstance<_WinGamePopup>().Show();
+        }
+
+        private void ShowPopupLoseGame(){
+            //CreateNewInstance<_LoseGamePopup>().Show();
+        }
+        #endregion
+
     }
 }

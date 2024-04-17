@@ -5,6 +5,7 @@ namespace Core.GamePlay{
     public class _GameEvent{
         public static Action OnGamePlayReset;
         public static Action OnGameWin;
+        public static Action OnGameLose;
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;
