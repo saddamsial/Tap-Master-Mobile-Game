@@ -31,7 +31,7 @@ namespace Core.GamePlay.LevelSystem{
             _currentLevel = level;
             _levelText.text = _levelTextFormat + _currentLevel;
             _levelItem.gameObject.SetActive(_currentLevel != -1);
-            SetInteractable(_currentLevel <= _PlayerData.UserData.HighestLevel + 1);
+            SetInteractable(_currentLevel <= _PlayerData.UserData.HighestLevelInMode[GetLevelType()]);
             if(_currentLevel == _ConstantGameplayConfig.LEVEL_EASY+1 || _currentLevel == _ConstantGameplayConfig.LEVEL_MEDIUM + _ConstantGameplayConfig.LEVEL_EASY + 1 || _currentLevel == 1){
                 SetInteractable(true);
             }
@@ -43,7 +43,7 @@ namespace Core.GamePlay.LevelSystem{
             Debug.Log("Play Level: " + _currentLevel);
             if(_currentLevel < _GameManager.Instance.LevelSystem.MaxLevelCount){
                 Debug.Log("Goto Level: " + _currentLevel);
-                _PlayerData.UserData.HighestLevel = _currentLevel - 1;
+                _PlayerData.UserData.CurrentLevel = _currentLevel - 1;
                 _GameManager.Instance.BlockPool.DeSpawnAllBlocks();
                 _GameManager.Instance.StartLevel();
             }
@@ -55,6 +55,16 @@ namespace Core.GamePlay.LevelSystem{
         private void SetInteractable(bool isInteractable){
             _playButton.interactable = isInteractable;
             _lockMask.gameObject.SetActive(!isInteractable);
+        }
+
+        private _LevelType GetLevelType(){
+            if(_currentLevel <= _ConstantGameplayConfig.LEVEL_EASY){
+                return _LevelType.Easy;
+            }
+            if(_currentLevel <= _ConstantGameplayConfig.LEVEL_EASY + _ConstantGameplayConfig.LEVEL_MEDIUM){
+                return _LevelType.Medium;
+            }
+            return _LevelType.Master;
         }
     }
 }

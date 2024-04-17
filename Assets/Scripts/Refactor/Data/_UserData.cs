@@ -1,17 +1,25 @@
 using System.Collections.Generic;
+using Core.GamePlay.LevelSystem;
 using Core.GamePlay.Shop;
+using Core.SystemGame;
+using UnityEngine;
 
 namespace Core.Data{
     public class _UserData{
         
-        public int HighestLevel;
+        public int CurrentLevel;
         public Dictionary<int, List<int>> RuntimeCollectionData;
         public Dictionary<_ShopPage, List<int>> RuntimePurchasedShopData;
         public Dictionary<_ShopPage, int> RuntimeSelectedShopData;
-
+        public Dictionary<_LevelType, int> HighestLevelInMode;
 
         public void InitUserData(){
-            HighestLevel = 0;
+            CurrentLevel = 0;
+            HighestLevelInMode = new Dictionary<_LevelType, int>(){
+                {_LevelType.Easy, 1},
+                {_LevelType.Medium, _ConstantGameplayConfig.LEVEL_EASY+1},
+                {_LevelType.Master, _ConstantGameplayConfig.LEVEL_EASY + _ConstantGameplayConfig.LEVEL_MEDIUM + 1}
+            };
 #region Collection and Shop Data
             RuntimeCollectionData = new Dictionary<int, List<int>>();
             RuntimePurchasedShopData = new Dictionary<_ShopPage, List<int>>();
@@ -32,7 +40,19 @@ namespace Core.Data{
         }
 
         public void UpdateWinGameUserDataValue(){
-            HighestLevel++;
+            CurrentLevel++;
+            if(CurrentLevel < _ConstantGameplayConfig.LEVEL_EASY)
+            {
+                HighestLevelInMode[_LevelType.Easy] = Mathf.Max(CurrentLevel + 1, HighestLevelInMode[_LevelType.Easy]);
+            }
+            else if(CurrentLevel < _ConstantGameplayConfig.LEVEL_EASY + _ConstantGameplayConfig.LEVEL_MEDIUM)
+            {
+                HighestLevelInMode[_LevelType.Medium] = Mathf.Max(CurrentLevel + 1,HighestLevelInMode[_LevelType.Medium]);
+            }
+            else
+            {
+                HighestLevelInMode[_LevelType.Master] = Mathf.Max(CurrentLevel + 1,HighestLevelInMode[_LevelType.Master]);
+            }
         }
 
         public void UpdateCollectionData(int colelctionId, int puzzlePieceId){

@@ -26,6 +26,7 @@ namespace Core.GamePlay.Block
         private Vector3Int _obstacleLogicPos;
         private Vector3 _color;
         private bool _isInit;
+        private bool _isSetColor = false;
 
         private void Awake()
         {
@@ -44,8 +45,9 @@ namespace Core.GamePlay.Block
             SetUpTypeBlock(movingMaterial, blockedMaterial);
             InitBlockStates(color, isSetColor);
             SetCurrentTypeBlock(_BlockTypeEnum.Moving);
-            
+            _isSetColor = isSetColor;
             ChangeArrowOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Arrow]);
+
             ChangeColorOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color]);
             ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
 
@@ -77,7 +79,7 @@ namespace Core.GamePlay.Block
         {
             _currentType = blockType;
             _blockStates[_currentType].SetUp();
-            if(blockType == _BlockTypeEnum.GoldReward)
+            if (blockType == _BlockTypeEnum.GoldReward)
                 _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position);
         }
 
@@ -105,7 +107,8 @@ namespace Core.GamePlay.Block
             });
         }
 
-        public bool CheckObjectVisible(Plane[] planes){
+        public bool CheckObjectVisible(Plane[] planes)
+        {
             return GeometryUtility.TestPlanesAABB(planes, _meshRenderer.bounds);
         }
 
@@ -125,7 +128,7 @@ namespace Core.GamePlay.Block
 
         private void OnMouseUp()
         {
-            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
+            if (!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
                 return;
             StopCoroutine("CaculateHodingTime");
             if (_InputSystem.Instance.Timer > 0.15f)
@@ -149,8 +152,10 @@ namespace Core.GamePlay.Block
             _GamePlayManager.Instance.OnBlockSelected(_blockStates[_currentType].IsCanMove);
         }
 
-        private Action<int, _ShopPage> ChangeBlockDisplayed(){
-            return (x, type) => {
+        private Action<int, _ShopPage> ChangeBlockDisplayed()
+        {
+            return (x, type) =>
+            {
                 switch (type)
                 {
                     case _ShopPage.Arrow:
@@ -168,22 +173,31 @@ namespace Core.GamePlay.Block
             };
         }
 
-        private Action<int> ChangeArrowOfBlock(){
-            return (x) => {
+        private Action<int> ChangeArrowOfBlock()
+        {
+            return (x) =>
+            {
                 var arrowTexture = _GameManager.Instance.BlockElementDatas.arrowData.ElementAt(x).Value;
                 _meshRenderer.material.SetTexture(_ConstantBlockSetting.KEY_ARROW_TEXTTURE, arrowTexture);
             };
         }
 
-        private Action<int> ChangeColorOfBlock(){
-            return (x) => {
-                var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value;
-                _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, color);
+        private Action<int> ChangeColorOfBlock()
+        {
+            return (x) =>
+            {
+                if (!_isSetColor)
+                {
+                    var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value;
+                    _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, color);
+                }
             };
         }
 
-        private Action<int> ChangeBlockNormalMap(){
-            return (x) => {
+        private Action<int> ChangeBlockNormalMap()
+        {
+            return (x) =>
+            {
                 var normalMap = _GameManager.Instance.BlockElementDatas.blockData.ElementAt(x).Value;
                 _meshRenderer.material.SetTexture(_ConstantBlockSetting.KEY_IDLE_NORMALMAP_TEXTURE, normalMap);
             };

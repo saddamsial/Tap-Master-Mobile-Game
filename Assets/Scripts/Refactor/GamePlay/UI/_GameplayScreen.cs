@@ -31,7 +31,7 @@ namespace Core.UI{
 
 
         public void SetupScreen(){
-            _levelText.text ="Level " + (_PlayerData.UserData.HighestLevel + 1); 
+            _levelText.text ="Level " + (_PlayerData.UserData.CurrentLevel + 1); 
             _openFrontFaceBoosterButton.SetActive(true);
         }
 

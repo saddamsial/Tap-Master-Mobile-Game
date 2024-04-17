@@ -45,6 +45,7 @@ namespace Core.GamePlay
 
         public void SetUp()
         {
+            Debug.Log("Setup Camera");
             _cameraRotation.DORotate(new Vector3(-45, 90, 90), 0.5f);
             SetCameraSize();
         }
