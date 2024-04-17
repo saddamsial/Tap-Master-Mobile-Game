@@ -2508,9 +2508,9 @@ MonoBehaviour:
   _onPointerClik:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Core.GamePlay.Shop._ShopPopup, Assembly-CSharp
-        m_MethodName: Exit
+      - m_Target: {fileID: 6788360572687779092}
+        m_TargetAssemblyTypeName: Core.GamePlay.LevelSystem._LevelPopup, Assembly-CSharp
+        m_MethodName: OnGoToLevelClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2855,6 +2855,7 @@ MonoBehaviour:
   List: {fileID: 3572785884774653499}
   Count: 100
   _navigationBar: {fileID: 2727885601942173935}
+  _inputField: {fileID: 8670512706713771929}
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0

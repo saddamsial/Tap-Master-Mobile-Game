@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.SystemGame;
 using MyTools.Generic;
 using PopupSystem;
+using TMPro;
 using UIS;
 using UnityEngine;
 
@@ -31,12 +32,27 @@ namespace Core.GamePlay.LevelSystem
         int Count = 100;
 
         [SerializeField] private Transform _navigationBar;
+        [SerializeField] private TMP_InputField _inputField;
 
         private int _maxDataLevelInMode = 30;
         private Dictionary<_LevelType, TwoStateElement> _gotoPageButton;
         private _LevelType _currentLevelType = _LevelType.None;
+        private int _gotoLevel;
+        private bool _isCanGoToLevel = false;
 
         private bool _isInit = false;
+
+        public override void Awake()
+        {
+            base.Awake();
+            _inputField.onEndEdit.AddListener(OnEndEditHanlder);
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            _inputField.onEndEdit.RemoveListener(OnEndEditHanlder);
+        }
 
         public void Show()
         {
@@ -50,6 +66,8 @@ namespace Core.GamePlay.LevelSystem
             }
             //List.RecycleAll();
             GotoLevelPage(0);
+            _isCanGoToLevel = false;
+            _inputField.text = "";
         }
 
         public void Exit()
@@ -93,6 +111,30 @@ namespace Core.GamePlay.LevelSystem
             return (int)List.Prefab.GetComponent<RectTransform>().rect.height;
         }
         #endregion
+
+        public void OnEndEditHanlder(string value){
+            if(int.TryParse(value, out int result)){
+                if(result > 0 && result <= Count){
+                    //List.InitData(result);
+                    _isCanGoToLevel = true;
+                    _gotoLevel = result;
+                }
+                Debug.Log("Value: " + result);
+            }
+            else{
+                Debug.Log("Invalid value");
+            }
+        }
+
+        public void OnGoToLevelClick(){
+            if(_isCanGoToLevel){
+                _GameManager.Instance.StartLevel(_gotoLevel - 1);
+                PopupManager.Instance.CloseAllPopup();
+            }
+            else{
+                Debug.Log("Invalid value");
+            }
+        }
 
         private void InitPopupElement()
         {

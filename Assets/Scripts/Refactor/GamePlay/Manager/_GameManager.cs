@@ -1,3 +1,4 @@
+using Core.Data;
 using Core.GamePlay.BlockPool;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
@@ -42,6 +43,13 @@ namespace Core.GamePlay
 
         public void NextLevel()
         {
+            StartLevel();
+        }
+
+        public void StartLevel(int level){
+            _gamePlayManager.IsGameplayInteractable = true;
+            _PlayerData.UserData.CurrentLevel = level;
+            _gamePlayManager.BlockPool.DeSpawnAllBlocks();
             StartLevel();
         }
 
