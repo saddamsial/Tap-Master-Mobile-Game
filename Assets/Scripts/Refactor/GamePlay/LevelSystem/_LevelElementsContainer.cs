@@ -28,11 +28,11 @@ namespace Core.GamePlay.LevelSystem{
             Debug.Log(_listContainedLevelElements.Count);
         }
 
-        public void SetLevelInLine(int line, int maxLevel = -1){
+        public void SetLevelInLine(int line, int startGroupLevel = 0,int maxLevel = -1){
             // int isHaveMaxLevel = maxLevel == -1 ? 0 : 1;
             for(int i = 0; i < _numberOfItemsPerRow; i++){
-                int level = line * _numberOfItemsPerRow + i + 1;
-                if(level <= maxLevel){
+                int level = line * _numberOfItemsPerRow + i + 1 + startGroupLevel;
+                if(level <= maxLevel + startGroupLevel){
                     _listContainedLevelElements[i].SetLevel(level);
                 }else{
                     _listContainedLevelElements[i].SetLevel(-1);

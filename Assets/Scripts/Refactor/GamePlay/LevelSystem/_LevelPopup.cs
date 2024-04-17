@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.SystemGame;
 using MyTools.Generic;
 using PopupSystem;
 using UIS;
@@ -9,6 +10,7 @@ namespace Core.GamePlay.LevelSystem
 {
     public enum _LevelType
     {
+        None = -1,
         Easy,
         Medium,
         Master
@@ -32,7 +34,7 @@ namespace Core.GamePlay.LevelSystem
 
         private int _maxDataLevelInMode = 30;
         private Dictionary<_LevelType, TwoStateElement> _gotoPageButton;
-        private _LevelType _currentLevelType = _LevelType.Easy;
+        private _LevelType _currentLevelType = _LevelType.None;
 
         private bool _isInit = false;
 
@@ -60,7 +62,7 @@ namespace Core.GamePlay.LevelSystem
             Debug.Log("Start");
             List.OnFill += OnFillItem;
             List.OnHeight += OnHeightItem;
-            List.InitData(10);
+            //List.InitData(10);
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Core.GamePlay.LevelSystem
         void OnFillItem(int index, GameObject item)
         {
             //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
-            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, _maxDataLevelInMode);
+            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, GetStartGroupLevel(), _maxDataLevelInMode);
         }
 
         /// <summary>
@@ -98,25 +100,36 @@ namespace Core.GamePlay.LevelSystem
         {
             var nextLevelType = (_LevelType)i;
             if (_currentLevelType == nextLevelType) return;
-            _gotoPageButton[_currentLevelType].SetState(false);
+            if(_currentLevelType != _LevelType.None)
+                _gotoPageButton[_currentLevelType].SetState(false);
             _currentLevelType = nextLevelType;
             _gotoPageButton[_currentLevelType].SetState(true);
             List.RecycleAll();
             switch (_currentLevelType)
             {
                 case _LevelType.Easy:
-                    _maxDataLevelInMode = 30;
+                    _maxDataLevelInMode = _ConstantGameplayConfig.LEVEL_EASY;
                     break;
                 case _LevelType.Medium:
-                    _maxDataLevelInMode = 60;
+                    _maxDataLevelInMode = _ConstantGameplayConfig.LEVEL_MEDIUM;
                     break;
                 case _LevelType.Master:
-                    _maxDataLevelInMode = 89;
+                    _maxDataLevelInMode = _ConstantGameplayConfig.LEVEL_MASTER;
                     break;
                 default:
                     break;
             }
             List.InitData(Mathf.CeilToInt(_maxDataLevelInMode / 3.0f));
+        }
+
+        private int GetStartGroupLevel(){
+            return _currentLevelType switch
+            {
+                _LevelType.Easy => 0,
+                _LevelType.Medium => _ConstantGameplayConfig.LEVEL_EASY,
+                _LevelType.Master => _ConstantGameplayConfig.LEVEL_MEDIUM + _ConstantGameplayConfig.LEVEL_EASY,
+                _ => 0
+            };
         }
     }
 }
