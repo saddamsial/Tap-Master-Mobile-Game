@@ -1,8 +1,6 @@
-using Extensions.InfinityScroll;
 using PopupSystem;
 using UIS;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Core.GamePlay.LevelSystem
 {
@@ -24,7 +22,6 @@ namespace Core.GamePlay.LevelSystem
         {
             base.Show();
             Start();
-
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace Core.GamePlay.LevelSystem
             Debug.Log("Start");
             List.OnFill += OnFillItem;
             List.OnHeight += OnHeightItem;
-            List.InitData(Count);
+            List.InitData(10);
         }
 
         /// <summary>
@@ -46,6 +43,7 @@ namespace Core.GamePlay.LevelSystem
         void OnFillItem(int index, GameObject item)
         {
             //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
+            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, 30);
         }
 
         /// <summary>
