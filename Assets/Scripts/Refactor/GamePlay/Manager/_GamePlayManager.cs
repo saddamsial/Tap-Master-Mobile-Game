@@ -34,13 +34,14 @@ namespace Core.GamePlay
             _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
         }
 
-        private async void WinGame()
+        private void WinGame()
         {
             Debug.Log("WinGame");
             _PlayerData.UserData.UpdateWinGameUserDataValue();
-            await UniTask.Delay(1500);
-            _blockPool?.DeSpawnAllBlocks();
-            _GameManager.Instance.NextLevel();
+            _GameEvent.OnGameWin?.Invoke();
+            // await UniTask.Delay(1500);
+            // _blockPool?.DeSpawnAllBlocks();
+            // _GameManager.Instance.NextLevel();
         }
 
         public void OnBlockSelected(bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
