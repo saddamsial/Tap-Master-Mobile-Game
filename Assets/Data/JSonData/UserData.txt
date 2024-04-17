@@ -1,1 +1,1 @@
-{"HighestLevel":2,"RuntimeCollectionData":{"0":[3]},"RuntimePurchasedShopData":{"Arrow":[0,1],"Block":[0,1],"Color":[0,1,2,3]},"RuntimeSelectedShopData":{"Arrow":0,"Block":1,"Color":0}}
+{"CurrentLevel":2,"RuntimeCollectionData":{"0":[3]},"RuntimePurchasedShopData":{"Arrow":[0,1],"Block":[0,1],"Color":[0,1,2,3]},"RuntimeSelectedShopData":{"Arrow":0,"Block":0,"Color":0},"HighestLevelInMode":{"Easy":3,"Medium":31,"Master":91}}

@@ -42,16 +42,22 @@ namespace Core.GamePlay.LevelSystem
         {
             base.Show();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
-            if (_isInit) return;
-            _isInit = true;
-            InitInfinityScroll();
-            InitPopupElement();
+            if (!_isInit)
+            {
+                _isInit = true;
+                InitInfinityScroll();
+                InitPopupElement();
+            }
+            //List.RecycleAll();
+            GotoLevelPage(0);
         }
 
         public void Exit()
         {
             base.Hide();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            _gotoPageButton[_currentLevelType].SetState(false);
+            _currentLevelType = _LevelType.None;
         }
 
         #region Infinity Scroll Action
@@ -87,21 +93,21 @@ namespace Core.GamePlay.LevelSystem
             return (int)List.Prefab.GetComponent<RectTransform>().rect.height;
         }
         #endregion
-        
-        private void InitPopupElement(){
+
+        private void InitPopupElement()
+        {
             _gotoPageButton = new Dictionary<_LevelType, TwoStateElement>(){
                 {_LevelType.Easy, new TwoStateElement(_navigationBar.GetChild(0))},
                 {_LevelType.Medium, new TwoStateElement(_navigationBar.GetChild(1))},
                 {_LevelType.Master, new TwoStateElement(_navigationBar.GetChild(2))}
             };
-            GotoLevelPage(0);
         }
-        
+
         public void GotoLevelPage(int i)
         {
             var nextLevelType = (_LevelType)i;
             if (_currentLevelType == nextLevelType) return;
-            if(_currentLevelType != _LevelType.None)
+            if (_currentLevelType != _LevelType.None)
                 _gotoPageButton[_currentLevelType].SetState(false);
             _currentLevelType = nextLevelType;
             _gotoPageButton[_currentLevelType].SetState(true);
@@ -123,7 +129,8 @@ namespace Core.GamePlay.LevelSystem
             List.InitData(Mathf.CeilToInt(_maxDataLevelInMode / 3.0f));
         }
 
-        private int GetStartGroupLevel(){
+        private int GetStartGroupLevel()
+        {
             return _currentLevelType switch
             {
                 _LevelType.Easy => 0,

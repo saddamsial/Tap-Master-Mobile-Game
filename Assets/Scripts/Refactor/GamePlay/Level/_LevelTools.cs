@@ -31,7 +31,7 @@ namespace Core.Data{
         public void GotoLevel(){
             if(_targetLevel < _levelSO.datasControllers.Count){
                 Debug.Log("Goto Level: " + _targetLevel);
-                _PlayerData.UserData.HighestLevel = _targetLevel;
+                _PlayerData.UserData.CurrentLevel = _targetLevel;
                 _GameManager.Instance.StartLevelByTool();
             }
             else{
