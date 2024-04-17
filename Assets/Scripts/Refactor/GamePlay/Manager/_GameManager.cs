@@ -48,6 +48,11 @@ namespace Core.GamePlay
             StartLevel(currentLevel + 1);
         }
 
+        public void ReTry(){
+            var currentLevel = Level.levelIndex - 1;
+            StartLevel(currentLevel);
+        }
+
         public void StartLevel(int level){
             _gamePlayManager.IsGameplayInteractable = true;
             _PlayerData.UserData.CurrentLevel = level;
