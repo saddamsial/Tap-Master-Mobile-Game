@@ -1111,10 +1111,10 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 260, y: 360}
+  m_CellSize: {x: 880, y: 360}
   m_Spacing: {x: 35, y: 40}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 1
 --- !u!114 &1806652105203142387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2843,7 +2843,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9033574809039900369}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8decd373ae881a41a467b4313f2d19f, type: 3}
   m_Name: 
@@ -2852,11 +2852,8 @@ MonoBehaviour:
   wasPlayAnim: 0
   showAnimationClip: {fileID: 7400000, guid: 23fb731880cc78f4ea756a4fe5296455, type: 2}
   hideAnimationClip: {fileID: 7400000, guid: f52d5a6a1bccae14aa239d51d6a3d210, type: 2}
-  _levelElementPrefab: {fileID: 8046656615157863573, guid: 7268e5e07c9a88f45b2f34e2e6728222, type: 3}
-  _levelDatas: {fileID: 11400000, guid: c183f69bd5d12214ab9b2ff7bdd80b0e, type: 2}
-  _scrollRect: {fileID: 4159850731813239374}
-  _gridLayoutGroup: {fileID: 795502542192706894}
-  _rect: {fileID: 3135183701950322115}
+  List: {fileID: 3572785884774653499}
+  Count: 100
 --- !u!1 &9074127833715296196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,6 +2865,7 @@ GameObject:
   - component: {fileID: 107515269292352846}
   - component: {fileID: 5286800977545177202}
   - component: {fileID: 4159850731813239374}
+  - component: {fileID: 3572785884774653499}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -2933,16 +2931,45 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6788360572687779092}
-        m_TargetAssemblyTypeName: Core.GamePlay.LevelSystem._LevelPopup, Assembly-CSharp
-        m_MethodName: OnScroll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &3572785884774653499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074127833715296196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8682fc05b41bb4bcfaafc5e888d02d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 8046656615157863573, guid: 7268e5e07c9a88f45b2f34e2e6728222, type: 3}
+  TopPadding: 10
+  BottomPadding: 10
+  LeftPadding: 10
+  RightPadding: 10
+  ItemSpacing: 20
+  LabelsFont: {fileID: 11400000, guid: c1482dbce654844b9ba1c753cbea5d80, type: 2}
+  FontSize: 30
+  FontColor: {r: 1, g: 1, b: 1, a: 1}
+  TopPullLabel: Pull to refresh
+  TopReleaseLabel: Release to load
+  BottomPullLabel: Pull to refresh
+  BottomReleaseLabel: Release to load
+  LeftPullLabel: Pull to refresh
+  LeftReleaseLabel: Release to load
+  RightPullLabel: Pull to refresh
+  RightReleaseLabel: Release to load
+  IsPullTop: 0
+  IsPullBottom: 0
+  IsPullLeft: 1
+  IsPullRight: 1
+  PullValue: 1.5
+  LabelOffset: 85
+  ParentContainer: {fileID: 0}
+  TopLabel: {fileID: 0}
+  BottomLabel: {fileID: 0}
+  LeftLabel: {fileID: 0}
+  RightLabel: {fileID: 0}
+  Type: 0

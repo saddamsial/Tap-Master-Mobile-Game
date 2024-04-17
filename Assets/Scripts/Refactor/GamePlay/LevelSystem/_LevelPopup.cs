@@ -1,37 +1,70 @@
 using Extensions.InfinityScroll;
 using PopupSystem;
+using UIS;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.GamePlay.LevelSystem{
-    public class _LevelPopup : BasePopup{
-        private const int _numberEasyLevels = 10;
-        private const int _numberMediumLevels = 10;
-        private const int _numberMasterLevels = 10;
+namespace Core.GamePlay.LevelSystem
+{
+    public class _LevelPopup : BasePopup
+    {
+        /// <summary>
+        /// Link to list
+        /// </summary>
+        [SerializeField]
+        Scroller List = null;
 
-        [Header("Resource")]
-        [SerializeField] private GameObject _levelElementPrefab;
-        [SerializeField] private LevelDatas _levelDatas;
+        /// <summary>
+        /// Items count
+        /// </summary>
+        [SerializeField]
+        int Count = 100;
 
-        [Header("Elements")]
-        [SerializeField] private ScrollRect _scrollRect;
-        [SerializeField] private GridLayoutGroup _gridLayoutGroup;
-        [SerializeField] private RectTransform _rect;
-
-        private _InfinityScroll _infinityScroll;
-
-        public void Show(){
+        public void Show()
+        {
             base.Show();
-            _infinityScroll ??= new _InfinityScroll(_scrollRect, _levelDatas.numberOfLevels, _gridLayoutGroup.constraintCount, _gridLayoutGroup.cellSize.y, _gridLayoutGroup.cellSize.x, _rect.rect.height, _levelElementPrefab);
-            _infinityScroll.Init();
+            Start();
+
         }
 
-        public void Exit(){
-            base.Hide();
+        /// <summary>
+        /// Init
+        /// </summary>
+        void Start()
+        {
+            Debug.Log("Start");
+            List.OnFill += OnFillItem;
+            List.OnHeight += OnHeightItem;
+            List.InitData(Count);
         }
 
-        public void OnScroll(){
-            _infinityScroll.OnScrollValueChange(_scrollRect.verticalNormalizedPosition);
+        /// <summary>
+        /// Callback on fill item
+        /// </summary>
+        /// <param name="index">Item index</param>
+        /// <param name="item">Item object</param>
+        void OnFillItem(int index, GameObject item)
+        {
+            //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
+        }
+
+        /// <summary>
+        /// Callback on request item height
+        /// </summary>
+        /// <param name="index">Item index</param>
+        /// <returns>Current item height</returns>
+        int OnHeightItem(int index)
+        {
+            return 360;
+        }
+
+        /// <summary>
+        /// Load next demo scene
+        /// </summary>
+        /// <param name="index">Scene index</param>
+        public void SceneLoad(int index)
+        {
+            //SceneManager.LoadScene(index);
         }
     }
 }
