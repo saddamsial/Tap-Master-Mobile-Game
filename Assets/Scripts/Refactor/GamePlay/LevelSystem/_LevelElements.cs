@@ -38,7 +38,18 @@ namespace Core.GamePlay.LevelSystem{
         }
 
         public void OnClickLevelPlay(){
+            PopupSystem.PopupManager.Instance.CloseAllPopup();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
             Debug.Log("Play Level: " + _currentLevel);
+            if(_currentLevel < _GameManager.Instance.LevelSystem.MaxLevelCount){
+                Debug.Log("Goto Level: " + _currentLevel);
+                _PlayerData.UserData.HighestLevel = _currentLevel - 1;
+                _GameManager.Instance.BlockPool.DeSpawnAllBlocks();
+                _GameManager.Instance.StartLevel();
+            }
+            else{
+                Debug.Log("Level not found");
+            }
         }
 
         private void SetInteractable(bool isInteractable){
