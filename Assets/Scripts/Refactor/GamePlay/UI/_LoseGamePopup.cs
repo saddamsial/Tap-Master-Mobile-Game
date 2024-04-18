@@ -17,7 +17,7 @@ namespace Core.UI.ExtendPopup{
             
         }
 
-        public void OnClickToContinue(){
+        public void OnClickRetry(){
             base.Hide(() => {_GameManager.Instance.ReTry();}); 
         }
     }

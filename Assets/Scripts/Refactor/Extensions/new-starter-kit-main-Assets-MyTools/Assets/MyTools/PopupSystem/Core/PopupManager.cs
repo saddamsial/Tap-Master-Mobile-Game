@@ -314,7 +314,7 @@ namespace PopupSystem
         }
 
         private void ShowPopupLoseGame(){
-            //CreateNewInstance<_LoseGamePopup>().Show();
+            CreateNewInstance<_LoseGamePopup>().Show();
         }
         #endregion
 
