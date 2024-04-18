@@ -1,3 +1,4 @@
+using System;
 using Core.Data;
 using Core.GamePlay;
 using Core.GamePlay.Collection;
@@ -13,13 +14,18 @@ namespace Core.UI{
         [Header("Gameplay Screen Elements")]
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private GameObject _openFrontFaceBoosterButton;
+        [SerializeField] private TMP_Text _remainingWrongMovesText;
 
         private void Awake(){
             _GameEvent.OnGamePlayReset += SetupScreen;
+            _GameEvent.OnGamePlayReset += UpdateScreen;
+            _GameEvent.OnSelectedBlock +=  UpdateScreen;
         }
 
         private void OnDestroy(){
             _GameEvent.OnGamePlayReset -= SetupScreen;
+            _GameEvent.OnGamePlayReset -= UpdateScreen;
+            _GameEvent.OnSelectedBlock -= UpdateScreen;
         }
 
         protected override void OnStartShowItSelf()
@@ -29,9 +35,13 @@ namespace Core.UI{
         }
 
 
-        public void SetupScreen(){
+        private void SetupScreen(){
             _levelText.text ="Level " + (_PlayerData.UserData.CurrentLevel + 1); 
             _openFrontFaceBoosterButton.SetActive(true);
+        }
+
+        private void UpdateScreen(){
+            _remainingWrongMovesText.text = _GameManager.Instance.GamePlayManager.RemainingWrongMoves.ToString() + " Left";
         }
 
         public void OnClickUseOpenFrontFaceBooster(){

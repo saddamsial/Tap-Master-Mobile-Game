@@ -40,6 +40,12 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
+            _PlayerData.UserData.UpdateWinGameUserDataValue();
+            _GameEvent.OnGameWin?.Invoke();
+        }
+
+        public void LoseGame(){
+            _GameEvent.OnGameLose?.Invoke();
         }
 
         public void NextLevel()

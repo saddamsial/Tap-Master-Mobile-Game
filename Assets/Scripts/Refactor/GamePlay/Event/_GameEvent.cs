@@ -6,6 +6,11 @@ namespace Core.GamePlay{
         public static Action OnGamePlayReset;
         public static Action OnGameWin;
         public static Action OnGameLose;
+
+/// <summary>
+///    isBlockCanMove: true if block can move, false if block can't move
+/// </summary>
+        public static Action OnSelectedBlock;
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;

@@ -16,6 +16,7 @@ namespace Core.GamePlay
 
         private int _totalBlocks;
         private int _remainBlocksToHaveSpecialBlock;
+        private int _remainingWrongMoves;
 
 
         public void InitGamePlayManager()
@@ -32,6 +33,9 @@ namespace Core.GamePlay
             _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
             _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
             _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+            _remainingWrongMoves = _totalBlocks / 10;
+            _remainingWrongMoves = Mathf.Max(_ConstantGameplayConfig.MIN_REMAINING_WRONG_MOVES, _remainingWrongMoves);
+            _remainingWrongMoves = Mathf.Min(_ConstantGameplayConfig.MAX_REMAINING_WRONG_MOVES, _remainingWrongMoves);
         }
 
         private void WinGame()
@@ -49,14 +53,15 @@ namespace Core.GamePlay
             if (isBlockCanMove)
             {
                 _totalBlocks -= blocks;
+                _GameEvent.OnSelectedBlock?.Invoke();
                 if (_totalBlocks == 0)
                 {
-                    WinGame();
+                    _GameManager.Instance.WinGame();
                     return;
                 }
-                if(blocks > 1) // only spawn special block when player dont use hint booster by check number of selected blokcs < 2
+                if (blocks > 1) // only spawn special block when player dont use hint booster by check number of selected blokcs < 2
                     return;
-                if(!isSpecialBlock)
+                if (!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
                 if (_remainBlocksToHaveSpecialBlock == 0)
                 {
@@ -64,6 +69,15 @@ namespace Core.GamePlay
                     _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
                     _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
                     _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+                }
+            }
+            else
+            {
+                _remainingWrongMoves -= 1;
+                _GameEvent.OnSelectedBlock?.Invoke();
+                if (_remainingWrongMoves == 0)
+                {
+                    _GameManager.Instance.LoseGame();
                 }
             }
         }
@@ -76,5 +90,6 @@ namespace Core.GamePlay
         }
 
         public bool IsGameplayInteractable { get; set; }
+        public int RemainingWrongMoves => _remainingWrongMoves;
     }
 }
