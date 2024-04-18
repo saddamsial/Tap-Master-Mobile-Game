@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 3672667960551650048}
   - component: {fileID: 6566091949560400578}
   m_Layer: 5
-  m_Name: ChallengesButton
+  m_Name: AchievementsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,7 +507,19 @@ MonoBehaviour:
       m_Calls: []
   _onPointerClik:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2050869049392127359}
+        m_TargetAssemblyTypeName: Core.UI._GameplayScreen, Assembly-CSharp
+        m_MethodName: OnClickAchievement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onPointerExit:
     m_PersistentCalls:
       m_Calls: []
@@ -699,7 +711,19 @@ MonoBehaviour:
       m_Calls: []
   _onPointerClik:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2050869049392127359}
+        m_TargetAssemblyTypeName: Core.UI._GameplayScreen, Assembly-CSharp
+        m_MethodName: OnClickReplayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onPointerExit:
     m_PersistentCalls:
       m_Calls: []
@@ -2000,7 +2024,19 @@ MonoBehaviour:
       m_Calls: []
   _onPointerClik:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2050869049392127359}
+        m_TargetAssemblyTypeName: Core.UI._GameplayScreen, Assembly-CSharp
+        m_MethodName: OnClickPauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onPointerExit:
     m_PersistentCalls:
       m_Calls: []

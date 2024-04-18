@@ -4,6 +4,7 @@ using Core.GamePlay;
 using Core.GamePlay.Collection;
 using Core.GamePlay.LevelSystem;
 using Core.GamePlay.Shop;
+using Core.UI.ExtendPopup;
 using MyTools.ScreenSystem;
 using PopupSystem;
 using TMPro;
@@ -53,6 +54,10 @@ namespace Core.UI{
             _GameEvent.OnUseBoosterHint?.Invoke();
         }
 
+        public void OnClickReplayGame(){
+            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Are you sure you want to replay this level?", true);
+        }
+
         public void OnClickOpenCollection(){
             PopupManager.CreateNewInstance<_CollectionPopup>().Show();
         }
@@ -63,6 +68,14 @@ namespace Core.UI{
 
         public void OnClickOpenLevel(){
             PopupManager.CreateNewInstance<_LevelPopup>().Show();
+        }
+
+        public void OnClickPauseGame(){
+            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
+        }
+
+        public void OnClickAchievement(){
+            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
         }
     }
 }
