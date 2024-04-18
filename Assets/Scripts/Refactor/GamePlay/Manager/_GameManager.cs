@@ -1,3 +1,4 @@
+using Core.Data;
 using Core.GamePlay.BlockPool;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
@@ -12,6 +13,7 @@ namespace Core.GamePlay
 
         private _LevelSystem _LevelSystem;
         private _GamePlayManager _gamePlayManager;
+        private int _currentCollectedLevelCoin;
 
         public void InitGame(LevelDatas levelData, Camera cameraGameplay)
         {
@@ -38,10 +40,29 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
+            _PlayerData.UserData.UpdateWinGameUserDataValue();
+            _GameEvent.OnGameWin?.Invoke();
+        }
+
+        public void LoseGame(){
+            _GameEvent.OnGameLose?.Invoke();
         }
 
         public void NextLevel()
         {
+            var currentLevel = Level.levelIndex - 1;
+            StartLevel(currentLevel + 1);
+        }
+
+        public void ReTry(){
+            var currentLevel = Level.levelIndex - 1;
+            StartLevel(currentLevel);
+        }
+
+        public void StartLevel(int level){
+            _gamePlayManager.IsGameplayInteractable = true;
+            _PlayerData.UserData.CurrentLevel = level;
+            _gamePlayManager.BlockPool.DeSpawnAllBlocks();
             StartLevel();
         }
 
@@ -53,5 +74,13 @@ namespace Core.GamePlay
         public _LevelSystem LevelSystem => _LevelSystem;
 
         public _ShopElementDatas BlockElementDatas { get; set; }
+        public int CurrentCollectedLevelCoin
+        {
+            get => _currentCollectedLevelCoin;
+            set
+            {
+                _currentCollectedLevelCoin = value;
+            }
+        }
     }
 }

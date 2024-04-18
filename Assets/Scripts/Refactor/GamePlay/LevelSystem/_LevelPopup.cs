@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Core.Data;
 using Core.SystemGame;
+using Core.UI.ExtendPopup;
 using MyTools.Generic;
 using PopupSystem;
+using TMPro;
 using UIS;
 using UnityEngine;
 
@@ -31,12 +34,27 @@ namespace Core.GamePlay.LevelSystem
         int Count = 100;
 
         [SerializeField] private Transform _navigationBar;
+        [SerializeField] private TMP_InputField _inputField;
 
         private int _maxDataLevelInMode = 30;
         private Dictionary<_LevelType, TwoStateElement> _gotoPageButton;
         private _LevelType _currentLevelType = _LevelType.None;
+        private int _gotoLevel;
+        private bool _isCanGoToLevel = false;
 
         private bool _isInit = false;
+
+        public override void Awake()
+        {
+            base.Awake();
+            _inputField.onEndEdit.AddListener(OnEndEditHanlder);
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            _inputField.onEndEdit.RemoveListener(OnEndEditHanlder);
+        }
 
         public void Show()
         {
@@ -50,6 +68,8 @@ namespace Core.GamePlay.LevelSystem
             }
             //List.RecycleAll();
             GotoLevelPage(0);
+            _isCanGoToLevel = false;
+            _inputField.text = "";
         }
 
         public void Exit()
@@ -80,7 +100,7 @@ namespace Core.GamePlay.LevelSystem
         void OnFillItem(int index, GameObject item)
         {
             //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
-            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, GetStartGroupLevel(), _maxDataLevelInMode);
+            item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, GetStartGroupLevel(_currentLevelType), _maxDataLevelInMode);
         }
 
         /// <summary>
@@ -93,6 +113,28 @@ namespace Core.GamePlay.LevelSystem
             return (int)List.Prefab.GetComponent<RectTransform>().rect.height;
         }
         #endregion
+
+        public void OnEndEditHanlder(string value){
+            if(int.TryParse(value, out int result)){
+                if(CheckValidLevel(result)){
+                    //List.InitData(result);
+                    _isCanGoToLevel = true;
+                    _gotoLevel = result;
+                    return;
+                }
+            }
+            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Invalid value", true);
+        }
+
+        public void OnGoToLevelClick(){
+            if(_isCanGoToLevel){
+                _GameManager.Instance.StartLevel(_gotoLevel - 1);
+                PopupManager.Instance.CloseAllPopup();
+            }
+            else{
+                Debug.Log("Invalid value");
+            }
+        }
 
         private void InitPopupElement()
         {
@@ -129,15 +171,22 @@ namespace Core.GamePlay.LevelSystem
             List.InitData(Mathf.CeilToInt(_maxDataLevelInMode / 3.0f));
         }
 
-        private int GetStartGroupLevel()
+        private int GetStartGroupLevel(_LevelType type)
         {
-            return _currentLevelType switch
+            return type switch
             {
                 _LevelType.Easy => 0,
                 _LevelType.Medium => _ConstantGameplayConfig.LEVEL_EASY,
                 _LevelType.Master => _ConstantGameplayConfig.LEVEL_MEDIUM + _ConstantGameplayConfig.LEVEL_EASY,
                 _ => 0
             };
+        }
+
+        private bool CheckValidLevel(int level){
+            if(level >= GetStartGroupLevel(_LevelType.Easy) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Easy]) return true;
+            if(level >= GetStartGroupLevel(_LevelType.Medium) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Medium]) return true;
+            if(level >= GetStartGroupLevel(_LevelType.Master) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Master]) return true;
+            return false;
         }
     }
 }
