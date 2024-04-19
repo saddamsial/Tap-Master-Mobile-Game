@@ -12,13 +12,14 @@ namespace Core.GamePlay{
 ///    isBlockCanMove: true if block can move, false if block can't move
 /// </summary>
         public static Action OnSelectIdleBlock;
-        public static Action<_BlockTypeEnum> OnSelectRewardBlock;
+        public static Action<_BlockTypeEnum, int> OnSelectRewardBlock;
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;
         public static Action OnUseBoosterHint;
 
         public static Action<int, _ShopPage> OnSelectShopElement;
+        public static Action<_BlockTypeEnum, int> OnReceivedRewardByAds;
 
     }
 }

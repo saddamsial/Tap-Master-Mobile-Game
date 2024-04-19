@@ -1,1 +1,1 @@
-{"CurrentLevel":0,"Coin":0,"RuntimeCollectionData":{"0":[3]},"RuntimePurchasedShopData":{"Arrow":[0,1],"Block":[0,1],"Color":[0,1,2,3,4]},"RuntimeSelectedShopData":{"Arrow":0,"Block":0,"Color":4},"HighestLevelInMode":{"Easy":1,"Medium":31,"Master":91}}
+{"CurrentLevel":36,"Coin":160,"CurrentCollectCoin":0,"RuntimeCollectionData":{"0":[3]},"RuntimePurchasedShopData":{"Arrow":[0,1,2],"Block":[0,1],"Color":[0,1,2,3,4]},"RuntimeSelectedShopData":{"Arrow":2,"Block":0,"Color":4},"HighestLevelInMode":{"Easy":3,"Medium":31,"Master":91}}

@@ -46,13 +46,14 @@ namespace Core.GamePlay.Shop
         public override void Awake()
         {
             base.Awake();
-            
+
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
             _GameEvent.OnSelectShopElement += OnClickShopElement();
-            _GameEvent.OnSelectRewardBlock += UpdateCoinText();
+            _GameEvent.OnSelectRewardBlock += UpdateCoinText;
+            _GameEvent.OnReceivedRewardByAds += UpdateCoinText;
             _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
             _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
-            UpdateCoinText()(_BlockTypeEnum.GoldReward);
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
             SetupNavigationButton();
         }
 
@@ -108,19 +109,22 @@ namespace Core.GamePlay.Shop
             LoadPage();
         }
 
-        public void OnClickPurchaseButton(){
+        public void OnClickPurchaseButton()
+        {
             int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
-            while(_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex)){
+            while (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex))
+            {
                 purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
             }
             StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
             _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
             _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
-            UpdateCoinText()(_BlockTypeEnum.GoldReward);
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
         }
 
-        public void OnClickWatchAdButton(){
-            
+        public void OnClickWatchAdButton()
+        {
+
         }
 
         private void SetStateGamePlayCamera(bool state)
@@ -150,23 +154,21 @@ namespace Core.GamePlay.Shop
             OnClickGotoArrowPage();
         }
 
-        private void UpdatePurchasedButton(bool isInit = true){
-            if(!isInit) return;
+        private void UpdatePurchasedButton(bool isInit = true)
+        {
+            if (!isInit) return;
             int coin = _PlayerData.UserData.Coin;
             int price = _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
             _purchaseItemButton.SetUpPurchaseItemButton(price, coin < price);
         }
 
-        private Action<_BlockTypeEnum> UpdateCoinText()
+        private void UpdateCoinText(_BlockTypeEnum type, int tmp)
         {
-            return (type) =>
+            if (type == _BlockTypeEnum.GoldReward)
             {
-                if (type == _BlockTypeEnum.GoldReward)
-                {
-                    _coinText.text = _PlayerData.UserData.Coin.ToString();
-                    UpdatePurchasedButton();
-                }
-            };
+                _coinText.text = _PlayerData.UserData.Coin.ToString();
+                UpdatePurchasedButton();
+            }
         }
 
         private void LoadPage()
@@ -219,16 +221,19 @@ namespace Core.GamePlay.Shop
             UpdatePurchasedButton();
         }
 
-        private IEnumerator RandomPurchasedElement(float timer, int purchasedIndex){
+        private IEnumerator RandomPurchasedElement(float timer, int purchasedIndex)
+        {
             var tmp = timer;
             var listPurchased = _PlayerData.UserData.RuntimePurchasedShopData[_currentPage];
             int currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
             int lastElment = 0;
-            while(tmp > 0){
+            while (tmp > 0)
+            {
                 tmp -= 0.2f;
                 yield return new WaitForSeconds(0.2f);
                 currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
-                while(listPurchased.Contains(currentElement) || currentElement == lastElment){
+                while (listPurchased.Contains(currentElement) || currentElement == lastElment)
+                {
                     currentElement = (currentElement + 1) % _shopElements.Count;
                 }
                 _shopElements[currentElement].DisplayHighlightElement(true);

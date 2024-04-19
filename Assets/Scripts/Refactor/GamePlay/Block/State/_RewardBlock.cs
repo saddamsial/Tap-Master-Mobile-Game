@@ -31,7 +31,8 @@ namespace Core.GamePlay.Block{
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
             _GamePlayManager.Instance.OnBlockSelected(true, true);
             _PlayerData.UserData.Coin += _rewardCoin;
-            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward);
+            _PlayerData.UserData.CurrentCollectCoin += _rewardCoin;
+            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
         }
 
         private void AnimatedCollectRewardBlock(){
