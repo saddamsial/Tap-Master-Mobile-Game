@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Data;
@@ -6,6 +7,7 @@ using Core.GamePlay.Block;
 using DG.Tweening;
 using MyTools.Generic;
 using PopupSystem;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,37 +31,41 @@ namespace Core.GamePlay.Shop
         [SerializeField] private Transform _previewBlock;
         [SerializeField] private Transform _navigationBar;
         [SerializeField] private Transform _elementContainer;
+        [SerializeField] private TMP_Text _coinText;
+        [SerializeField] private Transform _purchaseButton;
 
         private Dictionary<_ShopPage, TwoStateElement> _gotoPageButtons;
-
+        private _ItemPriceDatas _itemPriceDatas;
         private List<_ShopElements> _shopElements;
         private bool _isInit = false;
         private _ShopPage _currentPage;
         private MeshRenderer _previewBlockRenderer;
+        private _PurchaseItemButton _purchaseItemButton;
+
 
         public override void Awake()
         {
             base.Awake();
-            SetupNavigationButton();
+
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
-            // _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
-            // _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block); };
-            // _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color); };
-            // _GameEvent.OnSelectArrow += OnClickElement(_ShopPage.Arrow);
-            // _GameEvent.OnSelectBlock += OnClickElement(_ShopPage.Block);
-            // _GameEvent.OnSelectColor += OnClickElement(_ShopPage.Color);
-
             _GameEvent.OnSelectShopElement += OnClickShopElement();
-
+            _GameEvent.OnSelectRewardBlock += UpdateCoinText;
+            _GameEvent.OnReceivedRewardByAds += UpdateCoinText;
+            _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
+            _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+            SetupNavigationButton();
         }
 
-        public override void OnDestroy(){
+        public override void OnDestroy()
+        {
             base.OnDestroy();
             // _GameEvent.OnSelectArrow -= OnClickElement(_ShopPage.Arrow);
             // _GameEvent.OnSelectBlock -= OnClickElement(_ShopPage.Block);
             // _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
 
             _GameEvent.OnSelectShopElement -= OnClickShopElement();
+
         }
 
         public void Show()
@@ -103,6 +109,24 @@ namespace Core.GamePlay.Shop
             LoadPage();
         }
 
+        public void OnClickPurchaseButton()
+        {
+            int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
+            while (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex))
+            {
+                purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
+            }
+            StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
+            _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+        }
+
+        public void OnClickWatchAdButton()
+        {
+
+        }
+
         private void SetStateGamePlayCamera(bool state)
         {
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = state;
@@ -128,6 +152,23 @@ namespace Core.GamePlay.Shop
             };
 
             OnClickGotoArrowPage();
+        }
+
+        private void UpdatePurchasedButton(bool isInit = true)
+        {
+            if (!isInit) return;
+            int coin = _PlayerData.UserData.Coin;
+            int price = _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            _purchaseItemButton.SetUpPurchaseItemButton(price, coin < price);
+        }
+
+        private void UpdateCoinText(_BlockTypeEnum type, int tmp)
+        {
+            if (type == _BlockTypeEnum.GoldReward)
+            {
+                _coinText.text = _PlayerData.UserData.Coin.ToString();
+                UpdatePurchasedButton();
+            }
         }
 
         private void LoadPage()
@@ -177,6 +218,33 @@ namespace Core.GamePlay.Shop
                     break;
             }
             SetupElementState();
+            UpdatePurchasedButton();
+        }
+
+        private IEnumerator RandomPurchasedElement(float timer, int purchasedIndex)
+        {
+            var tmp = timer;
+            var listPurchased = _PlayerData.UserData.RuntimePurchasedShopData[_currentPage];
+            int currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
+            int lastElment = 0;
+            while (tmp > 0)
+            {
+                tmp -= 0.2f;
+                yield return new WaitForSeconds(0.2f);
+                currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
+                while (listPurchased.Contains(currentElement) || currentElement == lastElment)
+                {
+                    currentElement = (currentElement + 1) % _shopElements.Count;
+                }
+                _shopElements[currentElement].DisplayHighlightElement(true);
+                _shopElements[lastElment].DisplayHighlightElement(false);
+                lastElment = currentElement;
+            }
+            _shopElements[currentElement].DisplayHighlightElement(false);
+            _shopElements[purchasedIndex].DisplayHighlightElement(true);
+            yield return new WaitForSeconds(0.2f);
+            _shopElements[purchasedIndex].SetState(true);
+            _shopElements[purchasedIndex].DisplayHighlightElement(false);
         }
 
         private void InitShopElements()
@@ -208,7 +276,8 @@ namespace Core.GamePlay.Shop
             //OnClickElement(_PlayerData.UserData.RuntimeSelectedShopData[_currentPage], _currentPage);
         }
 
-        private Action<int, _ShopPage> OnClickShopElement(){
+        private Action<int, _ShopPage> OnClickShopElement()
+        {
             return (int id, _ShopPage type) =>
             {
                 _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
@@ -279,7 +348,7 @@ namespace Core.GamePlay.Shop
             {
                 listBlockSprite.Add(AssetDatabase.LoadAssetAtPath<Sprite>(name));
             }
-            
+
             var listBlockNormalMap = System.IO.Directory.GetFiles(_blockNormalMap, "*.png", System.IO.SearchOption.AllDirectories);
             List<Texture2D> listBlockTexture = new List<Texture2D>();
             foreach (var name in listBlockNormalMap)
@@ -300,7 +369,7 @@ namespace Core.GamePlay.Shop
             List<Color> listColor = new List<Color>();
             foreach (var color in colorString)
             {
-                if(ColorUtility.TryParseHtmlString(color, out Color c))
+                if (ColorUtility.TryParseHtmlString(color, out Color c))
                 {
                     listColor.Add(c);
                 }

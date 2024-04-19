@@ -8,6 +8,8 @@ namespace Core.Data{
     public class _UserData{
         
         public int CurrentLevel;
+        public int Coin;
+        public int CurrentCollectCoin;
         public Dictionary<int, List<int>> RuntimeCollectionData;
         public Dictionary<_ShopPage, List<int>> RuntimePurchasedShopData;
         public Dictionary<_ShopPage, int> RuntimeSelectedShopData;
@@ -15,6 +17,8 @@ namespace Core.Data{
 
         public void InitUserData(){
             CurrentLevel = 0;
+            Coin = 50;
+            CurrentCollectCoin = 0;
             HighestLevelInMode = new Dictionary<_LevelType, int>(){
                 {_LevelType.Easy, 1},
                 {_LevelType.Medium, _ConstantGameplayConfig.LEVEL_EASY+1},
@@ -26,9 +30,7 @@ namespace Core.Data{
             RuntimeSelectedShopData = new Dictionary<_ShopPage, int>();
             UpdateCollectionData(0, 3);
             UpdatePurchasedData(_ShopPage.Arrow, 0);
-            UpdatePurchasedData(_ShopPage.Arrow, 1);
             UpdatePurchasedData(_ShopPage.Block, 0);
-            UpdatePurchasedData(_ShopPage.Block, 1);
             UpdatePurchasedData(_ShopPage.Color, 0);
             UpdatePurchasedData(_ShopPage.Color, 1);
             UpdatePurchasedData(_ShopPage.Color, 2);
@@ -84,6 +86,16 @@ namespace Core.Data{
             else{
                 RuntimeSelectedShopData.Add(type, elementId);
             }
+        }
+
+        public int GetCurrentTimePurchaseItem(_ShopPage type){
+            return type switch
+            {
+                _ShopPage.Arrow => RuntimePurchasedShopData[_ShopPage.Arrow].Count - 1,
+                _ShopPage.Block => RuntimePurchasedShopData[_ShopPage.Block].Count - 1,
+                _ShopPage.Color => RuntimePurchasedShopData[_ShopPage.Color].Count - 4,
+                _ => throw new System.ArgumentOutOfRangeException(nameof(type), type, null),
+            };
         }
     }
 }

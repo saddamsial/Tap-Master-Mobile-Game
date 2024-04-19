@@ -53,7 +53,7 @@ namespace Core.GamePlay
             if (isBlockCanMove)
             {
                 _totalBlocks -= blocks;
-                _GameEvent.OnSelectedBlock?.Invoke();
+                _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_totalBlocks == 0)
                 {
                     _GameManager.Instance.WinGame();
@@ -74,7 +74,7 @@ namespace Core.GamePlay
             else
             {
                 _remainingWrongMoves -= 1;
-                _GameEvent.OnSelectedBlock?.Invoke();
+                _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_remainingWrongMoves == 0)
                 {
                     _GameManager.Instance.LoseGame();

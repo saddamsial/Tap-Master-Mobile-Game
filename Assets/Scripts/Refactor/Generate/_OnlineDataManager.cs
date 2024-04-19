@@ -11,7 +11,7 @@ namespace Core.ResourceGamePlay
     public class _OnlineDataManager : MonoBehaviour
     {
         private static string _sheetId = "1BJlGwjsbHRF8DHj_qzvdgxQmzb_luWkQ-czgtOn-gG4";
-        private static int _gID = 1419078634;
+        private static int _gID = 1785165045;
 
         public static List<TempLevelClass> ReadGoogleData()
         {

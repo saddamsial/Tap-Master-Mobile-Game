@@ -5,7 +5,7 @@ namespace Core.SystemGame{
     }
 
     public class _ConstantGameplayConfig{
-        public const int MAX_BLOCKS_TO_SPECIAL = 4;
+        public const int MAX_BLOCKS_TO_SPECIAL = 9999;
         public const int MIN_BLOCKS_TO_SPECIAL = 2;
 
         public const int MAX_REMAINING_WRONG_MOVES = 20;

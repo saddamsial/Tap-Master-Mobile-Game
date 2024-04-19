@@ -7,6 +7,7 @@ using UnityEngine.UI;
 #region Custom Namespace
 using Core.GamePlay;
 using Core.UI.ExtendPopup;
+using Core.GamePlay.Block;
 #endregion
 
 namespace PopupSystem
@@ -302,11 +303,13 @@ namespace PopupSystem
         private void InitGameEvent(){
             _GameEvent.OnGameWin += ShowPopupWinGame;
             _GameEvent.OnGameLose += ShowPopupLoseGame;
+            _GameEvent.OnSelectRewardBlock += ShowPopupCollectReward;
         }
 
         private void DisposeGameEvent(){
             _GameEvent.OnGameWin -= ShowPopupWinGame;
             _GameEvent.OnGameLose -= ShowPopupLoseGame;
+            _GameEvent.OnSelectRewardBlock -= ShowPopupCollectReward;
         }
 
         private void ShowPopupWinGame(){
@@ -315,6 +318,14 @@ namespace PopupSystem
 
         private void ShowPopupLoseGame(){
             CreateNewInstance<_LoseGamePopup>().Show();
+        }
+
+        private void ShowPopupCollectReward(_BlockTypeEnum typeEnum, int rewardNumber = 0){
+            switch(typeEnum){
+                case _BlockTypeEnum.GoldReward:
+                    CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber);
+                    break;
+            }
         }
         #endregion
 

@@ -1,4 +1,5 @@
 using System;
+using Core.GamePlay.Block;
 using Core.GamePlay.Shop;
 
 namespace Core.GamePlay{
@@ -10,13 +11,15 @@ namespace Core.GamePlay{
 /// <summary>
 ///    isBlockCanMove: true if block can move, false if block can't move
 /// </summary>
-        public static Action OnSelectedBlock;
+        public static Action OnSelectIdleBlock;
+        public static Action<_BlockTypeEnum, int> OnSelectRewardBlock;
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;
         public static Action OnUseBoosterHint;
 
         public static Action<int, _ShopPage> OnSelectShopElement;
+        public static Action<_BlockTypeEnum, int> OnReceivedRewardByAds;
 
     }
 }

@@ -14,6 +14,7 @@ namespace Core.GamePlay.Shop
         private bool _isInit = false;
         private bool _isInteractable = false;
         private _ShopPage _currentElementType;
+        private Image _boderFrame;
 
         public void InitElements(_ShopPage type)
         {
@@ -23,6 +24,7 @@ namespace Core.GamePlay.Shop
             _stateElement = new TwoStateElement(this.transform);
             _icon = this.transform.GetChild(0).GetComponent<Image>();
             _selectedIcon = this.transform.GetChild(2);
+            _boderFrame = this.GetComponent<Image>();
         }
 
         public void SetUpShopElement(Sprite icon, int id, bool isPurchased, bool isSelected = false)
@@ -46,6 +48,10 @@ namespace Core.GamePlay.Shop
             if(!_isInteractable) return;
             _GameEvent.OnSelectShopElement?.Invoke(_elementId, _currentElementType);
             //_GameEvent.OnSelectArrow?.Invoke(_elementId);
+        }
+
+        public void DisplayHighlightElement(bool isHighlight){
+            _boderFrame.color = isHighlight ? Color.yellow : Color.black;
         }
     }
 }

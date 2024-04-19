@@ -26,6 +26,7 @@ namespace Core.GamePlay
 
         public void StartLevel()
         {
+            _PlayerData.UserData.CurrentCollectCoin = 0;
             Level = _LevelSystem.GetLevelData();
             _gamePlayManager.StartLevel(Level);
             _GameEvent.OnGamePlayReset?.Invoke();
@@ -74,13 +75,6 @@ namespace Core.GamePlay
         public _LevelSystem LevelSystem => _LevelSystem;
 
         public _ShopElementDatas BlockElementDatas { get; set; }
-        public int CurrentCollectedLevelCoin
-        {
-            get => _currentCollectedLevelCoin;
-            set
-            {
-                _currentCollectedLevelCoin = value;
-            }
-        }
+        public _ItemPriceDatas ItemPriceDatas { get; set; }
     }
 }

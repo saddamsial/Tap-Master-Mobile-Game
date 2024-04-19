@@ -20,13 +20,13 @@ namespace Core.UI{
         private void Awake(){
             _GameEvent.OnGamePlayReset += SetupScreen;
             _GameEvent.OnGamePlayReset += UpdateScreen;
-            _GameEvent.OnSelectedBlock +=  UpdateScreen;
+            _GameEvent.OnSelectIdleBlock +=  UpdateScreen;
         }
 
         private void OnDestroy(){
             _GameEvent.OnGamePlayReset -= SetupScreen;
             _GameEvent.OnGamePlayReset -= UpdateScreen;
-            _GameEvent.OnSelectedBlock -= UpdateScreen;
+            _GameEvent.OnSelectIdleBlock -= UpdateScreen;
         }
 
         protected override void OnStartShowItSelf()
@@ -55,7 +55,7 @@ namespace Core.UI{
         }
 
         public void OnClickReplayGame(){
-            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Are you sure you want to replay this level?", true);
+            PopupManager.CreateNewInstance<_ReplayGamePopup>().Show("Are you sure you want to replay this level?", true);
         }
 
         public void OnClickOpenCollection(){

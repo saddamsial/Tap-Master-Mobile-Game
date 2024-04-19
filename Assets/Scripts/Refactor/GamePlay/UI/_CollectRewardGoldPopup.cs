@@ -1,0 +1,87 @@
+using Core.Data;
+using Core.GamePlay;
+using DG.Tweening;
+using PopupSystem;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Core.UI.ExtendPopup{
+    public class _CollectRewardGoldPopup : BasePopup{
+        [SerializeField] private TMPro.TMP_Text _coinText;
+        [SerializeField] private Image _multipleBarImage;
+        [SerializeField] private RectTransform _cursor;
+        [SerializeField] private GameObject _watchAdButton;
+
+        private float _barWidth;
+        private float _pivotPos;
+        private int _coin;
+
+        // public override void Awake(){
+        //     _barWidth = _multipleBarImage.rectTransform.rect.width;
+        //     _pivotPos = _multipleBarImage.rectTransform.position.x - _barWidth / 2;
+        // }
+
+        public void Show(int coin){
+            base.Show();
+            _watchAdButton.SetActive(true);
+            _barWidth = _multipleBarImage.rectTransform.rect.width;
+            _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;
+            _coinText.text = "+" + coin.ToString();
+            _coin = coin;
+            _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
+            StartMovingCursor();
+        }
+
+        public void OnClickWatchAd(){
+            _cursor.DOKill();
+            float tmpX = _cursor.localPosition.x;
+            float value = tmpX - _pivotPos;
+            float dis = _barWidth / 7;
+            int val = Mathf.FloorToInt(value / dis);
+            int coin = _coin;
+            switch (val){
+                case 0:
+                    Debug.Log("x2");
+                    coin = _coin * 2;
+                    break;
+                case 1:
+                    Debug.Log("x3");
+                    coin =  _coin * 3;
+                    break;
+                case 2:
+                    Debug.Log("x4");
+                    coin = _coin * 4;
+                    break;
+                case 3:
+                    Debug.Log("x5");
+                    coin = _coin *5;
+                    break;
+                case 4:
+                    Debug.Log("x4");
+                    coin = _coin * 4;
+                    break;
+                case 5:
+                    Debug.Log("x3");
+                    coin = _coin * 3;
+                    break;
+                case 6:
+                    Debug.Log("x2");
+                    coin = _coin * 2;
+                    break;
+            }
+            _coinText.text = "+" + coin.ToString();
+            _PlayerData.UserData.Coin += coin - _coin;
+            _GameEvent.OnReceivedRewardByAds?.Invoke(GamePlay.Block._BlockTypeEnum.GoldReward ,coin - _coin);
+
+            _watchAdButton.SetActive(false);
+        }
+
+        public void OnClickClose(){
+            base.Hide();
+        }
+
+        private void StartMovingCursor(){
+            _cursor.DOLocalMoveX(_cursor.localPosition.x + _barWidth, 1.4f).SetEase(Ease.InOutCirc).SetLoops(-1, LoopType.Yoyo);
+        }
+    }
+}
