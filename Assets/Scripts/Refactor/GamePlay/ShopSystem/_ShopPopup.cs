@@ -6,6 +6,7 @@ using Core.GamePlay.Block;
 using DG.Tweening;
 using MyTools.Generic;
 using PopupSystem;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace Core.GamePlay.Shop
         [SerializeField] private Transform _previewBlock;
         [SerializeField] private Transform _navigationBar;
         [SerializeField] private Transform _elementContainer;
+        [SerializeField] private TMP_Text _coinText;
 
         private Dictionary<_ShopPage, TwoStateElement> _gotoPageButtons;
 
@@ -42,24 +44,20 @@ namespace Core.GamePlay.Shop
             base.Awake();
             SetupNavigationButton();
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
-            // _GameEvent.OnSelectArrow += (int para) => { OnClickElement(para, _ShopPage.Arrow); };
-            // _GameEvent.OnSelectBlock += (int para) => { OnClickElement(para, _ShopPage.Block); };
-            // _GameEvent.OnSelectColor += (int para) => { OnClickElement(para, _ShopPage.Color); };
-            // _GameEvent.OnSelectArrow += OnClickElement(_ShopPage.Arrow);
-            // _GameEvent.OnSelectBlock += OnClickElement(_ShopPage.Block);
-            // _GameEvent.OnSelectColor += OnClickElement(_ShopPage.Color);
-
             _GameEvent.OnSelectShopElement += OnClickShopElement();
-
+            _GameEvent.OnSelectRewardBlock += UpdateCoinText();
+            UpdateCoinText()(_BlockTypeEnum.GoldReward);
         }
 
-        public override void OnDestroy(){
+        public override void OnDestroy()
+        {
             base.OnDestroy();
             // _GameEvent.OnSelectArrow -= OnClickElement(_ShopPage.Arrow);
             // _GameEvent.OnSelectBlock -= OnClickElement(_ShopPage.Block);
             // _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
 
             _GameEvent.OnSelectShopElement -= OnClickShopElement();
+
         }
 
         public void Show()
@@ -128,6 +126,17 @@ namespace Core.GamePlay.Shop
             };
 
             OnClickGotoArrowPage();
+        }
+
+        private Action<_BlockTypeEnum> UpdateCoinText()
+        {
+            return (type) =>
+            {
+                if (type == _BlockTypeEnum.GoldReward)
+                {
+                    _coinText.text = _PlayerData.UserData.Coin.ToString();
+                }
+            };
         }
 
         private void LoadPage()
@@ -208,7 +217,8 @@ namespace Core.GamePlay.Shop
             //OnClickElement(_PlayerData.UserData.RuntimeSelectedShopData[_currentPage], _currentPage);
         }
 
-        private Action<int, _ShopPage> OnClickShopElement(){
+        private Action<int, _ShopPage> OnClickShopElement()
+        {
             return (int id, _ShopPage type) =>
             {
                 _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);
@@ -279,7 +289,7 @@ namespace Core.GamePlay.Shop
             {
                 listBlockSprite.Add(AssetDatabase.LoadAssetAtPath<Sprite>(name));
             }
-            
+
             var listBlockNormalMap = System.IO.Directory.GetFiles(_blockNormalMap, "*.png", System.IO.SearchOption.AllDirectories);
             List<Texture2D> listBlockTexture = new List<Texture2D>();
             foreach (var name in listBlockNormalMap)
@@ -300,7 +310,7 @@ namespace Core.GamePlay.Shop
             List<Color> listColor = new List<Color>();
             foreach (var color in colorString)
             {
-                if(ColorUtility.TryParseHtmlString(color, out Color c))
+                if (ColorUtility.TryParseHtmlString(color, out Color c))
                 {
                     listColor.Add(c);
                 }

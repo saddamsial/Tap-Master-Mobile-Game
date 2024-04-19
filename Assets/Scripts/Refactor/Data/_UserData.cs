@@ -8,6 +8,7 @@ namespace Core.Data{
     public class _UserData{
         
         public int CurrentLevel;
+        public int Coin;
         public Dictionary<int, List<int>> RuntimeCollectionData;
         public Dictionary<_ShopPage, List<int>> RuntimePurchasedShopData;
         public Dictionary<_ShopPage, int> RuntimeSelectedShopData;
@@ -15,6 +16,7 @@ namespace Core.Data{
 
         public void InitUserData(){
             CurrentLevel = 0;
+            Coin = 0;
             HighestLevelInMode = new Dictionary<_LevelType, int>(){
                 {_LevelType.Easy, 1},
                 {_LevelType.Medium, _ConstantGameplayConfig.LEVEL_EASY+1},

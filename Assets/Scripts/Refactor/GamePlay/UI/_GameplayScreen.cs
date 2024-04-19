@@ -20,13 +20,13 @@ namespace Core.UI{
         private void Awake(){
             _GameEvent.OnGamePlayReset += SetupScreen;
             _GameEvent.OnGamePlayReset += UpdateScreen;
-            _GameEvent.OnSelectedBlock +=  UpdateScreen;
+            _GameEvent.OnSelectIdleBlock +=  UpdateScreen;
         }
 
         private void OnDestroy(){
             _GameEvent.OnGamePlayReset -= SetupScreen;
             _GameEvent.OnGamePlayReset -= UpdateScreen;
-            _GameEvent.OnSelectedBlock -= UpdateScreen;
+            _GameEvent.OnSelectIdleBlock -= UpdateScreen;
         }
 
         protected override void OnStartShowItSelf()

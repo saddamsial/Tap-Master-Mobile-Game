@@ -1,22 +1,27 @@
 using System;
 using System.ComponentModel.Design.Serialization;
+using Core.Data;
 using Core.SystemGame;
 using DG.Tweening;
 using UnityEngine;
 
 namespace Core.GamePlay.Block{
     public class _RewardBlock : _BlockState{
+        private int _rewardCoin = 0;
+        
         public _RewardBlock(_BlockController blockController) : base(blockController){
         }
 
         public override void Init(bool isSetColor = false, Vector3 color = default){
             base.Init();
+            _rewardCoin = 0;
         }
 
         public override void SetUp(){
             base.SetUp();
             _blockController.gameObject.layer = _LayerConstant.GOLD_BLOCK;
             _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_IDLE_BLOCK, 0);
+            _rewardCoin = 10;
         }
 
         public override void OnSelect(){
@@ -25,6 +30,8 @@ namespace Core.GamePlay.Block{
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
             _GamePlayManager.Instance.OnBlockSelected(true, true);
+            _PlayerData.UserData.Coin += _rewardCoin;
+            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward);
         }
 
         private void AnimatedCollectRewardBlock(){
