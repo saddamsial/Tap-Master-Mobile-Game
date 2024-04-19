@@ -16,7 +16,7 @@ namespace Core.Data{
 
         public void InitUserData(){
             CurrentLevel = 0;
-            Coin = 0;
+            Coin = 50;
             HighestLevelInMode = new Dictionary<_LevelType, int>(){
                 {_LevelType.Easy, 1},
                 {_LevelType.Medium, _ConstantGameplayConfig.LEVEL_EASY+1},

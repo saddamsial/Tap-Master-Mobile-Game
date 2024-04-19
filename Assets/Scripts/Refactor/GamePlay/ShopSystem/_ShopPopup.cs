@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Data;
@@ -108,11 +109,18 @@ namespace Core.GamePlay.Shop
         }
 
         public void OnClickPurchaseButton(){
-
+            int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
+            while(_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex)){
+                purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
+            }
+            StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
+            _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
+            UpdateCoinText()(_BlockTypeEnum.GoldReward);
         }
 
         public void OnClickWatchAdButton(){
-
+            
         }
 
         private void SetStateGamePlayCamera(bool state)
@@ -209,6 +217,29 @@ namespace Core.GamePlay.Shop
             }
             SetupElementState();
             UpdatePurchasedButton();
+        }
+
+        private IEnumerator RandomPurchasedElement(float timer, int purchasedIndex){
+            var tmp = timer;
+            var listPurchased = _PlayerData.UserData.RuntimePurchasedShopData[_currentPage];
+            int currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
+            int lastElment = 0;
+            while(tmp > 0){
+                tmp -= 0.2f;
+                yield return new WaitForSeconds(0.2f);
+                currentElement = UnityEngine.Random.Range(0, _shopElements.Count);
+                while(listPurchased.Contains(currentElement) || currentElement == lastElment){
+                    currentElement = (currentElement + 1) % _shopElements.Count;
+                }
+                _shopElements[currentElement].DisplayHighlightElement(true);
+                _shopElements[lastElment].DisplayHighlightElement(false);
+                lastElment = currentElement;
+            }
+            _shopElements[currentElement].DisplayHighlightElement(false);
+            _shopElements[purchasedIndex].DisplayHighlightElement(true);
+            yield return new WaitForSeconds(0.2f);
+            _shopElements[purchasedIndex].SetState(true);
+            _shopElements[purchasedIndex].DisplayHighlightElement(false);
         }
 
         private void InitShopElements()
