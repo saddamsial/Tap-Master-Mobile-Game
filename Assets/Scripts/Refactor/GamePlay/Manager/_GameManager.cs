@@ -74,6 +74,7 @@ namespace Core.GamePlay
         public _LevelSystem LevelSystem => _LevelSystem;
 
         public _ShopElementDatas BlockElementDatas { get; set; }
+        public _ItemPriceDatas ItemPriceDatas { get; set; }
         public int CurrentCollectedLevelCoin
         {
             get => _currentCollectedLevelCoin;

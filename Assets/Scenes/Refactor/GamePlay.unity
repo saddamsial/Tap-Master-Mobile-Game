@@ -418,6 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelTest: {fileID: 11400000, guid: c183f69bd5d12214ab9b2ff7bdd80b0e, type: 2}
   _shopDatas: {fileID: 11400000, guid: 9bebc0c7538ce9444b6fb4ff22b68df6, type: 2}
+  _itemPriceDatas: {fileID: 11400000, guid: 1705a3924c5bf554ba16f809502a75c4, type: 2}
 --- !u!114 &1356906584
 MonoBehaviour:
   m_ObjectHideFlags: 0

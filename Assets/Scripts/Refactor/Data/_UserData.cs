@@ -87,5 +87,15 @@ namespace Core.Data{
                 RuntimeSelectedShopData.Add(type, elementId);
             }
         }
+
+        public int GetCurrentTimePurchaseItem(_ShopPage type){
+            return type switch
+            {
+                _ShopPage.Arrow => RuntimePurchasedShopData[_ShopPage.Arrow].Count - 1,
+                _ShopPage.Block => RuntimePurchasedShopData[_ShopPage.Block].Count - 1,
+                _ShopPage.Color => RuntimePurchasedShopData[_ShopPage.Color].Count - 4,
+                _ => throw new System.ArgumentOutOfRangeException(nameof(type), type, null),
+            };
+        }
     }
 }

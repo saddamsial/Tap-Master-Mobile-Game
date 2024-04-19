@@ -31,22 +31,28 @@ namespace Core.GamePlay.Shop
         [SerializeField] private Transform _navigationBar;
         [SerializeField] private Transform _elementContainer;
         [SerializeField] private TMP_Text _coinText;
+        [SerializeField] private Transform _purchaseButton;
 
         private Dictionary<_ShopPage, TwoStateElement> _gotoPageButtons;
-
+        private _ItemPriceDatas _itemPriceDatas;
         private List<_ShopElements> _shopElements;
         private bool _isInit = false;
         private _ShopPage _currentPage;
         private MeshRenderer _previewBlockRenderer;
+        private _PurchaseItemButton _purchaseItemButton;
+
 
         public override void Awake()
         {
             base.Awake();
-            SetupNavigationButton();
+            
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
             _GameEvent.OnSelectShopElement += OnClickShopElement();
             _GameEvent.OnSelectRewardBlock += UpdateCoinText();
+            _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
+            _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
             UpdateCoinText()(_BlockTypeEnum.GoldReward);
+            SetupNavigationButton();
         }
 
         public override void OnDestroy()
@@ -101,6 +107,14 @@ namespace Core.GamePlay.Shop
             LoadPage();
         }
 
+        public void OnClickPurchaseButton(){
+
+        }
+
+        public void OnClickWatchAdButton(){
+
+        }
+
         private void SetStateGamePlayCamera(bool state)
         {
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = state;
@@ -128,6 +142,13 @@ namespace Core.GamePlay.Shop
             OnClickGotoArrowPage();
         }
 
+        private void UpdatePurchasedButton(bool isInit = true){
+            if(!isInit) return;
+            int coin = _PlayerData.UserData.Coin;
+            int price = _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            _purchaseItemButton.SetUpPurchaseItemButton(price, coin < price);
+        }
+
         private Action<_BlockTypeEnum> UpdateCoinText()
         {
             return (type) =>
@@ -135,6 +156,7 @@ namespace Core.GamePlay.Shop
                 if (type == _BlockTypeEnum.GoldReward)
                 {
                     _coinText.text = _PlayerData.UserData.Coin.ToString();
+                    UpdatePurchasedButton();
                 }
             };
         }
@@ -186,6 +208,7 @@ namespace Core.GamePlay.Shop
                     break;
             }
             SetupElementState();
+            UpdatePurchasedButton();
         }
 
         private void InitShopElements()

@@ -17,6 +17,7 @@ namespace Core.GamePlay
     {
         [SerializeField] private LevelDatas _levelTest;
         [SerializeField] private _ShopElementDatas _shopDatas;
+        [SerializeField] private _ItemPriceDatas _itemPriceDatas;
 
         private GameObject _cameraGamePlay;
 
@@ -64,6 +65,7 @@ namespace Core.GamePlay
             _GameManager.Instance.InitGame(_levelTest, _cameraGamePlay.GetComponentInChildren<Camera>());
             _ParticleSystemManager.Instance.UICamera = _cameraGamePlay.GetComponentInChildren<Camera>();
             _GameManager.Instance.BlockElementDatas = _shopDatas;
+            _GameManager.Instance.ItemPriceDatas = _itemPriceDatas;
             // _GameManager.Instance.BlockPool = _blockPool;
             // //_LevelSystem.Instance.BlockPool = _blockPool;
             // _LevelSystem.Instance.InitLevelSystem(_levelTest);
