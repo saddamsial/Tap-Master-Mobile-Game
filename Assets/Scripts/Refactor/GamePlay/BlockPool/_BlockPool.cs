@@ -197,10 +197,11 @@ namespace Core.GamePlay.BlockPool
         }
 
         private void UseBoosterHint(){
-            if(_blockObjectPool.Count < _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT) return;
+            //if(_blockObjectPool.Count < _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT) return;
             int blockToRemove = _blockObjectPool.Count / 10;
             blockToRemove = Mathf.Min(blockToRemove, _ConstantGameplayConfig.MAX_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
             blockToRemove = Mathf.Max(blockToRemove, _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
+            blockToRemove = Mathf.Min(blockToRemove, _blockObjectPool.Count);
             for (int i = 0; i < blockToRemove; i++)
             {
                 int randomIndex = Random.Range(0, _blockObjectPool.Count);
