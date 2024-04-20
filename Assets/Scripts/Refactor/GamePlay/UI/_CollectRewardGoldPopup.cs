@@ -15,13 +15,14 @@ namespace Core.UI.ExtendPopup{
         private float _barWidth;
         private float _pivotPos;
         private int _coin;
+        private bool _isWinGame;
 
         // public override void Awake(){
         //     _barWidth = _multipleBarImage.rectTransform.rect.width;
         //     _pivotPos = _multipleBarImage.rectTransform.position.x - _barWidth / 2;
         // }
 
-        public void Show(int coin){
+        public void Show(int coin , bool isWinGame = false){
             base.Show();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _watchAdButton.SetActive(true);
@@ -31,6 +32,7 @@ namespace Core.UI.ExtendPopup{
             _coin = coin;
             _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
             StartMovingCursor();
+            _isWinGame = isWinGame;
         }
 
         public void OnClickWatchAd(){
@@ -72,16 +74,19 @@ namespace Core.UI.ExtendPopup{
             }
             _coinText.text = "+" + coin.ToString();
             _PlayerData.UserData.Coin += coin - _coin;
+            _PlayerData.UserData.CurrentCollectCoin += coin - _coin;
             _GameEvent.OnReceivedRewardByAds?.Invoke(GamePlay.Block._BlockTypeEnum.GoldReward ,coin - _coin);
 
             _watchAdButton.SetActive(false);
         }
 
         public void OnClickClose(){
-
-            base.Hide();
             _cursor.DOKill();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            base.Hide(() => {
+                if(_isWinGame)
+                    PopupManager.CreateNewInstance<_WinGamePopup>().Show();
+            });
         }
 
         private void StartMovingCursor(){
