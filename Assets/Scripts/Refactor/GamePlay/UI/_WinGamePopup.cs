@@ -10,6 +10,7 @@ namespace Core.UI.ExtendPopup{
         
         public void Show(){
             base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _coinText.gameObject.SetActive(false);
             int coin = _PlayerData.UserData.CurrentCollectCoin;
             _coinText.text = "+" + coin.ToString();

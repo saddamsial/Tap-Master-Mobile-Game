@@ -25,6 +25,7 @@ namespace Core.Data
             Debug.Log("InitData");
             if (!PlayerPrefs.HasKey(_Const.KEY_USER_DATA))
             {
+                Debug.Log("InitData: " + _Const.KEY_USER_DATA);
                 UserData = new _UserData();
                 UserData.InitUserData();
                 SaveUserData();
@@ -36,6 +37,7 @@ namespace Core.Data
             }
             else
             {
+                Debug.Log("LoadUserData");
                 LoadUserData();
             }
         }

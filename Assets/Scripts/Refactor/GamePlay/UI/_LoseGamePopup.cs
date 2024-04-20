@@ -7,6 +7,7 @@ namespace Core.UI.ExtendPopup{
         
         public void Show(){
             base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
         }
 
         public void OnClickClose(){

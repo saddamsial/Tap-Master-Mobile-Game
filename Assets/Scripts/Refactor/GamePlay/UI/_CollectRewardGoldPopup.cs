@@ -23,6 +23,7 @@ namespace Core.UI.ExtendPopup{
 
         public void Show(int coin){
             base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _watchAdButton.SetActive(true);
             _barWidth = _multipleBarImage.rectTransform.rect.width;
             _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;
@@ -77,11 +78,14 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
+
             base.Hide();
+            _cursor.DOKill();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
         }
 
         private void StartMovingCursor(){
-            _cursor.DOLocalMoveX(_cursor.localPosition.x + _barWidth, 1.4f).SetEase(Ease.InOutCirc).SetLoops(-1, LoopType.Yoyo);
+            _cursor.DOLocalMoveX(_cursor.localPosition.x + _barWidth, 1.25f).SetEase(Ease.InOutCubic).SetLoops(-1, LoopType.Yoyo);
         }
     }
 }

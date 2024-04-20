@@ -42,6 +42,14 @@ namespace Core.GamePlay
             _PlayerData.SaveUserData();
         }
 
+        private void OnApplicationPause(bool pause)
+        {
+            Debug.Log("OnApplicationPause");
+            if (pause)
+            {
+                _PlayerData.SaveUserData();
+            }
+        }
 
 
         private void Init()
