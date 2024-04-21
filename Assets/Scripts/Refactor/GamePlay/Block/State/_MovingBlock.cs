@@ -104,6 +104,7 @@ namespace Core.GamePlay.Block
                         obstacle.HittedByMovingBlock(-_blockController.transform.right);
                     });
             }
+            _GamePlayManager.Instance.OnBlockSelected(_blockController, IsCanMove);
         }
 
         private void ObstacleHitted(Vector3Int logicPos, Vector3 direction)

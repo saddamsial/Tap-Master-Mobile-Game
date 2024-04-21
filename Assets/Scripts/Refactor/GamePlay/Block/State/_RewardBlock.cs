@@ -29,10 +29,14 @@ namespace Core.GamePlay.Block{
             Debug.Log("Reward Block");
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
-            _GamePlayManager.Instance.OnBlockSelected(true, true);
+            _GamePlayManager.Instance.OnBlockSelected(_blockController ,true, true);
             _PlayerData.UserData.Coin += _rewardCoin;
             _PlayerData.UserData.CurrentCollectCoin += _rewardCoin;
-            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
+            if(!_blockController.IsLastBlock)
+                _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
+            else{
+                _GameEvent.OnSelectRewardBlockToWin?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
+            }
         }
 
         private void AnimatedCollectRewardBlock(){

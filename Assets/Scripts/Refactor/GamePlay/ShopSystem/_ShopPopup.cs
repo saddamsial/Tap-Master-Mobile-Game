@@ -50,6 +50,7 @@ namespace Core.GamePlay.Shop
             _previewBlockRenderer = _previewBlock.GetComponent<MeshRenderer>();
             _GameEvent.OnSelectShopElement += OnClickShopElement();
             _GameEvent.OnSelectRewardBlock += UpdateCoinText;
+            _GameEvent.OnSelectRewardBlockToWin += UpdateCoinText;
             _GameEvent.OnReceivedRewardByAds += UpdateCoinText;
             _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
             _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
@@ -65,6 +66,9 @@ namespace Core.GamePlay.Shop
             // _GameEvent.OnSelectColor -= OnClickElement(_ShopPage.Color);
 
             _GameEvent.OnSelectShopElement -= OnClickShopElement();
+            _GameEvent.OnSelectRewardBlock -= UpdateCoinText;
+            _GameEvent.OnSelectRewardBlockToWin -= UpdateCoinText;
+            _GameEvent.OnReceivedRewardByAds -= UpdateCoinText;
 
         }
 

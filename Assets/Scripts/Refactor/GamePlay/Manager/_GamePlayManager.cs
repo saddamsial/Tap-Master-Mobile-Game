@@ -1,4 +1,5 @@
 using Core.Data;
+using Core.GamePlay.Block;
 using Core.GamePlay.BlockPool;
 using Core.SystemGame;
 using Cysharp.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace Core.GamePlay
             _remainingWrongMoves = _totalBlocks / 10;
             _remainingWrongMoves = Mathf.Max(_ConstantGameplayConfig.MIN_REMAINING_WRONG_MOVES, _remainingWrongMoves);
             _remainingWrongMoves = Mathf.Min(_ConstantGameplayConfig.MAX_REMAINING_WRONG_MOVES, _remainingWrongMoves);
+            _remainingWrongMoves += _totalBlocks;
         }
 
         private void WinGame()
@@ -48,15 +50,18 @@ namespace Core.GamePlay
             // _GameManager.Instance.NextLevel();
         }
 
-        public void OnBlockSelected(bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
+        public void OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
+            _remainingWrongMoves -= 1;
             if (isBlockCanMove)
             {
                 _totalBlocks -= blocks;
                 _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_totalBlocks <= 0)
                 {
-                    _GameManager.Instance.WinGame();
+                    block.IsLastBlock = true;
+                    if(!isSpecialBlock)
+                        _GameManager.Instance.WinGame();
                     return;
                 }
                 if (blocks > 1) // only spawn special block when player dont use hint booster by check number of selected blokcs < 2
@@ -73,7 +78,6 @@ namespace Core.GamePlay
             }
             else
             {
-                _remainingWrongMoves -= 1;
                 _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_remainingWrongMoves <= 0)
                 {
@@ -90,6 +94,10 @@ namespace Core.GamePlay
         }
 
         public bool IsGameplayInteractable { get; set; }
-        public int RemainingWrongMoves => _remainingWrongMoves;
+        public int RemainingWrongMoves{
+            get {
+                return _remainingWrongMoves;
+            }
+        }
     }
 }

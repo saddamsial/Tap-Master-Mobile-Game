@@ -304,12 +304,14 @@ namespace PopupSystem
             _GameEvent.OnGameWin += ShowPopupWinGame;
             _GameEvent.OnGameLose += ShowPopupLoseGame;
             _GameEvent.OnSelectRewardBlock += ShowPopupCollectReward;
+            _GameEvent.OnSelectRewardBlockToWin += ShowPopupCollectRewardToWin;
         }
 
         private void DisposeGameEvent(){
             _GameEvent.OnGameWin -= ShowPopupWinGame;
             _GameEvent.OnGameLose -= ShowPopupLoseGame;
             _GameEvent.OnSelectRewardBlock -= ShowPopupCollectReward;
+            _GameEvent.OnSelectRewardBlockToWin -= ShowPopupCollectRewardToWin;
         }
 
         private void ShowPopupWinGame(){
@@ -324,6 +326,14 @@ namespace PopupSystem
             switch(typeEnum){
                 case _BlockTypeEnum.GoldReward:
                     CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber);
+                    break;
+            }
+        }
+
+        private void ShowPopupCollectRewardToWin(_BlockTypeEnum typeEnum, int rewardNumber = 0){
+            switch(typeEnum){
+                case _BlockTypeEnum.GoldReward:
+                    CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber, true);
                     break;
             }
         }

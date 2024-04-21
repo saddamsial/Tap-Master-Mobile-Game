@@ -52,6 +52,7 @@ namespace Core.GamePlay.Block
             ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
 
             IsMoving = false;
+            IsLastBlock = false;
         }
 
         private void ResetBlock()
@@ -149,7 +150,7 @@ namespace Core.GamePlay.Block
         private void OnSelected()
         {
             _blockStates[_currentType].OnSelect();
-            _GamePlayManager.Instance.OnBlockSelected(_blockStates[_currentType].IsCanMove);
+            //_GamePlayManager.Instance.OnBlockSelected(this ,_blockStates[_currentType].IsCanMove);
         }
 
         private Action<int, _ShopPage> ChangeBlockDisplayed()
@@ -219,6 +220,7 @@ namespace Core.GamePlay.Block
 
         public bool IsMoving { get; set; }
         public _BlockTypeEnum CurrentType => _currentType;
+        public bool IsLastBlock { get; set; }
     }
 
 #if UNITY_EDITOR

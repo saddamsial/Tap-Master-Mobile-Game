@@ -13,6 +13,7 @@ namespace Core.GamePlay{
 /// </summary>
         public static Action OnSelectIdleBlock;
         public static Action<_BlockTypeEnum, int> OnSelectRewardBlock;
+        public static Action<_BlockTypeEnum, int> OnSelectRewardBlockToWin; 
         //public static Action OnGamePlayWin;
     
         public static Action OnUseBoosterOpenFace;
