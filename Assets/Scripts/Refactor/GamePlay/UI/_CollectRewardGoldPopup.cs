@@ -1,5 +1,7 @@
+using System.Collections;
 using Core.Data;
 using Core.GamePlay;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PopupSystem;
 using UnityEngine;
@@ -33,6 +35,7 @@ namespace Core.UI.ExtendPopup{
             _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
             StartMovingCursor();
             _isWinGame = isWinGame;
+            Debug.Log("Show Collect Reward Gold Popup " + _isWinGame);
         }
 
         public void OnClickWatchAd(){
@@ -81,12 +84,27 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
+            // _cursor.DOKill();
+            // _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            // base.Hide( () => {
+            //     if(_isWinGame){
+            //         PopupManager.CreateNewInstance<_WinGamePopup>().Show();
+            //     }
+            // });
             _cursor.DOKill();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
-            base.Hide(() => {
-                if(_isWinGame)
-                    PopupManager.CreateNewInstance<_WinGamePopup>().Show();
-            });
+            if(_isWinGame){
+                this.gameObject.SetActive(false);
+                PopupManager.CreateNewInstance<_WinGamePopup>().Show();
+            }
+            else{
+                base.Hide();
+            }
+        }
+
+        private IEnumerator DelayShowWinGamePopup(float delayTime){
+            yield return new WaitForSeconds(delayTime);
+            PopupManager.CreateNewInstance<_WinGamePopup>().Show();
         }
 
         private void StartMovingCursor(){

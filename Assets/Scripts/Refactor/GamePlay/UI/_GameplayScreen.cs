@@ -42,7 +42,7 @@ namespace Core.UI{
         }
 
         private void UpdateScreen(){
-            _remainingWrongMovesText.text = _GameManager.Instance.GamePlayManager.RemainingWrongMoves.ToString() + " Left";
+            _remainingWrongMovesText.text = _GameManager.Instance.GamePlayManager.RemainingWrongMoves.ToString() + " Moves";
         }
 
         public void OnClickUseOpenFrontFaceBooster(){
