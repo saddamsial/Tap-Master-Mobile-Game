@@ -116,23 +116,23 @@ namespace Core.GamePlay.LevelSystem
 
         public void OnEndEditHanlder(string value){
             if(int.TryParse(value, out int result)){
-                if(CheckValidLevel(result)){
+                if(CheckValidLevel(result - 1)){
                     //List.InitData(result);
                     _isCanGoToLevel = true;
-                    _gotoLevel = result;
+                    _gotoLevel = result - 1;
+                    Debug.Log("Can go to level: " + _gotoLevel);
                     return;
                 }
             }
-            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Invalid value", true);
         }
 
         public void OnGoToLevelClick(){
             if(_isCanGoToLevel){
-                _GameManager.Instance.StartLevel(_gotoLevel - 1);
+                _GameManager.Instance.StartLevel(_gotoLevel);
                 PopupManager.Instance.CloseAllPopup();
             }
             else{
-                Debug.Log("Invalid value");
+                PopupManager.CreateNewInstance<_NotificationPopup>().Show("Invalid value", true);
             }
         }
 
@@ -183,9 +183,9 @@ namespace Core.GamePlay.LevelSystem
         }
 
         private bool CheckValidLevel(int level){
-            if(level >= GetStartGroupLevel(_LevelType.Easy) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Easy]) return true;
-            if(level >= GetStartGroupLevel(_LevelType.Medium) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Medium]) return true;
-            if(level >= GetStartGroupLevel(_LevelType.Master) && level < _PlayerData.UserData.HighestLevelInMode[_LevelType.Master]) return true;
+            if(level >= GetStartGroupLevel(_LevelType.Easy) && level <= _PlayerData.UserData.HighestLevelInMode[_LevelType.Easy]) return true;
+            if(level >= GetStartGroupLevel(_LevelType.Medium) && level <= _PlayerData.UserData.HighestLevelInMode[_LevelType.Medium]) return true;
+            if(level >= GetStartGroupLevel(_LevelType.Master) && level <= _PlayerData.UserData.HighestLevelInMode[_LevelType.Master]) return true;
             return false;
         }
     }

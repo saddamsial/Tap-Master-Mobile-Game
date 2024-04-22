@@ -16,11 +16,11 @@ namespace Core.GamePlay.LevelSystem{
 
         public _LevelElements(Transform levelItem)
         {
-            _levelText = levelItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            _levelText = levelItem.GetChild(0).GetComponent<TMP_Text>();
             _levelItem = levelItem;
-            _playButton = _levelItem.GetChild(1).GetComponent<Button>();
+            _playButton = _levelItem.GetComponent<Button>();
             _playButton.onClick.AddListener(OnClickLevelPlay);
-            _lockMask = _levelItem.GetChild(2);
+            _lockMask = _levelItem.GetChild(1);
         }
 
         ~_LevelElements(){
