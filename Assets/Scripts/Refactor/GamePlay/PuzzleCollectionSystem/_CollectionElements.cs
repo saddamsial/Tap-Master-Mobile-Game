@@ -14,8 +14,8 @@ namespace Core.GamePlay.Collection
         {
             var top = rootObject.Find("Top");
             var puzzlesContainer = rootObject.Find("Mid").GetChild(0);
-            _headTitle = top.GetChild(0).GetComponent<TMP_Text>();
-            _rewardImage = top.GetChild(2).GetComponent<Image>();
+            _headTitle = top.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            _rewardImage = top.GetChild(1).GetComponent<Image>();
             if (puzzlesContainer.childCount == 6)
             {
                 for (int i = 0; i < puzzlesContainer.childCount; i++)
