@@ -50,7 +50,6 @@ namespace Core.GamePlay.BlockPool
             _idleMaterial ??= await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyIdleMaterial);
             if (!_isInitPool)
             {
-                Debug.Log("Create Pool");
                 _isInitPool = true;
                 ObjectPooling._ObjectPooling.Instance.CreatePool(ObjectPooling._TypeGameObjectEnum.Block, _blockPrefab, 100);
             }
