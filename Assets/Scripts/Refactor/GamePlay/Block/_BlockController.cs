@@ -189,7 +189,7 @@ namespace Core.GamePlay.Block
             {
                 if (!_isSetColor)
                 {
-                    var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value;
+                    var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value.blockColor;
                     _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, color);
                 }
             };

@@ -1,4 +1,7 @@
+using System.Linq;
 using System.Security.Policy;
+using Core.Data;
+using Core.GamePlay.Shop;
 using Core.SystemGame;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -27,6 +30,7 @@ namespace Core.GamePlay
         private void Awake()
         {
             _GameEvent.OnGamePlayReset += SetUp;
+            _GameEvent.OnSelectShopElement += SetBackgroundColor;
             var camera = this.GetComponent<Camera>().GetUniversalAdditionalCameraData().cameraStack; 
             _BeforeLoadManager.Instance.CameraUI.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
             camera.Add(_BeforeLoadManager.Instance.CameraUI);
@@ -41,6 +45,7 @@ namespace Core.GamePlay
         private void OnDestroy()
         {
             _GameEvent.OnGamePlayReset -= SetUp;
+            _GameEvent.OnSelectShopElement -= SetBackgroundColor;
         }
 
         public void SetUp()
@@ -48,6 +53,7 @@ namespace Core.GamePlay
             Debug.Log("Setup Camera");
             _cameraRotation.DORotate(new Vector3(-45, 90, 90), 0.5f);
             SetCameraSize();
+            SetBackgroundColor(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color], _ShopPage.Color);
         }
 
         private void LateUpdate()
@@ -120,6 +126,11 @@ namespace Core.GamePlay
                 if (this.transform.localPosition.z - Vector3.forward.z > _minSizeZoomCamera.z)
                     this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _minSizeZoomCamera, -zoomValue);
             }
+        }
+
+        private void SetBackgroundColor(int index, _ShopPage type){
+            if(type == _ShopPage.Color)
+                this.GetComponent<Camera>().backgroundColor = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(index).Value.backgroundColor;
         }
 
         private void SetCameraSize()
