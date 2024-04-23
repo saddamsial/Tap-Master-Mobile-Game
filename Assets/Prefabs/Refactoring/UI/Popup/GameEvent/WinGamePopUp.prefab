@@ -631,6 +631,7 @@ MonoBehaviour:
   hideAnimationClip: {fileID: 7400000, guid: 0c1dc3dc31e7fd5419a0941c1bb5d4e7, type: 2}
   _coinText: {fileID: 947142841798346627}
   _watchAdsButton: {fileID: 2195976948461673845}
+  _skeletonAnimation: {fileID: 8969798526336190473}
 --- !u!1 &3350628135448235449
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +931,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8969798526336190473
 MonoBehaviour:
@@ -972,7 +973,7 @@ MonoBehaviour:
   physicsMovementRelativeTo: {fileID: 0}
   updateTiming: 1
   unscaledTime: 0
-  _animationName: Lose-Appear
+  _animationName: Win-Appear
   loop: 0
   timeScale: 1
 --- !u!33 &5633418859240690125
