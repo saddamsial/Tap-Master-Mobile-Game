@@ -55,7 +55,7 @@ namespace Core.UI{
         }
 
         public void OnClickReplayGame(){
-            PopupManager.CreateNewInstance<_ReplayGamePopup>().Show("Are you sure you want to replay this level?", true);
+            PopupManager.CreateNewInstance<_ReplayGamePopup>().Show("Are you sure you want to replay this level?", false);
         }
 
         public void OnClickOpenCollection(){
