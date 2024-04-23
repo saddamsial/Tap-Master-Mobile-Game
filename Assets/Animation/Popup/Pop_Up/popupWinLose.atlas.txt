@@ -1,0 +1,22 @@
+popupWinLose.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+Layer 14 Copy
+bounds:1315,522,309,499
+Layer 14 Copy 2
+bounds:998,522,315,499
+Layer 17
+bounds:1626,716,86,305
+Layer 18
+bounds:2,2,252,385
+rotate:90
+Layer 19
+bounds:438,273,247,385
+rotate:90
+Layer 96
+bounds:825,409,52,111
+cup
+bounds:2,256,434,765
+tim
+bounds:438,522,558,499
