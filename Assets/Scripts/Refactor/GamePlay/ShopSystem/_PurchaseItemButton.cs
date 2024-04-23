@@ -10,8 +10,8 @@ namespace Core.GamePlay.Shop{
         
         public _PurchaseItemButton(Transform rootObject){
             _purchaseButton = rootObject.GetComponent<Button>();
-            _priceText = rootObject.GetChild(2).GetComponent<TMP_Text>();
-            _lockMask = rootObject.GetChild(3).gameObject;
+            _priceText = rootObject.GetChild(1).GetComponent<TMP_Text>();
+            _lockMask = rootObject.GetChild(2).gameObject;
         }
 
         public void SetUpPurchaseItemButton(int price, bool isLock){

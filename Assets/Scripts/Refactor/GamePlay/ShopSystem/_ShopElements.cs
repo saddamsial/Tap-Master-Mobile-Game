@@ -51,7 +51,8 @@ namespace Core.GamePlay.Shop
         }
 
         public void DisplayHighlightElement(bool isHighlight){
-            _boderFrame.color = isHighlight ? Color.yellow : Color.black;
+            //_boderFrame.color = isHighlight ? Color.yellow : Color.white;
+            _selectedIcon.gameObject.SetActive(isHighlight);
         }
     }
 }

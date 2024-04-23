@@ -38,5 +38,12 @@ namespace Core.GamePlay.LevelSystem{
                 }
             }
         }
+
+        public void SetLevelElementsBackground(Sprite sprite){
+            if(sprite == null) throw new System.Exception("Sprite is null");
+            for(int i = 0; i < _listContainedLevelElements.Count; i++){
+                _listContainedLevelElements[i].SetBackgroundElement(sprite);
+            }
+        }
     }
 }

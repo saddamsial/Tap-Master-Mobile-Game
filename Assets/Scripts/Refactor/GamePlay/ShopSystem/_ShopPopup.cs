@@ -312,7 +312,7 @@ namespace Core.GamePlay.Shop
                     _previewBlockRenderer.material.SetTexture(_ConstantBlockSetting.KEY_IDLE_NORMALMAP_TEXTURE, _shopElementDatas.blockData.ElementAt(id).Value);
                     break;
                 case _ShopPage.Color:
-                    _previewBlockRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, _shopElementDatas.colorData.ElementAt(id).Value);
+                    _previewBlockRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, _shopElementDatas.colorData.ElementAt(id).Value.blockColor);
                     break;
                 case _ShopPage.Arrow:
                     _previewBlockRenderer.material.SetTexture(_ConstantBlockSetting.KEY_ARROW_TEXTTURE, _shopElementDatas.arrowData.ElementAt(id).Value);
@@ -370,14 +370,19 @@ namespace Core.GamePlay.Shop
             var listColorTxt = System.IO.Directory.GetFiles(_colorTexture, "*.txt", System.IO.SearchOption.AllDirectories);
             char[] splitChar = { '\n', '\r' };
             var colorString = System.IO.File.ReadAllText(listColorTxt[0]).Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
-            List<Color> listColor = new List<Color>();
+            List<_ColorPurchased> listColor = new List<_ColorPurchased>();
+            char splitColor = ',';
             foreach (var color in colorString)
             {
-                if (ColorUtility.TryParseHtmlString(color, out Color c))
+                var colorData = color.Split(splitColor);
+                if (ColorUtility.TryParseHtmlString(colorData[0], out Color blockColor))
                 {
-                    listColor.Add(c);
+                    if (ColorUtility.TryParseHtmlString(colorData[1], out Color backgroundColor))
+                    {
+                        listColor.Add(new _ColorPurchased(blockColor, backgroundColor));
+                    }
+                    else Debug.LogError("Color not valid");
                 }
-                else Debug.LogError("Color not valid");
             }
 
             _shopElementDatas.arrowData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, Texture2D>();
@@ -406,7 +411,7 @@ namespace Core.GamePlay.Shop
                 Debug.LogError("Block data not match");
             }
 
-            _shopElementDatas.colorData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, Color>();
+            _shopElementDatas.colorData = new SKUnityToolkit.SerializableDictionary.SerializableDictionary<Sprite, _ColorPurchased>();
             if (listColorSprite.Count == listColor.Count)
             {
                 for (int i = 0; i < listColorSprite.Count; i++)
@@ -416,13 +421,12 @@ namespace Core.GamePlay.Shop
             }
             else
             {
-                Debug.LogError("Color data not match");
+                Debug.LogError("Color data not match " + listColorSprite.Count + " " + listColor.Count);
             }
 
             UnityEditor.EditorUtility.SetDirty(_shopElementDatas);
             AssetDatabase.SaveAssets();
         }
 #endif
-
     }
 }
