@@ -60,7 +60,7 @@ namespace Core.GamePlay
                 if (_totalBlocks <= 0)
                 {
                     block.IsLastBlock = true;
-                    if(!isSpecialBlock)
+                    if (!isSpecialBlock)
                         _GameManager.Instance.WinGame();
                     return;
                 }
@@ -79,10 +79,10 @@ namespace Core.GamePlay
             else
             {
                 _GameEvent.OnSelectIdleBlock?.Invoke();
-                if (_remainingWrongMoves <= 0)
-                {
-                    _GameManager.Instance.LoseGame();
-                }
+            }
+            if (_remainingWrongMoves <= 0)
+            {
+                _GameManager.Instance.LoseGame();
             }
         }
 
@@ -94,8 +94,10 @@ namespace Core.GamePlay
         }
 
         public bool IsGameplayInteractable { get; set; }
-        public int RemainingWrongMoves{
-            get {
+        public int RemainingWrongMoves
+        {
+            get
+            {
                 return _remainingWrongMoves;
             }
         }
