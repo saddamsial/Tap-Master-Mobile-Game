@@ -14,6 +14,7 @@ namespace Core.GamePlay.LevelSystem{
         private int _currentLevel;
         private Transform _lockMask;
         private GameObject _selectedIcon;
+        private Image _backgroundElement;
 
         public _LevelElements(Transform levelItem)
         {
@@ -24,6 +25,7 @@ namespace Core.GamePlay.LevelSystem{
             _lockMask = _levelItem.GetChild(1);
             _selectedIcon = _levelItem.GetChild(2).gameObject;
             _GameEvent.OnGamePlayReset += SetSelected;
+            _backgroundElement = _levelItem.GetComponent<Image>();
         }
 
         ~_LevelElements(){
@@ -40,6 +42,10 @@ namespace Core.GamePlay.LevelSystem{
             if(_currentLevel == _ConstantGameplayConfig.LEVEL_EASY+1 || _currentLevel == _ConstantGameplayConfig.LEVEL_MEDIUM + _ConstantGameplayConfig.LEVEL_EASY + 1 || _currentLevel == 1){
                 SetInteractable(true);
             }
+        }
+
+        public void SetBackgroundElement(Sprite sprite){
+            _backgroundElement.sprite = sprite;
         }
 
         public void OnClickLevelPlay(){

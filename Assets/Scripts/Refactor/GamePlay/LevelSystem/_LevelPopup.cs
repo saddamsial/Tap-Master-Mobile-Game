@@ -40,6 +40,9 @@ namespace Core.GamePlay.LevelSystem
         [SerializeField] private Sprite _easyFrameSprite;
         [SerializeField] private Sprite _mediumFrameSprite;
         [SerializeField] private Sprite _masterFrameSprite;
+        [SerializeField] private Sprite _easyElementSprite;
+        [SerializeField] private Sprite _mediumElementSprite;
+        [SerializeField] private Sprite _masterElementSprite;
 
         private int _maxDataLevelInMode = 30;
         private Dictionary<_LevelType, TwoStateElement> _gotoPageButton;
@@ -106,6 +109,13 @@ namespace Core.GamePlay.LevelSystem
         {
             //item.GetComponentInChildren<TextMeshProUGUI>().text = index.ToString();
             item.GetComponent<_LevelElementsContainer>().SetLevelInLine(index, GetStartGroupLevel(_currentLevelType), _maxDataLevelInMode);
+            item.GetComponent<_LevelElementsContainer>().SetLevelElementsBackground(_currentLevelType switch
+            {
+                _LevelType.Easy => _easyElementSprite,
+                _LevelType.Medium => _mediumElementSprite,
+                _LevelType.Master => _masterElementSprite,
+                _ => null
+            });
         }
 
         /// <summary>
