@@ -50,7 +50,6 @@ namespace Core.GamePlay
             SetCameraSize();
         }
 
-
         private void LateUpdate()
         {
             if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable) return;
