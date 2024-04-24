@@ -60,12 +60,10 @@ namespace Core.GamePlay
                 if (_totalBlocks <= 0)
                 {
                     block.IsLastBlock = true;
-                    if(!isSpecialBlock)
+                    if (!isSpecialBlock)
                         _GameManager.Instance.WinGame();
                     return;
                 }
-                if (blocks > 1) // only spawn special block when player dont use hint booster by check number of selected blokcs < 2
-                    return;
                 if (!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
                 if (_remainBlocksToHaveSpecialBlock == 0)
@@ -79,11 +77,22 @@ namespace Core.GamePlay
             else
             {
                 _GameEvent.OnSelectIdleBlock?.Invoke();
-                if (_remainingWrongMoves <= 0)
-                {
-                    _GameManager.Instance.LoseGame();
-                }
             }
+            if (_remainingWrongMoves <= 0)
+            {
+                _GameManager.Instance.LoseGame();
+            }
+        }
+
+        // Only hint idle block
+        public void OnBlockSelectedByHint(int blockNums){
+            _totalBlocks -= blockNums;
+                _GameEvent.OnSelectIdleBlock?.Invoke();
+                if (_totalBlocks <= 0)
+                {
+                    _GameManager.Instance.WinGame();
+                    return;
+                }
         }
 
         public _BlockPool BlockPool => _blockPool;
@@ -94,8 +103,10 @@ namespace Core.GamePlay
         }
 
         public bool IsGameplayInteractable { get; set; }
-        public int RemainingWrongMoves{
-            get {
+        public int RemainingWrongMoves
+        {
+            get
+            {
                 return _remainingWrongMoves;
             }
         }

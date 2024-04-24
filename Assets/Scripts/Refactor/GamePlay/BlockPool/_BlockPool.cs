@@ -212,8 +212,9 @@ namespace Core.GamePlay.BlockPool
                 _blockObjectPool[randomIndex].SetCurrentTypeBlock(_BlockTypeEnum.MovingSpecial);
                 _blockObjectPool.RemoveAt(randomIndex);
                 //DespawnBlock(_blockObjectPool[randomIndex]);
-                _GamePlayManager.Instance.OnBlockSelected(_blockObjectPool[randomIndex], true, false, 1);
+                //_GamePlayManager.Instance.OnBlockSelected(_blockObjectPool[randomIndex], true, false, 1);
             }
+            _GamePlayManager.Instance.OnBlockSelectedByHint(blockToRemove);
             //_GamePlayManager.Instance.OnBlockSelected(, true, false, blockToRemove);
         }
 

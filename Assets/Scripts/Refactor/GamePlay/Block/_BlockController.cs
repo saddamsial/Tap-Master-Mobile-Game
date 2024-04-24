@@ -191,6 +191,7 @@ namespace Core.GamePlay.Block
                 {
                     var color = _GameManager.Instance.BlockElementDatas.colorData.ElementAt(x).Value.blockColor;
                     _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, color);
+                    ((_MovingBlock)_blockStates[_BlockTypeEnum.Moving]).Color = new Vector3(color.r, color.g, color.b) * 255;
                 }
             };
         }

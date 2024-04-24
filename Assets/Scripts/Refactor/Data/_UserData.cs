@@ -17,7 +17,7 @@ namespace Core.Data{
 
         public void InitUserData(){
             CurrentLevel = 0;
-            Coin = 50000;
+            Coin = 0;
             CurrentCollectCoin = 0;
             HighestLevelInMode = new Dictionary<_LevelType, int>(){
                 {_LevelType.Easy, 1},
@@ -28,7 +28,6 @@ namespace Core.Data{
             RuntimeCollectionData = new Dictionary<int, List<int>>();
             RuntimePurchasedShopData = new Dictionary<_ShopPage, List<int>>();
             RuntimeSelectedShopData = new Dictionary<_ShopPage, int>();
-            UpdateCollectionData(0, 3);
             UpdatePurchasedData(_ShopPage.Arrow, 0);
             UpdatePurchasedData(_ShopPage.Block, 0);
             UpdatePurchasedData(_ShopPage.Color, 0);
@@ -55,6 +54,7 @@ namespace Core.Data{
             {
                 HighestLevelInMode[_LevelType.Master] = Mathf.Max(CurrentLevel + 1,HighestLevelInMode[_LevelType.Master]);
             }
+            Coin += CurrentCollectCoin;
         }
 
         public void UpdateCollectionData(int colelctionId, int puzzlePieceId){
