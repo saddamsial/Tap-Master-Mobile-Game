@@ -24,7 +24,7 @@ namespace Core.GamePlay.Block
             _blockedMaterial = blockedMaterial;
         }
 
-        public override void Init(bool isSetColor = false, Vector3 color = default)
+        public override void Init(bool isSetColor = false, Vector3 color = default,Mesh specialMesh = null, Material specialMaterial = null)
         {
             base.Init();
             if (isSetColor)

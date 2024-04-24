@@ -12,7 +12,7 @@ namespace Core.GamePlay.Block{
         public _RewardBlock(_BlockController blockController) : base(blockController){
         }
 
-        public override void Init(bool isSetColor = false, Vector3 color = default){
+        public override void Init(bool isSetColor = false, Vector3 color = default, Mesh _specialMesh = null, Material specialMaterial = null){
             base.Init();
             _rewardCoin = 0;
         }

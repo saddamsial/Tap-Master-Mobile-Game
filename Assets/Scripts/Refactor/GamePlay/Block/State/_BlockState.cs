@@ -11,7 +11,7 @@ namespace Core.GamePlay.Block{
             _meshRenderer = _blockController.GetComponent<MeshRenderer>();
         }
 
-        public virtual void Init(bool isSetColor = false, Vector3 color = default){
+        public virtual void Init(bool isSetColor = false, Vector3 color = default, Mesh specialMesh = null, Material specialMaterial = null){
         }
 
         public virtual void SetUp(){
