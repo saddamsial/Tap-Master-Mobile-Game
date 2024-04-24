@@ -40,7 +40,6 @@ namespace Core.UI.ExtendPopup{
             _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
             StartMovingCursor();
             _isWinGame = isWinGame;
-            Debug.Log("Show Collect Reward Gold Popup " + _isWinGame);
         }
 
         public void OnClickWatchAd(){
@@ -52,31 +51,24 @@ namespace Core.UI.ExtendPopup{
             int coin = _coin;
             switch (val){
                 case 0:
-                    Debug.Log("x2");
                     coin = _coin * 2;
                     break;
                 case 1:
-                    Debug.Log("x3");
                     coin =  _coin * 3;
                     break;
                 case 2:
-                    Debug.Log("x4");
                     coin = _coin * 4;
                     break;
                 case 3:
-                    Debug.Log("x5");
                     coin = _coin *5;
                     break;
                 case 4:
-                    Debug.Log("x4");
                     coin = _coin * 4;
                     break;
                 case 5:
-                    Debug.Log("x3");
                     coin = _coin * 3;
                     break;
                 case 6:
-                    Debug.Log("x2");
                     coin = _coin * 2;
                     break;
             }

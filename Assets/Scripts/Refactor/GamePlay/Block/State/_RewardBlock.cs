@@ -26,7 +26,6 @@ namespace Core.GamePlay.Block{
 
         public override void OnSelect(){
             base.OnSelect();
-            Debug.Log("Reward Block");
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
             _GamePlayManager.Instance.OnBlockSelected(_blockController ,true, true);

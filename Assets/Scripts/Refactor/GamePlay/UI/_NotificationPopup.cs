@@ -18,7 +18,6 @@ namespace Core.UI.ExtendPopup{
         public void OnClickClose(){
             if(!_isTopOfGroupPopup)
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
-            Debug.Log(_GameManager.Instance.GamePlayManager.IsGameplayInteractable);
             base.Hide();
         }
     }

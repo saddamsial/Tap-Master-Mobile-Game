@@ -42,7 +42,6 @@ namespace Core.GamePlay
 
         private void WinGame()
         {
-            Debug.Log("WinGame");
             _PlayerData.UserData.UpdateWinGameUserDataValue();
             _GameEvent.OnGameWin?.Invoke();
             // await UniTask.Delay(1500);
