@@ -95,6 +95,8 @@ namespace Core.GamePlay.Block
                         _isMoving = false;
                         _blockController.IsMoving = false;
                         _blockController.SetMaterial(_currentMaterial);
+                        Debug.Log("Obstacle Hitted " + _color);
+                        _meshRenderer.material.SetColor(_ConstantBlockSetting.KEY_CORLOR_SETTING, new Color(_color.x / 255, _color.y / 255, _color.z / 255));
                     });
 
                 t.OnStepComplete(() =>
@@ -126,6 +128,11 @@ namespace Core.GamePlay.Block
                 {
                     obstacle = _GameManager.Instance.BlockPool.GetBlock(obstacle.LogicPos + _NormalizingVector3.IgnoreDecimalPart(-_blockController.transform.right));
                 });
+        }
+
+        public Vector3 Color {
+            get => _color;
+            set => _color = value;
         }
     }
 }
