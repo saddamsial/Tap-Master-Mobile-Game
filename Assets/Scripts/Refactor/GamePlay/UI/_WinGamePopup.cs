@@ -3,6 +3,7 @@ using PopupSystem;
 using Core.GamePlay;
 using Core.Data;
 using Spine.Unity;
+using TMPro;
 
 namespace Core.UI.ExtendPopup{
     public class _WinGamePopup : BasePopup{
@@ -14,7 +15,8 @@ namespace Core.UI.ExtendPopup{
             base.Show(AnimWinGame);
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _coinText.gameObject.SetActive(false);
-            int coin = _PlayerData.UserData.CurrentCollectCoin;
+            int currentCoin = _PlayerData.UserData.CurrentCollectCoin;
+            int coin = currentCoin;
             _coinText.text = "+" + coin.ToString();
             if (coin > 0){
                 _coinText.gameObject.SetActive(true);

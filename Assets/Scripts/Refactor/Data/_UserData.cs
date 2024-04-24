@@ -54,6 +54,7 @@ namespace Core.Data{
             {
                 HighestLevelInMode[_LevelType.Master] = Mathf.Max(CurrentLevel + 1,HighestLevelInMode[_LevelType.Master]);
             }
+            Coin += CurrentCollectCoin;
         }
 
         public void UpdateCollectionData(int colelctionId, int puzzlePieceId){

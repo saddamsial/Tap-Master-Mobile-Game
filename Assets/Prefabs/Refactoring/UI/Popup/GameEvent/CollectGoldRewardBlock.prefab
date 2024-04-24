@@ -1072,6 +1072,7 @@ MonoBehaviour:
   showAnimationClip: {fileID: 7400000, guid: e40a885b5b7665d4597a31a47c4144be, type: 2}
   hideAnimationClip: {fileID: 7400000, guid: 0c1dc3dc31e7fd5419a0941c1bb5d4e7, type: 2}
   _coinText: {fileID: 947142841798346627}
+  _multiCoinText: {fileID: 3720583366600675650}
   _multipleBarImage: {fileID: 5142956738653480623}
   _cursor: {fileID: 1822169286079833209}
   _watchAdButton: {fileID: 2195976948461673845}
@@ -1746,7 +1747,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8377676987875218600}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
