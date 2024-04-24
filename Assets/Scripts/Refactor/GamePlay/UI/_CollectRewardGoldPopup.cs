@@ -12,6 +12,7 @@ namespace Core.UI.ExtendPopup{
     public class _CollectRewardGoldPopup : BasePopup{
         [SerializeField] private TMPro.TMP_Text _coinText;
         [SerializeField] private TMP_Text _multiCoinText;
+        [SerializeField] private TMP_Text _finalCoinText;
         [SerializeField] private Image _multipleBarImage;
         [SerializeField] private RectTransform _cursor;
         [SerializeField] private GameObject _watchAdButton;
@@ -33,6 +34,7 @@ namespace Core.UI.ExtendPopup{
             _barWidth = _multipleBarImage.rectTransform.rect.width;
             _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;
             _coinText.text = "+" + coin.ToString();
+            _finalCoinText.text = ( coin).ToString();
             _multiCoinText.text = ( coin * 5).ToString();
             _coin = coin;
             _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
@@ -82,7 +84,7 @@ namespace Core.UI.ExtendPopup{
             //_PlayerData.UserData.Coin += coin - _coin;
             _PlayerData.UserData.CurrentCollectCoin += coin - _coin;
             //_GameEvent.OnReceivedRewardByAds?.Invoke(GamePlay.Block._BlockTypeEnum.GoldReward ,coin - _coin);
-
+            _finalCoinText.text = (coin).ToString();
             _watchAdButton.SetActive(false);
         }
 
