@@ -100,7 +100,7 @@ namespace Core.GamePlay.BlockPool
                     if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward && _blockObjectPool[i].CurrentType != _BlockTypeEnum.PuzzleReward)
                     {
                         int tmp = Random.Range(0, 100);
-                        if (tmp < 100)
+                        if (tmp < 20)
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
                         else
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);

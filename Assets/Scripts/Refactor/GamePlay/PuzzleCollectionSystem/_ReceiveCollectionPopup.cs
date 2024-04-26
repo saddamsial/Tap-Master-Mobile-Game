@@ -43,7 +43,6 @@ namespace Core.GamePlay.Collection{
                 PopupManager.Instance.ShowFade();
             });
         }
-
         private IEnumerator OpenReceivedPiece(float time, int index){
             //if (index < 0 || index >= _collectionDatas.collectionElementDatas.Count) throw new System.Exception("Index out of range");
             yield return new WaitForSeconds(time);
