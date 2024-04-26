@@ -35,13 +35,17 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Exit(){
-            base.Hide();
+            base.Hide(() => {
+                _GameEvent.OnGameWin();
+            });
         }
 
         private IEnumerator OpenReceivedPiece(float time, int index){
             //if (index < 0 || index >= _collectionDatas.collectionElementDatas.Count) throw new System.Exception("Index out of range");
             yield return new WaitForSeconds(time);
             _collectionElement.FadeOpenPuzzlePiece(index);
+            yield return new WaitForSeconds(1);
+            Exit();
         }
 
         public void SetupCurrentStateCollection(int type){

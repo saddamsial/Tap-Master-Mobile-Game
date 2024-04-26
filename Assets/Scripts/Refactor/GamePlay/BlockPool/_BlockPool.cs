@@ -97,9 +97,13 @@ namespace Core.GamePlay.BlockPool
                 if (_blockObjectPool[i].CheckObjectVisible(planes))
                 {
                     //Debug.Log("Find block in camera view");
-                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward)
+                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward && _blockObjectPool[i].CurrentType != _BlockTypeEnum.PuzzleReward)
                     {
-                        _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
+                        int tmp = Random.Range(0, 100);
+                        if (tmp < 100)
+                            _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
+                        else
+                            _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
                         return;
                     }
                 }

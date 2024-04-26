@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using Core.Data;
 using UnityEngine;
 
-namespace Core.GamePlay.Block{
-    public class _CollectionRewardBlock : _BlockState{
-        public _CollectionRewardBlock(_BlockController block) : base(block) {}
+namespace Core.GamePlay.Block
+{
+    public class _CollectionRewardBlock : _BlockState
+    {
+        public _CollectionRewardBlock(_BlockController block) : base(block) { }
 
         private Mesh _specialMesh;
         private Material _specialMaterial;
@@ -26,7 +30,30 @@ namespace Core.GamePlay.Block{
         public override void OnSelect()
         {
             base.OnSelect();
-            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+            //_GameEvent.On?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+            _GameManager.Instance.GamePlayManager.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
+            _GameManager.Instance.GamePlayManager.OnBlockSelected(_blockController, true, true);
+            if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value == -1)
+            {
+                int length = _GameManager.Instance.CollectionElementDatas.collectionElementDatas.Count;
+                int randomType = Random.Range(0, length);
+                int randomIndex = Random.Range(0, 36);
+                var listCollected = _PlayerData.UserData.RuntimeCollectionData[randomType];
+                int count = 0;
+
+                while (listCollected.Contains(randomIndex))
+                {
+                    randomIndex = (randomIndex + 1) % 36;
+                    count += 1;
+                    if(count >= 36){
+                        randomType = (randomType + 1) % length;
+                        count = 0;
+                    }
+                }
+                _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(randomType, randomIndex);
+            }
+            _blockController.gameObject.SetActive(false);
+            SimplePool.Despawn(_blockController.gameObject);
         }
     }
 }

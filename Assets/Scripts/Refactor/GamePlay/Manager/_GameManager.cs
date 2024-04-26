@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Data;
 using Core.GamePlay.BlockPool;
 using Core.GamePlay.Collection;
@@ -28,6 +29,7 @@ namespace Core.GamePlay
         public void StartLevel()
         {
             _PlayerData.UserData.CurrentCollectCoin = 0;
+            _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
             Level = _LevelSystem.GetLevelData();
             _gamePlayManager.StartLevel(Level);
             _GameEvent.OnGamePlayReset?.Invoke();
@@ -43,7 +45,11 @@ namespace Core.GamePlay
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
             _PlayerData.UserData.UpdateWinGameUserDataValue();
-            _GameEvent.OnGameWin?.Invoke();
+            if(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1){
+                PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
+            }
+            else
+                _GameEvent.OnGameWin?.Invoke();
         }
 
         public void LoseGame(){
