@@ -94,7 +94,7 @@ namespace Core.GamePlay.LevelSystem
         /// </summary>
         void InitInfinityScroll()
         {
-            Debug.Log("Start");
+            //Debug.Log("Start");
             List.OnFill += OnFillItem;
             List.OnHeight += OnHeightItem;
             //List.InitData(10);

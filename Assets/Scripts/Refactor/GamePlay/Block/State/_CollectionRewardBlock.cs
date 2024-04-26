@@ -32,6 +32,7 @@ namespace Core.GamePlay.Block
             base.OnSelect();
             //_GameEvent.On?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
             _GameManager.Instance.GamePlayManager.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
+            _GameManager.Instance.GamePlayManager.BlockPool.BlockObjectPool.Remove(_blockController);
             _GameManager.Instance.GamePlayManager.OnBlockSelected(_blockController, true, true);
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value == -1)
             {

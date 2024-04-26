@@ -35,7 +35,8 @@ namespace Core.GamePlay
             _GameEvent.OnGamePlayReset?.Invoke();
         }
 #if UNITY_EDITOR
-        public void StartLevelByTool(){
+        public void StartLevelByTool()
+        {
             _gamePlayManager.BlockPool.DeSpawnAllBlocks();
             StartLevel();
         }
@@ -44,15 +45,17 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
-            _PlayerData.UserData.UpdateWinGameUserDataValue();
-            if(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1){
+            if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
+            {
                 PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
             }
             else
                 _GameEvent.OnGameWin?.Invoke();
+            _PlayerData.UserData.UpdateWinGameUserDataValue();
         }
 
-        public void LoseGame(){
+        public void LoseGame()
+        {
             _GameEvent.OnGameLose?.Invoke();
         }
 
@@ -62,12 +65,14 @@ namespace Core.GamePlay
             StartLevel(currentLevel + 1);
         }
 
-        public void ReTry(){
+        public void ReTry()
+        {
             var currentLevel = Level.levelIndex - 1;
             StartLevel(currentLevel);
         }
 
-        public void StartLevel(int level){
+        public void StartLevel(int level)
+        {
             _gamePlayManager.IsGameplayInteractable = true;
             _PlayerData.UserData.CurrentLevel = level;
             _gamePlayManager.BlockPool.DeSpawnAllBlocks();

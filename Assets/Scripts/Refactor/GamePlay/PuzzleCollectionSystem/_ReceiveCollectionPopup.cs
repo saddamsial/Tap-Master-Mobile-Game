@@ -28,15 +28,19 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Show(int type, int index){
-            base.Show();
+            base.Show(
+                () => {
+                    StartCoroutine(OpenReceivedPiece(0.75f, index));
+                }
+            );
             _collectionElement.SetupPuzzle(_collectionDatas.collectionElementDatas[type]);
             SetupCurrentStateCollection(type);
-            StartCoroutine(OpenReceivedPiece(0.75f, index));
         }
 
         public void Exit(){
             base.Hide(() => {
-                _GameEvent.OnGameWin();
+                _GameEvent.OnGameWin?.Invoke();
+                PopupManager.Instance.ShowFade();
             });
         }
 
@@ -45,7 +49,8 @@ namespace Core.GamePlay.Collection{
             yield return new WaitForSeconds(time);
             _collectionElement.FadeOpenPuzzlePiece(index);
             yield return new WaitForSeconds(1);
-            Exit();
+            this.gameObject.SetActive(false);
+            _GameEvent.OnGameWin?.Invoke();
         }
 
         public void SetupCurrentStateCollection(int type){

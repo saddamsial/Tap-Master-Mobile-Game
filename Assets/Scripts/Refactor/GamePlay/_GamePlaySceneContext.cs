@@ -40,13 +40,13 @@ namespace Core.GamePlay
 
         private void OnApplicationQuit()
         {
-            Debug.Log("OnApplicationQuit");
+            //Debug.Log("OnApplicationQuit");
             _PlayerData.SaveUserData();
         }
 
         private void OnApplicationPause(bool pause)
         {
-            Debug.Log("OnApplicationPause");
+            //Debug.Log("OnApplicationPause");
             if (pause)
             {
                 _PlayerData.SaveUserData();
