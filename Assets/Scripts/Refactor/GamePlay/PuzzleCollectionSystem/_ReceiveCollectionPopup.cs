@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Core.Data;
 using PopupSystem;
 using UnityEngine;
 
@@ -28,6 +30,7 @@ namespace Core.GamePlay.Collection{
         public void Show(int type, int index){
             base.Show();
             _collectionElement.SetupPuzzle(_collectionDatas.collectionElementDatas[type]);
+            SetupCurrentStateCollection(type);
             StartCoroutine(OpenReceivedPiece(0.75f, index));
         }
 
@@ -36,9 +39,15 @@ namespace Core.GamePlay.Collection{
         }
 
         private IEnumerator OpenReceivedPiece(float time, int index){
-            if (index < 0 || index >= _collectionDatas.collectionElementDatas.Count) throw new System.Exception("Index out of range");
+            //if (index < 0 || index >= _collectionDatas.collectionElementDatas.Count) throw new System.Exception("Index out of range");
             yield return new WaitForSeconds(time);
             _collectionElement.FadeOpenPuzzlePiece(index);
+        }
+
+        public void SetupCurrentStateCollection(int type){
+            foreach(var puzzlePieceId in _PlayerData.UserData.RuntimeCollectionData[type]){
+                _collectionElement.SetupPuzzleState(puzzlePieceId);
+            }
         }
     }
 }

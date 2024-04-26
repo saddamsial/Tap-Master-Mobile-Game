@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Core.GamePlay.Collection;
+using PopupSystem;
 using UnityEngine;
 
 namespace MyTools.ScreenSystem
@@ -50,11 +52,18 @@ namespace MyTools.ScreenSystem
             _currentScreenType = screenType;
             _screenDict[_currentScreenType].Show();
         }
-
+#if UNITY_EDITOR
         private void Update(){
             if(Input.GetKeyDown(KeyCode.A)){
                 _screenDict[_currentScreenType].Hide();
             }
+            else if(Input.GetKeyDown(KeyCode.S)){
+                ShowScreen(_currentScreenType);
+            }
+            if(Input.GetKeyDown(KeyCode.D)){
+                PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(0, 1);
+            }
         }
+#endif
     }
 }
