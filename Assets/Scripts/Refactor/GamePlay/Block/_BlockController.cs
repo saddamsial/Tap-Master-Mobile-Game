@@ -70,7 +70,6 @@ namespace Core.GamePlay.Block
             _blockStates.Add(_BlockTypeEnum.MovingSpecial, new _SpecialMovingBlock(this));
             _blockStates.Add(_BlockTypeEnum.PuzzleReward, new _CollectionRewardBlock(this));
             _isInit = true;
-            Debug.Log("Init Block " + _blockStates.Count + " type block");
         }
 
         private void InitBlockStates(Vector3 color, bool isSetColor = false)

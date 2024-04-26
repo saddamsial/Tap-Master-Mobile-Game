@@ -1,4 +1,5 @@
 using Core.GamePlay.Collection;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,6 +68,14 @@ namespace Core.GamePlay.Collection
         public void SetupPuzzleState(int puzzlePieceId)
         {
             _puzzlePieces[puzzlePieceId].gameObject.SetActive(false);
+        }
+
+        public void FadeOpenPuzzlePiece(int index){
+            _puzzlePieces[index].DOFade(0, 0.5f)
+                .OnComplete(()=>{
+                    _puzzlePieces[index].gameObject.SetActive(false);
+                    _puzzlePieces[index].color = new Color(1,1,1,1);
+                });
         }
 
         // public void SetupPuzzleState(){

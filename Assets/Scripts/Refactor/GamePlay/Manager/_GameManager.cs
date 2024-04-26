@@ -1,5 +1,6 @@
 using Core.Data;
 using Core.GamePlay.BlockPool;
+using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
 using UnityEngine;
@@ -76,5 +77,6 @@ namespace Core.GamePlay
 
         public _ShopElementDatas BlockElementDatas { get; set; }
         public _ItemPriceDatas ItemPriceDatas { get; set; }
+        public _CollectionElementDatas CollectionElementDatas { get; set; }
     }
 }

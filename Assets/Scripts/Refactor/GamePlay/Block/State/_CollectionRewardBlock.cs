@@ -26,6 +26,7 @@ namespace Core.GamePlay.Block{
         public override void OnSelect()
         {
             base.OnSelect();
+            _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
         }
     }
 }
