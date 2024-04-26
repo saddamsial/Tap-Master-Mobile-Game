@@ -19,6 +19,8 @@ namespace Core.GamePlay.Block
         [SerializeField] private Sprite texture2D;
         [SerializeField] private Vector3 _defaultScale;
         [SerializeField] public _BlockTypeEnum _blockType;
+        [SerializeField] private Mesh[] _specialMesh;
+        [SerializeField] private Material[] _specialMaterial;
 
         private Dictionary<_BlockTypeEnum, _BlockState> _blockStates = new Dictionary<_BlockTypeEnum, _BlockState>();
         private _BlockTypeEnum _currentType;
@@ -33,7 +35,7 @@ namespace Core.GamePlay.Block
             _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
         }
@@ -68,6 +70,7 @@ namespace Core.GamePlay.Block
             _blockStates.Add(_BlockTypeEnum.MovingSpecial, new _SpecialMovingBlock(this));
             _blockStates.Add(_BlockTypeEnum.PuzzleReward, new _CollectionRewardBlock(this));
             _isInit = true;
+            Debug.Log("Init Block " + _blockStates.Count + " type block");
         }
 
         private void InitBlockStates(Vector3 color, bool isSetColor = false)
@@ -75,7 +78,7 @@ namespace Core.GamePlay.Block
             _blockStates[_BlockTypeEnum.Moving].Init(isSetColor, color);
             _blockStates[_BlockTypeEnum.GoldReward].Init();
             _blockStates[_BlockTypeEnum.MovingSpecial].Init();
-            _blockStates[_BlockTypeEnum.PuzzleReward].Init();
+            _blockStates[_BlockTypeEnum.PuzzleReward].Init(false, default, _specialMesh[0], _specialMaterial[0]);
         }
 
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)

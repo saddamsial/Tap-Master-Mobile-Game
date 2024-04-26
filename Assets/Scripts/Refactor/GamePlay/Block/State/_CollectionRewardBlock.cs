@@ -19,6 +19,8 @@ namespace Core.GamePlay.Block{
             base.SetUp();
             _blockController.GetComponent<MeshFilter>().mesh = _specialMesh;
             _meshRenderer.material = _specialMaterial;
+            _blockController.transform.GetComponent<BoxCollider>().center += _ConstantBlockSetting.colliderOffSet;
+            _blockController.transform.localPosition = _blockController.transform.localPosition - _blockController.transform.forward * 0.5f;
         }
 
         public override void OnSelect()
