@@ -232,24 +232,24 @@ public class ApplovinManager : MonoBehaviour
             Close_CallBack?.Invoke();
             return;
         }
-        if (AdsManager.Instance.IsShowRemoveAds)
-        {
-            AdsManager.Instance.IsShowRemoveAds = false;
-            // PopupAd_Remove.Instance.Show((n) =>
-            // {
-            //     // Debug.Log(n);
-            //     if (n)
-            //     {
-            //         Close_CallBack?.Invoke();
-            //         return;
-            //     }
-            //     else
-            //     {
-            //         WaitShowInter(Close_CallBack);
-            //     }
-            // });
-            return;
-        }
+        // if (AdsManager.Instance.IsShowRemoveAds)
+        // {
+        //     AdsManager.Instance.IsShowRemoveAds = false;
+        //     // PopupAd_Remove.Instance.Show((n) =>
+        //     // {
+        //     //     // Debug.Log(n);
+        //     //     if (n)
+        //     //     {
+        //     //         Close_CallBack?.Invoke();
+        //     //         return;
+        //     //     }
+        //     //     else
+        //     //     {
+        //     //         WaitShowInter(Close_CallBack);
+        //     //     }
+        //     // });
+        //     return;
+        // }
         WaitShowInter(Close_CallBack);
     }
 
@@ -257,6 +257,8 @@ public class ApplovinManager : MonoBehaviour
     {
         if (MaxSdk.IsInterstitialReady(_interID))
         {
+            Debug.Log("Show Interstitial 1");
+            MaxSdk.ShowInterstitial(_interID);
             // PopupLoadingAd.Instance.Show(() =>
             // {
             //     actionCloseInter = Close_CallBack;
