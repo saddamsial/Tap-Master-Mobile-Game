@@ -30,10 +30,7 @@ namespace Core.GamePlay.Block
         private bool _isInit;
         private bool _isSetColor = false;
 
-        private void Awake()
-        {
-            _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
-        }
+        private void OnEnable(){}
 
         private void OnDisable()
         {
@@ -60,6 +57,7 @@ namespace Core.GamePlay.Block
             ChangeColorOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color]);
             ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
             _GameEvent.OnUseBoosterOpenFace += OnUseBoosterOpenFace;
+            _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
             IsMoving = false;
             IsLastBlock = false;
         }
@@ -147,8 +145,11 @@ namespace Core.GamePlay.Block
 
         private void OnMouseUp()
         {
+            
             StopCoroutine("CaculateHodingTime");
             if (_InputSystem.Instance.Timer > 0.15f)
+                return;
+            if (!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
                 return;
             OnSelected();
         }

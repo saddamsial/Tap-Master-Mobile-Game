@@ -66,8 +66,10 @@ namespace Core.GamePlay.LevelSystem
 
         public void Show()
         {
-            base.Show();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+            base.Show(
+                () => {_GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;}
+            );
+            
             if (!_isInit)
             {
                 _isInit = true;

@@ -45,14 +45,22 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Show(){
-            base.Show();
+            base.Show(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
             Init();
             SetupCollection();
             SetupCurrentStateCollection();
         }
 
         public void Exit(){
-            base.Hide();
+            base.Hide(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+                }
+            );
         }
 
     }

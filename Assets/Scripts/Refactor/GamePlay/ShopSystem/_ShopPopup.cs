@@ -76,15 +76,21 @@ namespace Core.GamePlay.Shop
 
         public void Show()
         {
-            base.ActivePopup();
-            SetStateGamePlayCamera(false);
+            base.Show(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
+            //SetStateGamePlayCamera(false);
             RotateBlock();
         }
 
         public void Exit()
         {
-            base.Hide();
-            SetStateGamePlayCamera(true);
+            base.Hide(() => {
+                _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            });
+            //SetStateGamePlayCamera(true);
             _previewBlock.DOKill();
         }
 
