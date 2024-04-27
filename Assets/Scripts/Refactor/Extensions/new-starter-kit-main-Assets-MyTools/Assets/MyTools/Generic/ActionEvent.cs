@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class ActionEvent : MonoBehaviour
+public class ActionEvent
 {
-    public delegate void NoParam();
-    public delegate void OneParam(object obj);
-    public delegate void TwoParam(object obj, object obj1);
-    public delegate void MultiParam(object[] objs);
+    public static Action OnShowBanner;
+    public static Action OnHideBanner;
+
+    public static Action OnShowToast;
 }
