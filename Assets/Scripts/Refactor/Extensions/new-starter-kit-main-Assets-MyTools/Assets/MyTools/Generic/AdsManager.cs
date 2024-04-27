@@ -6,58 +6,72 @@ using UnityEngine;
 
 public class AdsManager : SingletonMonoBehaviour<AdsManager>
 {
-    //     [SerializeField] ApplovinManager _applovinManager;
+    [SerializeField] ApplovinManager _applovinManager;
     [SerializeField] AdMobManager _admnobManager;
     public bool CanLoadAds;
-    //     private bool _isShowRemoveAds = true;
-    //     public bool IsShowRemoveAds
-    //     {
-    //         get
-    //         {
-    //             return _isShowRemoveAds;
-    //         }
-    //         set
-    //         {
-    //             _isShowRemoveAds = value;
-    //         }
-    //     }
-
-        public override void Awake()
+    private bool _isShowRemoveAds = true;
+    public bool IsShowRemoveAds
+    {
+        get
         {
-            base.Awake();
-            ActionEvent.OnShowBanner += ShowBanner;
-            ActionEvent.OnHideBanner += HideBanner;
+            return _isShowRemoveAds;
         }
-
-        private void OnEnable()
+        set
         {
-            //_applovinManager?.InitAdsEvent();
-            _admnobManager?.InitSDK();
+            _isShowRemoveAds = value;
         }
+    }
 
-    //     private void Start()
-    //     {
-    //         _applovinManager?.InitAds();
-    //     }
+    public override void Awake()
+    {
+        base.Awake();
+        ActionEvent.OnShowBanner += ShowBanner;
+        ActionEvent.OnHideBanner += HideBanner;
+    }
 
-        private void OnDestroy()
+    private void OnEnable()
+    {
+        _applovinManager?.InitAdsEvent();
+        _admnobManager?.InitSDK();
+    }
+
+    private void Start()
+    {
+        _applovinManager?.InitAds();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            ActionEvent.OnShowBanner -= ShowBanner;
-            ActionEvent.OnHideBanner -= HideBanner;
+            Debug.Log("Show Interstitial");
+            ShowInter(null);
         }
-
-        public void ShowBanner()
+        else if (Input.GetKeyDown(KeyCode.R))
         {
-            //if (!PlayerData.UserData.IsNotRemoveAds) return;
-            //if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
-
-            _admnobManager?.LoadBannerAd();
+            Debug.Log("Show Rewarded");
+            ShowRewarded(null);
         }
+    }
 
-        public void HideBanner()
-        {
-            _admnobManager?.DestroyBannerView();
-        }
+    private void OnDestroy()
+    {
+        ActionEvent.OnShowBanner -= ShowBanner;
+        ActionEvent.OnHideBanner -= HideBanner;
+    }
+
+    public void ShowBanner()
+    {
+        //if (!PlayerData.UserData.IsNotRemoveAds) return;
+        //if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
+
+        _admnobManager?.LoadBannerAd();
+    }
+
+    public void HideBanner()
+    {
+        _admnobManager?.DestroyBannerView();
+    }
 
     //     public void SwichMREC()
     //     {
@@ -69,13 +83,13 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     //         // _ironSourceManager.SwitchBANNER();
     //     }
 
-    //     public void ShowInter(Action callBack, string localtion = "")
-    //     {
-    //         _applovinManager?.ShowInterstitial(callBack, localtion);
-    //     }
+    public void ShowInter(Action callBack, string localtion = "")
+    {
+        _applovinManager?.ShowInterstitial(callBack, localtion);
+    }
 
-    //     public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string localtion = "")
-    //     {
-    //         _applovinManager?.ShowRewardedAd(closeCallBack, onClick, localtion);
-    //     }
+    public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string localtion = "")
+    {
+        _applovinManager?.ShowRewardedAd(closeCallBack, onClick, localtion);
+    }
 }
