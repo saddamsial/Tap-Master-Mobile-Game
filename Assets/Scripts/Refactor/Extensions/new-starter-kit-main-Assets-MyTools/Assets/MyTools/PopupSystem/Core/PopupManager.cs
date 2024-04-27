@@ -327,6 +327,9 @@ namespace PopupSystem
                 case _BlockTypeEnum.GoldReward:
                     CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber);
                     break;
+                case _BlockTypeEnum.PuzzleReward:
+                    Debug.Log("ShowPopupCollectReward");
+                    break;
             }
         }
 
@@ -334,6 +337,9 @@ namespace PopupSystem
             switch(typeEnum){
                 case _BlockTypeEnum.GoldReward:
                     CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber, true);
+                    break;
+                case _BlockTypeEnum.PuzzleReward:
+                    Debug.Log("ShowPopupCollectRewardToWin");
                     break;
             }
         }

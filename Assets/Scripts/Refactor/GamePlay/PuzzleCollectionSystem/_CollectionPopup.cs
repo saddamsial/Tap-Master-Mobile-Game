@@ -5,19 +5,19 @@ using UnityEngine;
 
 namespace Core.GamePlay.Collection{
     public class _CollectionPopup : BasePopup{
-        [Header("Collection Resources")]
-        [SerializeField] private _CollectionElementDatas _collectionElementDatas;
+        [Header("Collection Resources")] 
         [SerializeField] private GameObject _collectionElementPrefab;
 
         [Header("Collection Elements")]
         [SerializeField] private Transform _collectionContainers;
         
         private List<_CollectionElements> _listCollections;
-
+        _CollectionElementDatas _collectionElementDatas;
         private bool _isInit = false;
 
         private void Init(){
             if(_isInit) return;
+            _collectionElementDatas = _GameManager.Instance.CollectionElementDatas;
             _isInit = true;
             _listCollections = new List<_CollectionElements>();
             for(int i = 0; i < _collectionElementDatas.collectionElementDatas.Count; i++){
@@ -45,14 +45,22 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Show(){
-            base.Show();
+            base.Show(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
             Init();
             SetupCollection();
             SetupCurrentStateCollection();
         }
 
         public void Exit(){
-            base.Hide();
+            base.Hide(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+                }
+            );
         }
 
     }

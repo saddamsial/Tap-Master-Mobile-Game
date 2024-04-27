@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Core.Data;
 using Core.GamePlay.BlockPool;
+using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
 using UnityEngine;
@@ -27,12 +29,14 @@ namespace Core.GamePlay
         public void StartLevel()
         {
             _PlayerData.UserData.CurrentCollectCoin = 0;
+            _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
             Level = _LevelSystem.GetLevelData();
             _gamePlayManager.StartLevel(Level);
             _GameEvent.OnGamePlayReset?.Invoke();
         }
 #if UNITY_EDITOR
-        public void StartLevelByTool(){
+        public void StartLevelByTool()
+        {
             _gamePlayManager.BlockPool.DeSpawnAllBlocks();
             StartLevel();
         }
@@ -41,11 +45,17 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
+            if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
+            {
+                PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
+            }
+            else
+                _GameEvent.OnGameWin?.Invoke();
             _PlayerData.UserData.UpdateWinGameUserDataValue();
-            _GameEvent.OnGameWin?.Invoke();
         }
 
-        public void LoseGame(){
+        public void LoseGame()
+        {
             _GameEvent.OnGameLose?.Invoke();
         }
 
@@ -55,12 +65,14 @@ namespace Core.GamePlay
             StartLevel(currentLevel + 1);
         }
 
-        public void ReTry(){
+        public void ReTry()
+        {
             var currentLevel = Level.levelIndex - 1;
             StartLevel(currentLevel);
         }
 
-        public void StartLevel(int level){
+        public void StartLevel(int level)
+        {
             _gamePlayManager.IsGameplayInteractable = true;
             _PlayerData.UserData.CurrentLevel = level;
             _gamePlayManager.BlockPool.DeSpawnAllBlocks();
@@ -76,5 +88,6 @@ namespace Core.GamePlay
 
         public _ShopElementDatas BlockElementDatas { get; set; }
         public _ItemPriceDatas ItemPriceDatas { get; set; }
+        public _CollectionElementDatas CollectionElementDatas { get; set; }
     }
 }

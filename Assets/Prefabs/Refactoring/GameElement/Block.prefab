@@ -114,3 +114,7 @@ MonoBehaviour:
   texture2D: {fileID: 21300000, guid: f8d289857bc92b546906cae6e7e0e817, type: 3}
   _defaultScale: {x: 1, y: 1, z: 1}
   _blockType: 0
+  _specialMesh:
+  - {fileID: -5495902117074765545, guid: 5ce838789440b524bae8bcbc191b7ba8, type: 3}
+  _specialMaterial:
+  - {fileID: 2100000, guid: f09d852023139be4db1614254194bebb, type: 2}

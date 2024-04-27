@@ -28,8 +28,11 @@ namespace Core.UI.ExtendPopup{
         // }
 
         public void Show(int coin , bool isWinGame = false){
-            base.Show();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+            base.Show(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
             _watchAdButton.SetActive(true);
             _barWidth = _multipleBarImage.rectTransform.rect.width;
             _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;

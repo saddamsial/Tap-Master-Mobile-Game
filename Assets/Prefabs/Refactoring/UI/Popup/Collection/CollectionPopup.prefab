@@ -706,7 +706,6 @@ MonoBehaviour:
   wasPlayAnim: 0
   showAnimationClip: {fileID: 7400000, guid: 23fb731880cc78f4ea756a4fe5296455, type: 2}
   hideAnimationClip: {fileID: 7400000, guid: f52d5a6a1bccae14aa239d51d6a3d210, type: 2}
-  _collectionElementDatas: {fileID: 11400000, guid: 9485a5ab08a7cd44d80f0bbb63f30067, type: 2}
   _collectionElementPrefab: {fileID: 8067599216079197919, guid: f434305d71e68be458ae5fb2732ab253, type: 3}
   _collectionContainers: {fileID: 6567604850115393676}
 --- !u!1 &9074127833715296196

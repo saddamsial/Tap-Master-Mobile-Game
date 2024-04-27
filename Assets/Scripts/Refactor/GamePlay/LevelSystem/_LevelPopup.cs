@@ -66,8 +66,10 @@ namespace Core.GamePlay.LevelSystem
 
         public void Show()
         {
-            base.Show();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+            base.Show(
+                () => {_GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;}
+            );
+            
             if (!_isInit)
             {
                 _isInit = true;
@@ -82,8 +84,9 @@ namespace Core.GamePlay.LevelSystem
 
         public void Exit()
         {
-            base.Hide();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            base.Hide(
+                () => { _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;}
+            );
             _gotoPageButton[_currentLevelType].SetState(false);
             _currentLevelType = _LevelType.None;
         }
@@ -94,7 +97,7 @@ namespace Core.GamePlay.LevelSystem
         /// </summary>
         void InitInfinityScroll()
         {
-            Debug.Log("Start");
+            //Debug.Log("Start");
             List.OnFill += OnFillItem;
             List.OnHeight += OnHeightItem;
             //List.InitData(10);

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Core.Data;
 using Core.GamePlay.BlockPool;
+using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.ResourceGamePlay;
 using Core.SystemGame;
@@ -18,6 +19,7 @@ namespace Core.GamePlay
         [SerializeField] private LevelDatas _levelTest;
         [SerializeField] private _ShopElementDatas _shopDatas;
         [SerializeField] private _ItemPriceDatas _itemPriceDatas;
+        [SerializeField] private _CollectionElementDatas _CollectionElementDatas;
 
         private GameObject _cameraGamePlay;
 
@@ -38,13 +40,13 @@ namespace Core.GamePlay
 
         private void OnApplicationQuit()
         {
-            Debug.Log("OnApplicationQuit");
+            //Debug.Log("OnApplicationQuit");
             _PlayerData.SaveUserData();
         }
 
         private void OnApplicationPause(bool pause)
         {
-            Debug.Log("OnApplicationPause");
+            //Debug.Log("OnApplicationPause");
             if (pause)
             {
                 _PlayerData.SaveUserData();
@@ -74,6 +76,7 @@ namespace Core.GamePlay
             _ParticleSystemManager.Instance.UICamera = _cameraGamePlay.GetComponentInChildren<Camera>();
             _GameManager.Instance.BlockElementDatas = _shopDatas;
             _GameManager.Instance.ItemPriceDatas = _itemPriceDatas;
+            _GameManager.Instance.CollectionElementDatas = _CollectionElementDatas;
             // _GameManager.Instance.BlockPool = _blockPool;
             // //_LevelSystem.Instance.BlockPool = _blockPool;
             // _LevelSystem.Instance.InitLevelSystem(_levelTest);

@@ -39,7 +39,6 @@ namespace Core.GamePlay
         private void Start()
         {
             _GameManager.Instance.CameraController = this;
-            SetUp();
         }
 
         private void OnDestroy()
@@ -50,7 +49,6 @@ namespace Core.GamePlay
 
         public void SetUp()
         {
-            Debug.Log("Setup Camera");
             _cameraRotation.DORotate(new Vector3(-45, 90, 90), 0.5f);
             SetCameraSize();
             SetBackgroundColor(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color], _ShopPage.Color);
@@ -58,7 +56,10 @@ namespace Core.GamePlay
 
         private void LateUpdate()
         {
-            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable) return;
+            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable){
+                _lastMousePosition = _lastRemainingDelta = _remainingDelta = Vector3.zero;
+                return;
+            } 
             if (_InputSystem.Instance.CheckSelectDown())
             {
                 //_isZooming = false;

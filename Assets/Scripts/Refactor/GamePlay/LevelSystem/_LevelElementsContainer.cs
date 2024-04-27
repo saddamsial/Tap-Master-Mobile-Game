@@ -24,7 +24,6 @@ namespace Core.GamePlay.LevelSystem{
                 item.transform.position = Vector3.zero;
                 _listContainedLevelElements.Add(new _LevelElements(item.transform));
             }
-            Debug.Log(_listContainedLevelElements.Count);
         }
 
         public void SetLevelInLine(int line, int startGroupLevel = 0,int maxLevel = -1){

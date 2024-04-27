@@ -52,7 +52,7 @@ namespace Core.Data
         public static void SaveUserData()
         {
             string saveData = JsonConvert.SerializeObject(UserData);
-            Debug.Log("SaveUserData: " + saveData);
+            //Debug.Log("SaveUserData: " + saveData);
             PlayerPrefs.SetString(_Const.KEY_USER_DATA, saveData);
             {
                 System.IO.File.WriteAllText(path, saveData);

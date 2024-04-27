@@ -10,6 +10,7 @@ namespace Core.Data{
         public int CurrentLevel;
         public int Coin;
         public int CurrentCollectCoin;
+        public KeyValuePair<int , int> CurrentCollectionPuzzlePiece;
         public Dictionary<int, List<int>> RuntimeCollectionData;
         public Dictionary<_ShopPage, List<int>> RuntimePurchasedShopData;
         public Dictionary<_ShopPage, int> RuntimeSelectedShopData;
@@ -55,6 +56,8 @@ namespace Core.Data{
                 HighestLevelInMode[_LevelType.Master] = Mathf.Max(CurrentLevel + 1,HighestLevelInMode[_LevelType.Master]);
             }
             Coin += CurrentCollectCoin;
+            if(CurrentCollectionPuzzlePiece.Key != - 1)
+                RuntimeCollectionData[CurrentCollectionPuzzlePiece.Key].Add(CurrentCollectionPuzzlePiece.Value);
         }
 
         public void UpdateCollectionData(int colelctionId, int puzzlePieceId){

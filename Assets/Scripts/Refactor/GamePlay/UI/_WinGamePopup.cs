@@ -12,8 +12,12 @@ namespace Core.UI.ExtendPopup{
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
         
         public void Show(){
-            base.Show(AnimWinGame);
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+            base.Show(
+                () => {
+                    AnimWinGame();
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
             _coinText.gameObject.SetActive(false);
             int currentCoin = _PlayerData.UserData.CurrentCollectCoin;
             int coin = currentCoin;

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using DG.Tweening;
 using Core.SystemGame;
+using Core.Data;
 
 namespace Core.GamePlay.BlockPool
 {
@@ -97,9 +98,13 @@ namespace Core.GamePlay.BlockPool
                 if (_blockObjectPool[i].CheckObjectVisible(planes))
                 {
                     //Debug.Log("Find block in camera view");
-                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward)
+                    if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward && _blockObjectPool[i].CurrentType != _BlockTypeEnum.PuzzleReward)
                     {
-                        _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
+                        int tmp = Random.Range(0, 100);
+                        if (tmp < 20 && _PlayerData.UserData.CurrentCollectionPuzzlePiece.Key == -1)
+                            _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
+                        else
+                            _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
                         return;
                     }
                 }
