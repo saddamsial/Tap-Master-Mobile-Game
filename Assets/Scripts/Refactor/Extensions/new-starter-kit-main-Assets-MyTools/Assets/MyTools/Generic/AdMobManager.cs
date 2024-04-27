@@ -1,560 +1,562 @@
-// using GoogleMobileAds.Api;
-// using GoogleMobileAds.Common;
-// using System;
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// public class AdMobManager : MonoBehaviour
-// {
-//     [Header("---AD UNIT ID---")]
-//     [Header("ANDROID")]
-//     public string androidBannerID;
-//     public string androidInterstitialID;
-//     public string androidrewardID;
-//     public string androidOpenAdsID;
-//     [Header("IOS")]
-//     public string iosBannerID;
-//     public string iosInterstitialID;
-//     public string iosRewardID;
-//     public string iosOpenAdsID;
+public class AdMobManager : MonoBehaviour
+{
+    [Header("---AD UNIT ID---")]
+    [Header("ANDROID")]
+    public string androidBannerID;
+    public string androidInterstitialID;
+    public string androidrewardID;
+    public string androidOpenAdsID;
+    [Header("IOS")]
+    public string iosBannerID;
+    public string iosInterstitialID;
+    public string iosRewardID;
+    public string iosOpenAdsID;
 
-//     private string _bannerID;
-//     private string _interID;
-//     private string _rewardID;
-//     private string _openAdsID;
+    private string _bannerID;
+    private string _interID;
+    private string _rewardID;
+    private string _openAdsID;
 
-//     private BannerView _bannerView;
-//     private InterstitialAd _interstitialAd;
-//     private RewardedAd _rewardedAd;
-//     private AppOpenAd _appOpenAd;
-
-
-//     private Action closeInter;
-//     private Action closeVideo;
-//     private Action<bool> closeVideoWithEarnReward;
+    private BannerView _bannerView;
+    private InterstitialAd _interstitialAd;
+    private RewardedAd _rewardedAd;
+    private AppOpenAd _appOpenAd;
 
 
-//     private void Awake()
-//     {
-// #if UNITY_ANDROID
-//         _bannerID = androidBannerID;
-//         _interID = androidInterstitialID;
-//         _rewardID = androidrewardID;
-//         _openAdsID = androidOpenAdsID;
-// #elif UNITY_IOS
-//         _bannerID = iosBannerID;
-//         _interID = iosInterstitialID;
-//         _rewardID = iosRewardID;
-//         _openAdsID = iosOpenAdsID;
-// #else
-//         _bannerID = "unexpected_platform";
-//         _interID = "unexpected_platform";
-//         _rewardID = "unexpected_platform";
-//         _openAdsID = "unexpected_platform";
-// #endif
+    private Action closeInter;
+    private Action closeVideo;
+    private Action<bool> closeVideoWithEarnReward;
 
-//         // Use the AppStateEventNotifier to listen to application open/close events.
-//         // This is used to launch the loaded ad when we open the app.
-//         AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
-//     }
 
-//     private void OnDestroy()
-//     {
-//         // Always unlisten to events when complete.
-//         AppStateEventNotifier.AppStateChanged -= OnAppStateChanged;
-//     }
+    private void Awake()
+    {
+#if UNITY_ANDROID
+        _bannerID = androidBannerID;
+        _interID = androidInterstitialID;
+        _rewardID = androidrewardID;
+        _openAdsID = androidOpenAdsID;
+#elif UNITY_IOS
+        _bannerID = iosBannerID;
+        _interID = iosInterstitialID;
+        _rewardID = iosRewardID;
+        _openAdsID = iosOpenAdsID;
+#else
+        _bannerID = "unexpected_platform";
+        _interID = "unexpected_platform";
+        _rewardID = "unexpected_platform";
+        _openAdsID = "unexpected_platform";
+#endif
 
-//     public void InitAdEvent()
-//     {
-//         //  Banner
-//         ListenToAdEventsBanner();
+        // Use the AppStateEventNotifier to listen to application open/close events.
+        // This is used to launch the loaded ad when we open the app.
+        AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
+    }
 
-//         //Inter
-//         //RegisterEventHandlersInter(_interstitialAd);
-//         //RegisterReloadHandlerInter(_interstitialAd);
+    private void OnDestroy()
+    {
+        // Always unlisten to events when complete.
+        AppStateEventNotifier.AppStateChanged -= OnAppStateChanged;
+    }
 
-//         ////Rewarded
-//         //RegisterEventHandlersRewarded(_rewardedAd);
-//         //RegisterReloadHandlerRewarded(_rewardedAd);
+    public void InitAdEvent()
+    {
+        //  Banner
+        ListenToAdEventsBanner();
 
-//         //AppOpen
-//         //RegisterEventHandlers(_appOpenAd);
-//     }
+        //Inter
+        //RegisterEventHandlersInter(_interstitialAd);
+        //RegisterReloadHandlerInter(_interstitialAd);
 
-//     public void InitSDK()
-//     {
-//         // Initialize the Google Mobile Ads SDK.
-//         MobileAds.Initialize((InitializationStatus initStatus) =>
-//         {
-//             // This callback is called once the MobileAds SDK is initialized.
-//             CreateBannerView();
-//             //LoadInterstitialAd();
-//             //LoadRewardedAd();
-//             LoadAppOpenAd();
-//             InitAdEvent();
-//         });
-//     }
+        ////Rewarded
+        //RegisterEventHandlersRewarded(_rewardedAd);
+        //RegisterReloadHandlerRewarded(_rewardedAd);
 
-//     #region BANNER
-//     private bool _bannerAdsAvailable;
-//     /// <summary>
-//     /// listen to events the banner view may raise.
-//     /// </summary>
-//     private void ListenToAdEventsBanner()
-//     {
-//         // Raised when an ad is loaded into the banner view.
-//         _bannerView.OnBannerAdLoaded += () =>
-//         {
-//             Debug.Log("Banner view loaded an ad with response : "
-//                 + _bannerView.GetResponseInfo());
-//             _bannerAdsAvailable = true;
-//         };
-//         // Raised when an ad fails to load into the banner view.
-//         _bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
-//         {
-//             Debug.LogError("Banner view failed to load an ad with error : "
-//                 + error);
-//             _bannerAdsAvailable = false;
-//             RetryLoadBannerAds();
-//         };
-//         // Raised when the ad is estimated to have earned money.
-//         _bannerView.OnAdPaid += (AdValue adValue) =>
-//         {
-//             Debug.Log(string.Format("Banner view paid {0} {1}.",
-//                 adValue.Value,
-//                 adValue.CurrencyCode));
+        //AppOpen
+        //RegisterEventHandlers(_appOpenAd);
+    }
 
-//             AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
-//         };
-//         // Raised when an impression is recorded for an ad.
-//         _bannerView.OnAdImpressionRecorded += () =>
-//         {
-//             Debug.Log("Banner view recorded an impression.");
-//         };
-//         // Raised when a click is recorded for an ad.
-//         _bannerView.OnAdClicked += () =>
-//         {
-//             Debug.Log("Banner view was clicked.");
-//         };
-//         // Raised when an ad opened full screen content.
-//         _bannerView.OnAdFullScreenContentOpened += () =>
-//         {
-//             Debug.Log("Banner view full screen content opened.");
-//         };
-//         // Raised when the ad closed full screen content.
-//         _bannerView.OnAdFullScreenContentClosed += () =>
-//         {
-//             Debug.Log("Banner view full screen content closed.");
-//         };
-//     }
+    public void InitSDK()
+    {
+        // Initialize the Google Mobile Ads SDK.
+        MobileAds.Initialize((InitializationStatus initStatus) =>
+        {
+            // This callback is called once the MobileAds SDK is initialized.
+            CreateBannerView();
+            //LoadBannerAd();
+            //LoadInterstitialAd();
+            //LoadRewardedAd();
+            LoadAppOpenAd();
+            InitAdEvent();
+        });
+    }
 
-//     /// <summary>
-//     /// Creates a 320x50 banner view at top of the screen.
-//     /// </summary>
-//     public void CreateBannerView()
-//     {
-//         Debug.Log("Creating banner view");
+    #region BANNER
+    private bool _bannerAdsAvailable;
+    /// <summary>
+    /// listen to events the banner view may raise.
+    /// </summary>
+    private void ListenToAdEventsBanner()
+    {
+        // Raised when an ad is loaded into the banner view.
+        _bannerView.OnBannerAdLoaded += () =>
+        {
+            Debug.Log("Banner view loaded an ad with response : "
+                + _bannerView.GetResponseInfo());
+            _bannerAdsAvailable = true;
+        };
+        // Raised when an ad fails to load into the banner view.
+        _bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
+        {
+            Debug.LogError("Banner view failed to load an ad with error : "
+                + error);
+            _bannerAdsAvailable = false;
+            RetryLoadBannerAds();
+        };
+        // Raised when the ad is estimated to have earned money.
+        _bannerView.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(string.Format("Banner view paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
 
-//         // If we already have a banner, destroy the old one.
-//         if (_bannerView != null)
-//         {
-//             DestroyBannerView();
-//         }
+            //AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
+        };
+        // Raised when an impression is recorded for an ad.
+        _bannerView.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Banner view recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        _bannerView.OnAdClicked += () =>
+        {
+            Debug.Log("Banner view was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        _bannerView.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Banner view full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        _bannerView.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Banner view full screen content closed.");
+        };
+    }
 
-//         // Create a 320x50 banner at top of the screen
-//         //  AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-//         // AdSize adSize = new AdSize(250, 250);
-//         _bannerView = new BannerView(_bannerID, AdSize.Banner, AdPosition.Bottom);
-//     }
+    /// <summary>
+    /// Creates a 320x50 banner view at top of the screen.
+    /// </summary>
+    public void CreateBannerView()
+    {
+        Debug.Log("Creating banner view");
 
-//     /// <summary>
-//     /// Creates the banner view and loads a banner ad.
-//     /// </summary>
-//     public void LoadBannerAd()
-//     {
-//         if (!PlayerData.UserData.IsNotRemoveAds) return;
-//         if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
+        // If we already have a banner, destroy the old one.
+        if (_bannerView != null)
+        {
+            DestroyBannerView();
+        }
 
-//         // create an instance of a banner view first.
-//         if (_bannerView == null)
-//         {
-//             CreateBannerView();
-//         }
+        // Create a 320x50 banner at top of the screen
+        AdSize adSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+        // AdSize adSize = new AdSize(250, 250);
+        _bannerView = new BannerView(_bannerID, adSize, AdPosition.Bottom);
+        // Debug.Log(_bannerView.);
+    }
 
-//         // create our request used to load the ad.
-//         var adRequest = new AdRequest();
+    /// <summary>
+    /// Creates the banner view and loads a banner ad.
+    /// </summary>
+    public void LoadBannerAd()
+    {
+        //if (!PlayerData.UserData.IsNotRemoveAds) return;
+        //if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
 
-//         // Create an extra parameter that aligns the bottom of the expanded ad to the
-//         // bottom of the bannerView.
-//         //    adRequest.Extras.Add("collapsible", "bottom");
-//         // send the request to load the ad.
-//         Debug.Log("Loading banner ad.");
-//         _bannerView.LoadAd(adRequest);
-//     }
+        // create an instance of a banner view first.
+        if (_bannerView == null)
+        {
+            CreateBannerView();
+        }
 
-//     /// <summary>
-//     /// Destroys the banner view.
-//     /// </summary>
-//     public void DestroyBannerView()
-//     {
-//         if (_bannerView != null)
-//         {
-//             Debug.Log("Destroying banner view.");
-//             _bannerView.Destroy();
-//             _bannerView = null;
-//         }
-//     }
+        // create our request used to load the ad.
+        var adRequest = new AdRequest();
 
-//     void RetryLoadBannerAds()
-//     {
-//         if (!_bannerAdsAvailable)
-//         {
-//             Debug.Log("Banner Ad Load Failed. Try again");
-//             LoadBannerAd();
-//         }
-//     }
+        // Create an extra parameter that aligns the bottom of the expanded ad to the
+        // bottom of the bannerView.
+        //    adRequest.Extras.Add("collapsible", "bottom");
+        // send the request to load the ad.
+        Debug.Log("Loading banner ad.");
+        _bannerView.LoadAd(adRequest);
+    }
 
-//     public void ShowBanner()
-//     {
-//         if (_bannerView != null)
-//         {
-//             _bannerView.Show();
-//         }
-//     }
+    /// <summary>
+    /// Destroys the banner view.
+    /// </summary>
+    public void DestroyBannerView()
+    {
+        if (_bannerView != null)
+        {
+            Debug.Log("Destroying banner view.");
+            _bannerView.Destroy();
+            _bannerView = null;
+        }
+    }
 
-//     public void HideBanner()
-//     {
-//         if (_bannerView != null)
-//         {
-//             _bannerView.Hide();
-//         }
-//     }
+    void RetryLoadBannerAds()
+    {
+        if (!_bannerAdsAvailable)
+        {
+            Debug.Log("Banner Ad Load Failed. Try again");
+            LoadBannerAd();
+        }
+    }
 
-//     #endregion
+    public void ShowBanner()
+    {
+        if (_bannerView != null)
+        {
+            _bannerView.Show();
+        }
+    }
 
-//     #region INTERSTITIAL
-//     private void RegisterEventHandlersInter(InterstitialAd interstitialAd)
-//     {
-//         // Raised when the ad is estimated to have earned money.
-//         interstitialAd.OnAdPaid += (AdValue adValue) =>
-//         {
-//             Debug.Log(string.Format("Interstitial ad paid {0} {1}.",
-//                 adValue.Value,
-//                 adValue.CurrencyCode));
-//         };
-//         // Raised when an impression is recorded for an ad.
-//         interstitialAd.OnAdImpressionRecorded += () =>
-//         {
-//             Debug.Log("Interstitial ad recorded an impression.");
-//         };
-//         // Raised when a click is recorded for an ad.
-//         interstitialAd.OnAdClicked += () =>
-//         {
-//             Debug.Log("Interstitial ad was clicked.");
-//         };
-//         // Raised when an ad opened full screen content.
-//         interstitialAd.OnAdFullScreenContentOpened += () =>
-//         {
-//             Debug.Log("Interstitial ad full screen content opened.");
-//         };
-//         // Raised when the ad closed full screen content.
-//         interstitialAd.OnAdFullScreenContentClosed += () =>
-//         {
-//             Debug.Log("Interstitial ad full screen content closed.");
-//             // Reload the ad so that we can show another as soon as possible.
-//             LoadInterstitialAd();
-//         };
-//         // Raised when the ad failed to open full screen content.
-//         interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
-//         {
-//             Debug.LogError("Interstitial ad failed to open full screen content " +
-//                            "with error : " + error);
-//             // Reload the ad so that we can show another as soon as possible.
-//             LoadInterstitialAd();
-//         };
-//     }
+    public void HideBanner()
+    {
+        if (_bannerView != null)
+        {
+            _bannerView.Hide();
+        }
+    }
 
-//     /// <summary>
-//     /// Loads the interstitial ad.
-//     /// </summary>
-//     public void LoadInterstitialAd()
-//     {
-//         // Clean up the old ad before loading a new one.
-//         if (_interstitialAd != null)
-//         {
-//             DestroyInterstitialAd();
-//             _interstitialAd = null;
-//         }
+    #endregion
 
-//         Debug.Log("Loading the interstitial ad.");
+    #region INTERSTITIAL
+    private void RegisterEventHandlersInter(InterstitialAd interstitialAd)
+    {
+        // Raised when the ad is estimated to have earned money.
+        interstitialAd.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(string.Format("Interstitial ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+        };
+        // Raised when an impression is recorded for an ad.
+        interstitialAd.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Interstitial ad recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        interstitialAd.OnAdClicked += () =>
+        {
+            Debug.Log("Interstitial ad was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        interstitialAd.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Interstitial ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        interstitialAd.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Interstitial ad full screen content closed.");
+            // Reload the ad so that we can show another as soon as possible.
+            LoadInterstitialAd();
+        };
+        // Raised when the ad failed to open full screen content.
+        interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Interstitial ad failed to open full screen content " +
+                           "with error : " + error);
+            // Reload the ad so that we can show another as soon as possible.
+            LoadInterstitialAd();
+        };
+    }
 
-//         // create our request used to load the ad.
-//         var adRequest = new AdRequest();
+    /// <summary>
+    /// Loads the interstitial ad.
+    /// </summary>
+    public void LoadInterstitialAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_interstitialAd != null)
+        {
+            DestroyInterstitialAd();
+            _interstitialAd = null;
+        }
 
-//         // send the request to load the ad.
-//         InterstitialAd.Load(_interID, adRequest,
-//             (InterstitialAd ad, LoadAdError error) =>
-//             {
-//                 // if error is not null, the load request failed.
-//                 if (error != null || ad == null)
-//                 {
-//                     Debug.LogError("interstitial ad failed to load an ad " +
-//                                    "with error : " + error);
-//                     return;
-//                 }
+        Debug.Log("Loading the interstitial ad.");
 
-//                 Debug.Log("Interstitial ad loaded with response : "
-//                           + ad.GetResponseInfo());
+        // create our request used to load the ad.
+        var adRequest = new AdRequest();
 
-//                 _interstitialAd = ad;
-//                 RegisterEventHandlersInter(_interstitialAd);
-//             });
-//     }
+        // send the request to load the ad.
+        InterstitialAd.Load(_interID, adRequest,
+            (InterstitialAd ad, LoadAdError error) =>
+            {
+                // if error is not null, the load request failed.
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("interstitial ad failed to load an ad " +
+                                   "with error : " + error);
+                    return;
+                }
 
-//     /// <summary>
-//     /// Shows the interstitial ad.
-//     /// </summary>
-//     public void ShowInterstitialAd()
-//     {
-//         if (_interstitialAd != null && _interstitialAd.CanShowAd())
-//         {
-//             Debug.Log("Showing interstitial ad.");
-//             _interstitialAd.Show();
-//         }
-//         else
-//         {
-//             Debug.LogError("Interstitial ad is not ready yet.");
-//         }
-//     }
+                Debug.Log("Interstitial ad loaded with response : "
+                          + ad.GetResponseInfo());
 
-//     private void DestroyInterstitialAd()
-//     {
-//         _interstitialAd.Destroy();
-//     }
-//     #endregion
+                _interstitialAd = ad;
+                RegisterEventHandlersInter(_interstitialAd);
+            });
+    }
 
-//     #region VIDEO REWARDS
-//     private void RegisterEventHandlersRewarded(RewardedAd ad)
-//     {
-//         // Raised when the ad is estimated to have earned money.
-//         ad.OnAdPaid += (AdValue adValue) =>
-//         {
-//             Debug.Log(string.Format("Rewarded ad paid {0} {1}.",
-//                 adValue.Value,
-//                 adValue.CurrencyCode));
-//         };
-//         // Raised when an impression is recorded for an ad.
-//         ad.OnAdImpressionRecorded += () =>
-//         {
-//             Debug.Log("Rewarded ad recorded an impression.");
-//         };
-//         // Raised when a click is recorded for an ad.
-//         ad.OnAdClicked += () =>
-//         {
-//             Debug.Log("Rewarded ad was clicked.");
-//         };
-//         // Raised when an ad opened full screen content.
-//         ad.OnAdFullScreenContentOpened += () =>
-//         {
-//             Debug.Log("Rewarded ad full screen content opened.");
-//         };
-//         // Raised when the ad closed full screen content.
-//         ad.OnAdFullScreenContentClosed += () =>
-//         {
-//             Debug.Log("Rewarded ad full screen content closed.");
-//             // Reload the ad so that we can show another as soon as possible.
-//             LoadRewardedAd();
-//         };
-//         // Raised when the ad failed to open full screen content.
-//         ad.OnAdFullScreenContentFailed += (AdError error) =>
-//         {
-//             Debug.LogError("Rewarded ad failed to open full screen content " +
-//                            "with error : " + error);
-//             // Reload the ad so that we can show another as soon as possible.
-//             LoadRewardedAd();
-//         };
-//     }
+    /// <summary>
+    /// Shows the interstitial ad.
+    /// </summary>
+    public void ShowInterstitialAd()
+    {
+        if (_interstitialAd != null && _interstitialAd.CanShowAd())
+        {
+            Debug.Log("Showing interstitial ad.");
+            _interstitialAd.Show();
+        }
+        else
+        {
+            Debug.LogError("Interstitial ad is not ready yet.");
+        }
+    }
 
-//     /// <summary>
-//     /// Loads the rewarded ad.
-//     /// </summary>
-//     public void LoadRewardedAd()
-//     {
-//         // Clean up the old ad before loading a new one.
-//         if (_rewardedAd != null)
-//         {
-//             DestroyRewardedAd();
-//             _rewardedAd = null;
-//         }
+    private void DestroyInterstitialAd()
+    {
+        _interstitialAd.Destroy();
+    }
+    #endregion
 
-//         Debug.Log("Loading the rewarded ad.");
+    #region VIDEO REWARDS
+    private void RegisterEventHandlersRewarded(RewardedAd ad)
+    {
+        // Raised when the ad is estimated to have earned money.
+        ad.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(string.Format("Rewarded ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+        };
+        // Raised when an impression is recorded for an ad.
+        ad.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Rewarded ad recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        ad.OnAdClicked += () =>
+        {
+            Debug.Log("Rewarded ad was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        ad.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Rewarded ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        ad.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Rewarded ad full screen content closed.");
+            // Reload the ad so that we can show another as soon as possible.
+            LoadRewardedAd();
+        };
+        // Raised when the ad failed to open full screen content.
+        ad.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Rewarded ad failed to open full screen content " +
+                           "with error : " + error);
+            // Reload the ad so that we can show another as soon as possible.
+            LoadRewardedAd();
+        };
+    }
 
-//         // create our request used to load the ad.
-//         var adRequest = new AdRequest();
+    /// <summary>
+    /// Loads the rewarded ad.
+    /// </summary>
+    public void LoadRewardedAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_rewardedAd != null)
+        {
+            DestroyRewardedAd();
+            _rewardedAd = null;
+        }
 
-//         // send the request to load the ad.
-//         RewardedAd.Load(_rewardID, adRequest,
-//             (RewardedAd ad, LoadAdError error) =>
-//             {
-//                 // if error is not null, the load request failed.
-//                 if (error != null || ad == null)
-//                 {
-//                     Debug.LogError("Rewarded ad failed to load an ad " +
-//                                    "with error : " + error);
-//                     return;
-//                 }
+        Debug.Log("Loading the rewarded ad.");
 
-//                 Debug.Log("Rewarded ad loaded with response : "
-//                           + ad.GetResponseInfo());
+        // create our request used to load the ad.
+        var adRequest = new AdRequest();
 
-//                 _rewardedAd = ad;
-//                 RegisterEventHandlersRewarded(_rewardedAd);
-//             });
-//     }
+        // send the request to load the ad.
+        RewardedAd.Load(_rewardID, adRequest,
+            (RewardedAd ad, LoadAdError error) =>
+            {
+                // if error is not null, the load request failed.
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("Rewarded ad failed to load an ad " +
+                                   "with error : " + error);
+                    return;
+                }
 
-//     public void ShowRewardedAd()
-//     {
-//         const string rewardMsg =
-//             "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
+                Debug.Log("Rewarded ad loaded with response : "
+                          + ad.GetResponseInfo());
 
-//         if (_rewardedAd != null && _rewardedAd.CanShowAd())
-//         {
-//             _rewardedAd.Show((GoogleMobileAds.Api.Reward reward) =>
-//             {
-//                 // TODO: Reward the user.
-//                 Debug.Log(string.Format(rewardMsg, reward.Type, reward.Amount));
-//             });
-//         }
-//     }
+                _rewardedAd = ad;
+                RegisterEventHandlersRewarded(_rewardedAd);
+            });
+    }
 
-//     private void DestroyRewardedAd()
-//     {
-//         _rewardedAd.Destroy();
-//     }
-//     #endregion
+    public void ShowRewardedAd()
+    {
+        const string rewardMsg =
+            "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
 
-//     #region AppOpenAd
-//     /// <summary>
-//     /// Loads the app open ad.
-//     /// </summary>
-//     public void LoadAppOpenAd()
-//     {
-//         // Clean up the old ad before loading a new one.
-//         if (_appOpenAd != null)
-//         {
-//             DestroyAppOpen();
-//             _appOpenAd = null;
-//         }
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        {
+            _rewardedAd.Show((GoogleMobileAds.Api.Reward reward) =>
+            {
+                // TODO: Reward the user.
+                Debug.Log(string.Format(rewardMsg, reward.Type, reward.Amount));
+            });
+        }
+    }
 
-//         Debug.Log("Loading the app open ad.");
+    private void DestroyRewardedAd()
+    {
+        _rewardedAd.Destroy();
+    }
+    #endregion
 
-//         // Create our request used to load the ad.
-//         var adRequest = new AdRequest();
+    #region AppOpenAd
+    /// <summary>
+    /// Loads the app open ad.
+    /// </summary>
+    public void LoadAppOpenAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_appOpenAd != null)
+        {
+            DestroyAppOpen();
+            _appOpenAd = null;
+        }
 
-//         // send the request to load the ad.
-//         AppOpenAd.Load(_openAdsID, adRequest,
-//             (AppOpenAd ad, LoadAdError error) =>
-//             {
-//                 // if error is not null, the load request failed.
-//                 if (error != null || ad == null)
-//                 {
-//                     Debug.LogError("app open ad failed to load an ad " +
-//                                    "with error : " + error);
-//                     return;
-//                 }
+        Debug.Log("Loading the app open ad.");
 
-//                 Debug.Log("App open ad loaded with response : "
-//                           + ad.GetResponseInfo());
+        // Create our request used to load the ad.
+        var adRequest = new AdRequest();
 
-//                 _appOpenAd = ad;
-//                 RegisterEventHandlers(_appOpenAd);
-//             });
-//     }
+        // send the request to load the ad.
+        AppOpenAd.Load(_openAdsID, adRequest,
+            (AppOpenAd ad, LoadAdError error) =>
+            {
+                // if error is not null, the load request failed.
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("app open ad failed to load an ad " +
+                                   "with error : " + error);
+                    return;
+                }
 
-//     private void RegisterEventHandlers(AppOpenAd ad)
-//     {
-//         // Raised when the ad is estimated to have earned money.
-//         ad.OnAdPaid += (AdValue adValue) =>
-//         {
-//             Debug.Log(string.Format("App open ad paid {0} {1}.",
-//                 adValue.Value,
-//                 adValue.CurrencyCode));
-//             AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
-//         };
-//         // Raised when an impression is recorded for an ad.
-//         ad.OnAdImpressionRecorded += () =>
-//         {
-//             Debug.Log("App open ad recorded an impression.");
-//         };
-//         // Raised when a click is recorded for an ad.
-//         ad.OnAdClicked += () =>
-//         {
-//             Debug.Log("App open ad was clicked.");
-//         };
-//         // Raised when an ad opened full screen content.
-//         ad.OnAdFullScreenContentOpened += () =>
-//         {
-//             Debug.Log("App open ad full screen content opened.");
-//         };
-//         // Raised when the ad closed full screen content.
-//         ad.OnAdFullScreenContentClosed += () =>
-//         {
-//             Debug.Log("App open ad full screen content closed.");
-//             LoadAppOpenAd();
-//         };
-//         // Raised when the ad failed to open full screen content.
-//         ad.OnAdFullScreenContentFailed += (AdError error) =>
-//         {
-//             Debug.LogError("App open ad failed to open full screen content " +
-//                            "with error : " + error);
-//             LoadAppOpenAd();
-//         };
-//     }
+                Debug.Log("App open ad loaded with response : "
+                          + ad.GetResponseInfo());
 
-//     /// <summary>
-//     /// Shows the app open ad.
-//     /// </summary>
-//     public void ShowAppOpenAd()
-//     {
-//         if (_appOpenAd != null && _appOpenAd.CanShowAd())
-//         {
-//             Debug.Log("Showing app open ad.");
-//             _appOpenAd.Show();
-//         }
-//         else
-//         {
-//             Debug.LogError("App open ad is not ready yet.");
-//         }
-//     }
+                _appOpenAd = ad;
+                RegisterEventHandlers(_appOpenAd);
+            });
+    }
 
-//     private void DestroyAppOpen()
-//     {
-//         _appOpenAd.Destroy();
-//     }
+    private void RegisterEventHandlers(AppOpenAd ad)
+    {
+        // Raised when the ad is estimated to have earned money.
+        ad.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(string.Format("App open ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+            //AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
+        };
+        // Raised when an impression is recorded for an ad.
+        ad.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("App open ad recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        ad.OnAdClicked += () =>
+        {
+            Debug.Log("App open ad was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        ad.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("App open ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        ad.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("App open ad full screen content closed.");
+            LoadAppOpenAd();
+        };
+        // Raised when the ad failed to open full screen content.
+        ad.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("App open ad failed to open full screen content " +
+                           "with error : " + error);
+            LoadAppOpenAd();
+        };
+    }
 
-//     private void OnAppStateChanged(AppState state)
-//     {
-//         Debug.Log("App State changed to : " + state);
+    /// <summary>
+    /// Shows the app open ad.
+    /// </summary>
+    public void ShowAppOpenAd()
+    {
+        if (_appOpenAd != null && _appOpenAd.CanShowAd())
+        {
+            Debug.Log("Showing app open ad.");
+            _appOpenAd.Show();
+        }
+        else
+        {
+            Debug.LogError("App open ad is not ready yet.");
+        }
+    }
 
-//         // if the app is Foregrounded and the ad is available, show it.
-//         if (state == AppState.Foreground)
-//         {
-//             if (IsAdAvailable)
-//             {
-//                 ShowAppOpenAd();
-//             }
-//         }
-//     }
+    private void DestroyAppOpen()
+    {
+        _appOpenAd.Destroy();
+    }
 
-//     public bool IsAdAvailable
-//     {
-//         get
-//         {
-//             return _appOpenAd != null;
-//             //&& _appOpenAd.IsLoaded()
-//             //&& DateTime.Now < _expireTime;
-//         }
-//     }
-//     #endregion
-// }
+    private void OnAppStateChanged(AppState state)
+    {
+        Debug.Log("App State changed to : " + state);
+
+        // if the app is Foregrounded and the ad is available, show it.
+        if (state == AppState.Foreground)
+        {
+            if (IsAdAvailable)
+            {
+                ShowAppOpenAd();
+            }
+        }
+    }
+
+    public bool IsAdAvailable
+    {
+        get
+        {
+            return _appOpenAd != null;
+            //&& _appOpenAd.IsLoaded()
+            //&& DateTime.Now < _expireTime;
+        }
+    }
+    #endregion
+}
