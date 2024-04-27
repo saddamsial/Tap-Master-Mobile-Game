@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Git TapMaster.sln"
+    "dotnet.defaultSolution": "Tap-Master-Mobile-Game.sln"
 }
