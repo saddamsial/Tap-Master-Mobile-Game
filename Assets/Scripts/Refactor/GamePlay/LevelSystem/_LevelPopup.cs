@@ -82,8 +82,9 @@ namespace Core.GamePlay.LevelSystem
 
         public void Exit()
         {
-            base.Hide();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+            base.Hide(
+                () => { _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;}
+            );
             _gotoPageButton[_currentLevelType].SetState(false);
             _currentLevelType = _LevelType.None;
         }

@@ -8,8 +8,13 @@ namespace Core.UI.ExtendPopup{
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
 
         public void Show(){
-            base.Show(AnimLoseGame);
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+            base.Show(
+                () => {
+                    AnimLoseGame();
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                }
+            );
+            
         }
 
         public void OnClickClose(){

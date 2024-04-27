@@ -46,8 +46,8 @@ namespace Core.GamePlay.Block
             _blockController.gameObject.layer = _LayerConstant.IDLE_BLOCK;
             _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_IDLE_BLOCK, 1);
             _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 0);
-            _GameEvent.OnUseBoosterOpenFace -= () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
-            _GameEvent.OnUseBoosterOpenFace += () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
+            //_GameEvent.OnUseBoosterOpenFace -= () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
+            //_GameEvent.OnUseBoosterOpenFace += () => {_meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);};
             _isMoving = false;
         }
 
@@ -127,6 +127,10 @@ namespace Core.GamePlay.Block
                 {
                     obstacle = _GameManager.Instance.BlockPool.GetBlock(obstacle.LogicPos + _NormalizingVector3.IgnoreDecimalPart(-_blockController.transform.right));
                 });
+        }
+
+        public void OnUseBoosterOpenFace(){
+            _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_OPEN_FRONT_FACE, 1);
         }
 
         public Vector3 Color {

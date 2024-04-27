@@ -38,6 +38,13 @@ namespace Core.GamePlay.Block
         private void OnDisable()
         {
             _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
+            _GameEvent.OnUseBoosterOpenFace -= OnUseBoosterOpenFace;
+        }
+
+        private void OnDestroy()
+        {
+            _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
+            _GameEvent.OnUseBoosterOpenFace -= OnUseBoosterOpenFace;
         }
 
         public void InitBlock(Material idleMaterial, Material movingMaterial, Material blockedMaterial, Vector3 rotation, Vector3 color, bool isSetColor = false)
@@ -52,7 +59,7 @@ namespace Core.GamePlay.Block
 
             ChangeColorOfBlock().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Color]);
             ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
-
+            _GameEvent.OnUseBoosterOpenFace += OnUseBoosterOpenFace;
             IsMoving = false;
             IsLastBlock = false;
         }
@@ -80,11 +87,16 @@ namespace Core.GamePlay.Block
             _blockStates[_BlockTypeEnum.PuzzleReward].Init(false, default, _specialMesh[0], _specialMaterial[0]);
         }
 
+        private void OnUseBoosterOpenFace()
+        {
+            ((_MovingBlock)_blockStates[_BlockTypeEnum.Moving]).OnUseBoosterOpenFace();
+        }
+
         public void SetCurrentTypeBlock(_BlockTypeEnum blockType)
         {
             _currentType = blockType;
             _blockStates[_currentType].SetUp();
-            if (blockType == _BlockTypeEnum.GoldReward)
+            if (blockType == _BlockTypeEnum.GoldReward && blockType == _BlockTypeEnum.PuzzleReward)
                 _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position);
         }
 
@@ -128,13 +140,13 @@ namespace Core.GamePlay.Block
         private void OnMouseDown()
         {
             StopAllCoroutines();
+            if (!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
+                return;
             StartCoroutine("CaculateHodingTime");
         }
 
         private void OnMouseUp()
         {
-            if (!_GameManager.Instance.GamePlayManager.IsGameplayInteractable)
-                return;
             StopCoroutine("CaculateHodingTime");
             if (_InputSystem.Instance.Timer > 0.15f)
                 return;

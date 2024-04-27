@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Data;
+using ObjectPooling;
 using UnityEngine;
 
 namespace Core.GamePlay.Block
@@ -9,7 +10,9 @@ namespace Core.GamePlay.Block
         public _CollectionRewardBlock(_BlockController block) : base(block) { }
 
         private Mesh _specialMesh;
+        private Mesh _defaultMesh;
         private Material _specialMaterial;
+        private Material _defaultMaterial;
 
         public override void Init(bool isSetColor = false, Vector3 color = default, Mesh specialMesh = null, Material specialMaterial = null)
         {
@@ -21,6 +24,8 @@ namespace Core.GamePlay.Block
         public override void SetUp()
         {
             base.SetUp();
+            _defaultMaterial = _blockController.GetComponent<MeshRenderer>().material;
+            _defaultMesh = _blockController.GetComponent<MeshFilter>().mesh;
             _blockController.GetComponent<MeshFilter>().mesh = _specialMesh;
             _meshRenderer.material = _specialMaterial;
             _blockController.transform.GetComponent<BoxCollider>().center += _ConstantBlockSetting.colliderOffSet;
@@ -54,7 +59,9 @@ namespace Core.GamePlay.Block
                 _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(randomType, randomIndex);
             }
             _blockController.gameObject.SetActive(false);
-            SimplePool.Despawn(_blockController.gameObject);
+            _blockController.GetComponent<MeshFilter>().mesh = _defaultMesh;
+            _blockController.GetComponent<MeshRenderer>().material = _defaultMaterial;
+            _ObjectPooling.Instance.ReturnToPool(_TypeGameObjectEnum.Block, _blockController.gameObject);
         }
     }
 }

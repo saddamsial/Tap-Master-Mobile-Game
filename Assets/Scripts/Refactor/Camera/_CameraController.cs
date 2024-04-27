@@ -56,7 +56,10 @@ namespace Core.GamePlay
 
         private void LateUpdate()
         {
-            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable) return;
+            if(!_GameManager.Instance.GamePlayManager.IsGameplayInteractable){
+                _lastMousePosition = _lastRemainingDelta = _remainingDelta = Vector3.zero;
+                return;
+            } 
             if (_InputSystem.Instance.CheckSelectDown())
             {
                 //_isZooming = false;
