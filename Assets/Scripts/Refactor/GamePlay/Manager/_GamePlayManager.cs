@@ -94,6 +94,17 @@ namespace Core.GamePlay
                 }
         }
 
+        public void OnContinueGame(){
+            if(_remainingWrongMoves > 0){
+                Debug.LogError("Can't continue game, wrong moves <= 0: " + _remainingWrongMoves);
+                return; // chuwa thua, k can continue
+            }
+            else{
+                IsGameplayInteractable = true;
+                _remainingWrongMoves = BlockPool.BlockObjectPool.Count + 10;
+            }
+        }
+
         public _BlockPool BlockPool => _blockPool;
         public Camera GamePlayCamera
         {

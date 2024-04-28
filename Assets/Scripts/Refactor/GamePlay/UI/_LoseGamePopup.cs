@@ -22,7 +22,13 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
-            
+            AdsManager.Instance.ShowRewarded(
+                (x) => {
+                    _GameManager.Instance.GamePlayManager.OnContinueGame();
+                    _GameEvent.OnGamePlayContinue?.Invoke();
+                    base.Hide();
+                }
+            );
         }
 
         public void OnClickRetry(){

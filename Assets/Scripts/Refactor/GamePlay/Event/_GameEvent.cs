@@ -7,6 +7,7 @@ namespace Core.GamePlay{
         public static Action OnGamePlayReset;
         public static Action OnGameWin;
         public static Action OnGameLose;
+        public static Action OnGamePlayContinue;
 
 /// <summary>
 ///    isBlockCanMove: true if block can move, false if block can't move

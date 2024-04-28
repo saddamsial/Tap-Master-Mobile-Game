@@ -24,6 +24,7 @@ namespace Core.UI
             _GameEvent.OnGamePlayReset += SetupScreen;
             _GameEvent.OnGamePlayReset += UpdateScreen;
             _GameEvent.OnSelectIdleBlock += UpdateScreen;
+            _GameEvent.OnGamePlayContinue += UpdateScreen;
         }
 
         private void OnDestroy()
@@ -31,6 +32,7 @@ namespace Core.UI
             _GameEvent.OnGamePlayReset -= SetupScreen;
             _GameEvent.OnGamePlayReset -= UpdateScreen;
             _GameEvent.OnSelectIdleBlock -= UpdateScreen;
+            _GameEvent.OnGamePlayContinue -= UpdateScreen;
         }
 
         protected override void OnStartShowItSelf()
