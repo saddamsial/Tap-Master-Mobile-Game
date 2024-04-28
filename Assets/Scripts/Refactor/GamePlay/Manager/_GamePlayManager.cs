@@ -49,7 +49,7 @@ namespace Core.GamePlay
             // _GameManager.Instance.NextLevel();
         }
 
-        public void OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
+        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
             _remainingWrongMoves -= 1;
             if (isBlockCanMove)
@@ -62,7 +62,7 @@ namespace Core.GamePlay
                     block.IsLastBlock = true;
                     if (!isSpecialBlock)
                         _GameManager.Instance.WinGame();
-                    return;
+                    return true;
                 }
                 if (!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
@@ -81,14 +81,15 @@ namespace Core.GamePlay
             if (_remainingWrongMoves <= 0)
             {
                 _GameManager.Instance.LoseGame();
-                return;
+                return true;
             }
             if (_GameManager.Instance.CurrentCollectedBlock <= 0)
             {
                 AdsManager.Instance.ShowInter(null);
                 _GameManager.Instance.CurrentCollectedBlock = 100;
-                return;
+                return false;
             }
+            return false;
         }
 
         // Only hint idle block

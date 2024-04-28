@@ -28,12 +28,13 @@ namespace Core.GamePlay.Block{
             base.OnSelect();
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
-            _GamePlayManager.Instance.OnBlockSelected(_blockController ,true, true);
+            bool isEndGame = _GamePlayManager.Instance.OnBlockSelected(_blockController ,true, true);
+            Debug.Log(isEndGame);
             //_PlayerData.UserData.Coin += _rewardCoin;
             _PlayerData.UserData.CurrentCollectCoin += _rewardCoin;
-            if(!_blockController.IsLastBlock)
+            if(!_blockController.IsLastBlock && !isEndGame)
                 _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
-            else{
+            else if(isEndGame && _blockController.IsLastBlock){
                 _GameEvent.OnSelectRewardBlockToWin?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
             }
         }
