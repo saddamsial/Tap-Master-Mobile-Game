@@ -79,7 +79,7 @@ public class AdMobManager : MonoBehaviour
         //RegisterReloadHandlerRewarded(_rewardedAd);
 
         //AppOpen
-        //RegisterEventHandlers(_appOpenAd);
+        RegisterEventHandlers(_appOpenAd);
     }
 
     public void InitSDK()
