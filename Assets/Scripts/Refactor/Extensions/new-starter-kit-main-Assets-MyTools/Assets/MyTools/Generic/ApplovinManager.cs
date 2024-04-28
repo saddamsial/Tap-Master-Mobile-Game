@@ -258,6 +258,7 @@ public class ApplovinManager : MonoBehaviour
         if (MaxSdk.IsInterstitialReady(_interID))
         {
             Debug.Log("Show Interstitial 1");
+            actionCloseInter = Close_CallBack;
             MaxSdk.ShowInterstitial(_interID);
             // PopupLoadingAd.Instance.Show(() =>
             // {

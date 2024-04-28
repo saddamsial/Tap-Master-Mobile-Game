@@ -55,6 +55,7 @@ namespace Core.GamePlay
             if (isBlockCanMove)
             {
                 _totalBlocks -= blocks;
+                _GameManager.Instance.CurrentCollectedBlock -= blocks;
                 _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_totalBlocks <= 0)
                 {
@@ -80,26 +81,44 @@ namespace Core.GamePlay
             if (_remainingWrongMoves <= 0)
             {
                 _GameManager.Instance.LoseGame();
+                return;
+            }
+            if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+            {
+                AdsManager.Instance.ShowInter(null);
+                _GameManager.Instance.CurrentCollectedBlock = 100;
+                return;
             }
         }
 
         // Only hint idle block
-        public void OnBlockSelectedByHint(int blockNums){
+        public void OnBlockSelectedByHint(int blockNums)
+        {
             _totalBlocks -= blockNums;
-                _GameEvent.OnSelectIdleBlock?.Invoke();
-                if (_totalBlocks <= 0)
-                {
-                    _GameManager.Instance.WinGame();
-                    return;
-                }
+            _GameManager.Instance.CurrentCollectedBlock -= blockNums;
+            _GameEvent.OnSelectIdleBlock?.Invoke();
+            if (_totalBlocks <= 0)
+            {
+                _GameManager.Instance.WinGame();
+                return;
+            }
+            if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+            {
+                AdsManager.Instance.ShowInter(null);
+                _GameManager.Instance.CurrentCollectedBlock = 100;
+                return;
+            }
         }
 
-        public void OnContinueGame(){
-            if(_remainingWrongMoves > 0){
+        public void OnContinueGame()
+        {
+            if (_remainingWrongMoves > 0)
+            {
                 Debug.LogError("Can't continue game, wrong moves <= 0: " + _remainingWrongMoves);
                 return; // chuwa thua, k can continue
             }
-            else{
+            else
+            {
                 IsGameplayInteractable = true;
                 _remainingWrongMoves = BlockPool.BlockObjectPool.Count + 10;
             }
