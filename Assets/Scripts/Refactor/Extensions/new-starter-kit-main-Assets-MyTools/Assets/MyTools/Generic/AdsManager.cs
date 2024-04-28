@@ -92,4 +92,8 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     {
         _applovinManager?.ShowRewardedAd(closeCallBack, onClick, localtion);
     }
+
+    public void ShowNativeOverlay(){
+        _admnobManager?.RenderAd();
+    }
 }

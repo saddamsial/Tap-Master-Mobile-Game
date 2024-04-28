@@ -29,6 +29,7 @@ namespace Core.UI.ExtendPopup{
             else{
                 _watchAdsButton.SetActive(false);
             }
+            AdsManager.Instance.ShowNativeOverlay();
         }
 
         public void OnClickClose(){

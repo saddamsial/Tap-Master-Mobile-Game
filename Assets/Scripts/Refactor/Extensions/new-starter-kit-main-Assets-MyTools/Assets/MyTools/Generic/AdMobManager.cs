@@ -13,21 +13,25 @@ public class AdMobManager : MonoBehaviour
     public string androidInterstitialID;
     public string androidrewardID;
     public string androidOpenAdsID;
+    public string androidNativeID;
     [Header("IOS")]
     public string iosBannerID;
     public string iosInterstitialID;
     public string iosRewardID;
     public string iosOpenAdsID;
+    public string iosNativeID;
 
     private string _bannerID;
     private string _interID;
     private string _rewardID;
     private string _openAdsID;
+    private string _nativeID;
 
     private BannerView _bannerView;
     private InterstitialAd _interstitialAd;
     private RewardedAd _rewardedAd;
     private AppOpenAd _appOpenAd;
+    private NativeOverlayAd _nativeOverlayAd;
 
 
     private Action closeInter;
@@ -42,16 +46,19 @@ public class AdMobManager : MonoBehaviour
         _interID = androidInterstitialID;
         _rewardID = androidrewardID;
         _openAdsID = androidOpenAdsID;
+        _nativeID = androidNativeID;
 #elif UNITY_IOS
         _bannerID = iosBannerID;
         _interID = iosInterstitialID;
         _rewardID = iosRewardID;
         _openAdsID = iosOpenAdsID;
+        _nativeID = iosNativeID;
 #else
         _bannerID = "unexpected_platform";
         _interID = "unexpected_platform";
         _rewardID = "unexpected_platform";
         _openAdsID = "unexpected_platform";
+        _nativeID = "unexpected_platform";
 #endif
 
         // Use the AppStateEventNotifier to listen to application open/close events.
@@ -93,6 +100,7 @@ public class AdMobManager : MonoBehaviour
             //LoadInterstitialAd();
             //LoadRewardedAd();
             LoadAppOpenAd();
+            LoadNativeAd();
             InitAdEvent();
         });
     }
@@ -556,6 +564,158 @@ public class AdMobManager : MonoBehaviour
             return _appOpenAd != null;
             //&& _appOpenAd.IsLoaded()
             //&& DateTime.Now < _expireTime;
+        }
+    }
+    #endregion
+
+    #region  NATIVE OVERLAY
+
+
+    /// <summary>
+    /// Loads the ad.
+    /// </summary>
+    public void LoadNativeAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_nativeOverlayAd != null)
+        {
+            DestroyAd();
+        }
+
+        Debug.Log("Loading native overlay ad.");
+
+        // Create a request used to load the ad.
+        var adRequest = new AdRequest();
+
+        // Optional: Define native ad options.
+        var options = new NativeAdOptions(
+            new NativeAdOptions()
+            {
+                MediaAspectRatio = MediaAspectRatio.Landscape,
+                AdChoicesPlacement = AdChoicesPlacement.TopLeftCorner,
+                VideoOptions = new VideoOptions()
+            }
+        );
+
+        Debug.Log("Loading native overlay ad with options : " + options);
+
+        // Send the request to load the ad.
+        NativeOverlayAd.Load(_nativeID, adRequest, options,
+            (NativeOverlayAd ad, LoadAdError error) =>
+                {
+                    if (error != null)
+                    {
+                        Debug.LogError("Native Overlay ad failed to load an ad " +
+                                    " with error: " + error);
+                        return;
+                    }
+
+                    // The ad should always be non-null if the error is null, but
+                    // double-check to avoid a crash.
+                    if (ad == null)
+                    {
+                        Debug.LogError("Unexpected error: Native Overlay ad load event " +
+                                    " fired with null ad and null error.");
+                        return;
+                    }
+
+                    // The operation completed successfully.
+                    Debug.Log("Native Overlay ad loaded with response : " + ad.GetResponseInfo());
+                    _nativeOverlayAd = ad;
+
+                    // Register to ad events to extend functionality.
+                    RegisterEventHandlers(ad);
+                });
+    }
+
+    private void RegisterEventHandlers(NativeOverlayAd ad)
+    {
+        // Raised when the ad is estimated to have earned money.
+        ad.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(string.Format("App open ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+            //AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
+        };
+        // Raised when an impression is recorded for an ad.
+        ad.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("App open ad recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        ad.OnAdClicked += () =>
+        {
+            Debug.Log("App open ad was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        ad.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("App open ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        ad.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("App open ad full screen content closed.");
+            LoadAppOpenAd();
+        };
+    }
+
+    /// <summary>
+    /// Renders the ad.
+    /// </summary>
+    public void RenderAd()
+    {
+        if (_nativeOverlayAd != null)
+        {
+            Debug.Log("Rendering Native Overlay ad.");
+
+            // Define a native template style with a custom style.
+            var style = new NativeTemplateStyle
+            {
+                TemplateId = NativeTemplateId.Medium,
+                MainBackgroundColor = Color.red,
+                CallToActionText = new NativeTemplateTextStyle
+                {
+                    BackgroundColor = Color.green,
+                    TextColor = Color.white,
+                    FontSize = 9,
+                    Style = NativeTemplateFontStyle.Bold
+                }
+            };
+
+            // Renders a native overlay ad at the default size
+            // and anchored to the bottom of the screne.
+            _nativeOverlayAd.RenderTemplate(style, AdPosition.Bottom);
+        }
+        else
+        {
+            Debug.LogError("Native Overlay ad is not ready yet.");
+        }
+    }
+
+    /// <summary>
+    /// Shows the ad.
+    /// </summary>
+    public void ShowAd()
+    {
+        if (_nativeOverlayAd != null)
+        {
+            Debug.Log("Showing Native Overlay ad.");
+            _nativeOverlayAd.Show();
+        }
+    }
+
+    /// <summary>
+    /// Destroys the native overlay ad.
+    /// </summary>
+    public void DestroyAd()
+    {
+        if (_nativeOverlayAd != null)
+        {
+            Debug.Log("Destroying native overlay ad.");
+            _nativeOverlayAd.Destroy();
+            _nativeOverlayAd = null;
         }
     }
     #endregion

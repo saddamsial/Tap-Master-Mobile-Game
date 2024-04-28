@@ -14,7 +14,7 @@ namespace Core.UI.ExtendPopup{
                     _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 }
             );
-            
+            AdsManager.Instance.ShowNativeOverlay();
         }
 
         public void OnClickClose(){
