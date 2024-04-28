@@ -47,6 +47,15 @@ namespace Core.UI.ExtendPopup{
 
         public void OnClickWatchAd(){
             _cursor.DOKill();
+            AdsManager.Instance.ShowRewarded(
+                (x) => {
+                    if(x)
+                        OnCompleteWatchAds();
+                }
+            );
+        }
+
+        private void OnCompleteWatchAds(){
             float tmpX = _cursor.localPosition.x;
             float value = tmpX - _pivotPos;
             float dis = _barWidth / 7;

@@ -34,7 +34,7 @@ public class ApplovinManager : MonoBehaviour
 
     private DateTime? lastTime = null;
 //     bool timeShowAds => lastTime == null ? true : (DateTime.Now - lastTime)?.TotalSeconds > AppConfig.Instance.InterFrequencyTime;/* inter ad tần suất(s)*/
-//     private bool _canClaimReward;
+    private bool _canClaimReward;
 
     private void Awake()
     {
@@ -324,7 +324,7 @@ public class ApplovinManager : MonoBehaviour
     private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         // Rewarded ad is hidden. Pre-load the next ad
-        //actVideoClosedCallback?.Invoke(_canClaimReward);
+        actVideoClosedCallback?.Invoke(_canClaimReward);
         actVideoClosedCallback = null;
         LoadRewardedAd();
         lastTime = DateTime.Now;
@@ -333,10 +333,10 @@ public class ApplovinManager : MonoBehaviour
     private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward, MaxSdkBase.AdInfo adInfo)
     {
         // The rewarded ad displayed and the user should receive the reward.
-        //_canClaimReward = true;
-        //actVideoClosedCallback?.Invoke(_canClaimReward);
+        _canClaimReward = true;
+        actVideoClosedCallback?.Invoke(_canClaimReward);
         actVideoClosedCallback = null;
-        //_canClaimReward = false;
+        _canClaimReward = false;
     }
 
     private void OnRewardedAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

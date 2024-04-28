@@ -209,7 +209,7 @@ namespace Core.GamePlay.BlockPool
             for (int i = 0; i < blockToRemove; i++)
             {
                 int randomIndex = Random.Range(0, _blockObjectPool.Count);
-                if (_blockObjectPool[randomIndex].CurrentType == _BlockTypeEnum.GoldReward)
+                if (_blockObjectPool[randomIndex].CurrentType != _BlockTypeEnum.Moving)
                 {
                     i--;
                     continue;

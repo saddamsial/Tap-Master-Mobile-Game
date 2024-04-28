@@ -40,19 +40,19 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
         _applovinManager?.InitAds();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log("Show Interstitial");
-            ShowInter(null);
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Show Rewarded");
-            ShowRewarded(null);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.I))
+    //     {
+    //         Debug.Log("Show Interstitial");
+    //         ShowInter(null);
+    //     }
+    //     else if (Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         Debug.Log("Show Rewarded");
+    //         ShowRewarded(null);
+    //     }
+    // }
 
     private void OnDestroy()
     {
