@@ -46,6 +46,7 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
+            GlobalEventManager.Instance.OnLevelComplete(Level.levelIndex);
             _MySoundManager.Instance.PlaySound(SoundType.Win);
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
             {
@@ -60,6 +61,7 @@ namespace Core.GamePlay
         {
             _MySoundManager.Instance.PlaySound(SoundType.Lose);
             _GameEvent.OnGameLose?.Invoke();
+            GlobalEventManager.Instance.OnLevelLose(Level.levelIndex);
         }
 
         public void NextLevel()
@@ -70,6 +72,7 @@ namespace Core.GamePlay
                     var currentLevel = Level.levelIndex + 1;
                     StartLevel(currentLevel);
                     GlobalEventManager.Instance.OnCloseInterstitial();
+                    GlobalEventManager.Instance.OnLevelComplete(currentLevel);
                 }
             );
         }
@@ -82,6 +85,7 @@ namespace Core.GamePlay
                     var currentLevel = Level.levelIndex - 1;
                     StartLevel(currentLevel);
                     GlobalEventManager.Instance.OnCloseInterstitial();
+                    GlobalEventManager.Instance.OnLevelReplay(currentLevel);
                 }
             );
         }
