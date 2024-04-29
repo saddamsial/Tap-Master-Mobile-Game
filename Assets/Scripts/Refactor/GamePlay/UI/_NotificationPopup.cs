@@ -16,6 +16,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             base.Hide(
                 () => {
                     if(!_isTopOfGroupPopup)

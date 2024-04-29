@@ -46,6 +46,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAd(){
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _cursor.DOKill();
             AdsManager.Instance.ShowRewarded(
                 (x) => {
@@ -93,13 +94,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
-            // _cursor.DOKill();
-            // _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
-            // base.Hide( () => {
-            //     if(_isWinGame){
-            //         PopupManager.CreateNewInstance<_WinGamePopup>().Show();
-            //     }
-            // });
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _cursor.DOKill();
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
             if(_isWinGame){

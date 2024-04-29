@@ -49,6 +49,7 @@ namespace Core.GamePlay.LevelSystem{
         }
 
         public void OnClickLevelPlay(){
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupSystem.PopupManager.Instance.CloseAllPopup();
             // _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
             // Debug.Log("Play Level: " + _currentLevel);

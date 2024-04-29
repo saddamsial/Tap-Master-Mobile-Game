@@ -7,6 +7,7 @@ namespace Core.UI.ExtendPopup
     {
         public void OnClickAccept()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.Instance.CloseAllPopup();
             _GameManager.Instance.ReTry();
         }

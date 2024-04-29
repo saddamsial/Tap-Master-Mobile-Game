@@ -10,6 +10,9 @@ namespace Core.Data{
         public int CurrentLevel;
         public int Coin;
         public int CurrentCollectCoin;
+        public bool IsTurnOnSound;
+        public bool IsTurnOnMusic;
+        public bool IsTurnOnVibration;
         public KeyValuePair<int , int> CurrentCollectionPuzzlePiece;
         public Dictionary<int, List<int>> RuntimeCollectionData;
         public Dictionary<_ShopPage, List<int>> RuntimePurchasedShopData;
@@ -25,6 +28,9 @@ namespace Core.Data{
                 {_LevelType.Medium, _ConstantGameplayConfig.LEVEL_EASY+1},
                 {_LevelType.Master, _ConstantGameplayConfig.LEVEL_EASY + _ConstantGameplayConfig.LEVEL_MEDIUM + 1}
             };
+            IsTurnOnSound = true;
+            IsTurnOnMusic = true;
+            IsTurnOnVibration = true;
 #region Collection and Shop Data
             RuntimeCollectionData = new Dictionary<int, List<int>>();
             RuntimePurchasedShopData = new Dictionary<_ShopPage, List<int>>();

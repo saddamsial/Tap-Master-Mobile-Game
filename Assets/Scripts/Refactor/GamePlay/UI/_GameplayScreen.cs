@@ -55,6 +55,7 @@ namespace Core.UI
 
         public void OnClickUseOpenFrontFaceBooster()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
@@ -69,6 +70,7 @@ namespace Core.UI
 
         public void OnClickUseHintBooster()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
@@ -80,31 +82,37 @@ namespace Core.UI
 
         public void OnClickReplayGame()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.CreateNewInstance<_ReplayGamePopup>().Show("Are you sure you want to replay this level?", false);
         }
 
         public void OnClickOpenCollection()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.CreateNewInstance<_CollectionPopup>().Show();
         }
 
         public void OnClickOpenShop()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.CreateNewInstance<_ShopPopup>().Show();
         }
 
         public void OnClickOpenLevel()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.CreateNewInstance<_LevelPopup>().Show();
         }
 
         public void OnClickPauseGame()
         {
-            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            PopupManager.CreateNewInstance<_SettingPopup>().Show();
         }
 
         public void OnClickAchievement()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
         }
     }

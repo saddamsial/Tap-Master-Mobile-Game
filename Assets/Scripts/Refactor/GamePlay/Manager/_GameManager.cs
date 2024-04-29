@@ -46,6 +46,7 @@ namespace Core.GamePlay
         public void WinGame()
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
+            _MySoundManager.Instance.PlaySound(SoundType.Win);
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
             {
                 PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
@@ -57,6 +58,7 @@ namespace Core.GamePlay
 
         public void LoseGame()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.Lose);
             _GameEvent.OnGameLose?.Invoke();
         }
 
