@@ -5,6 +5,7 @@ namespace Core.GamePlay
     public class _MySoundManager : SingletonMonoBehaviour<_MySoundManager>
     {
         [SerializeField] private SoundManager soundManager;
+        [SerializeField] private VibrationManager vibrationManager;
         [Header("Resources")]
         [SerializeField] private AudioClip[] _tapSounds;
         [SerializeField] private AudioClip[] _spawnSounds;
@@ -19,6 +20,10 @@ namespace Core.GamePlay
             var audioClip = GetAudioClip(type);
             if (audioClip == null) return;
             soundManager.PlaySfxOverride(audioClip);
+        }
+
+        public void Vibrate(){
+            VibrationManager.Vibrate();
         }
 
         private AudioClip GetAudioClip(SoundType type)

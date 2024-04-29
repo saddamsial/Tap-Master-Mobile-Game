@@ -52,6 +52,7 @@ namespace Core.GamePlay
         public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
             _remainingWrongMoves -= 1;
+            _MySoundManager.Instance.Vibrate();
             if (isBlockCanMove)
             {
                 _MySoundManager.Instance.PlaySound(SoundType.Tap);
