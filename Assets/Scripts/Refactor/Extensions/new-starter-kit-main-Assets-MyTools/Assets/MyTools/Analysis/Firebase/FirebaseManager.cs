@@ -86,22 +86,66 @@ public class FirebaseManager : SingletonMonoBehaviour<FirebaseManager>
        //Debug.LogError(eName);
    }
 
-   private void FetchValue()
-   {
-       SetDefaultValue();
-       TimeSpan time = new TimeSpan(0, 0, 10);
-       FirebaseRemoteConfig.DefaultInstance.FetchAsync(time).ContinueWithOnMainThread(task =>
-       {
-           var info = FirebaseRemoteConfig.DefaultInstance.Info;
-           if (info.LastFetchStatus == LastFetchStatus.Success)
-           {
-              Debug.Log($"{TAG}: Read remote config...");
-           }
-       });
-   }
+   #region  FIREBASE REMOTE CONFIG
+    private void FetchValue()
+    {
+        TimeSpan time = new TimeSpan(0, 0, 10);
+        FirebaseRemoteConfig.DefaultInstance.FetchAsync(time).ContinueWithOnMainThread(task =>
+        {
+            var info = FirebaseRemoteConfig.DefaultInstance.Info;
+            if (info.LastFetchStatus == LastFetchStatus.Success)
+            {
+                Debug.Log($"{TAG}: Read remote config...");
+                FirebaseRemoteConfig.DefaultInstance.ActivateAsync();
+                AppConfig.Instance.BannerAdLevel = GetFetchIntValue(Const.KEY_BANNER_AD_LEVEL, AppConfig.Instance.BannerAdLevel);
+                AppConfig.Instance.InterAdLevel = GetFetchIntValue(Const.KEY_INTER_AD_LEVEL, AppConfig.Instance.InterAdLevel);
+            }
+            AppConfig.Instance.InterFrequencyTime = GetFetchIntValue(Const.KEY_INTER_FREQUENCY_TIME, AppConfig.Instance.InterFrequencyTime);
+            AppConfig.Instance.IsShowInterWithClosePopupRemoveAds = GetFetchBoolValue(Const.KEY_INTER_AD_CLOSE_POPUP_REMOVE_ADS, AppConfig.Instance.IsShowInterWithClosePopupRemoveAds);
+        });
+    }
 
-   private void SetDefaultValue()
-   {
-        
-   }
+    private int GetFetchIntValue(string valueName, int defaultValue)
+    {
+        string value = FirebaseRemoteConfig.DefaultInstance.GetValue(valueName).StringValue;
+        if (value != null)
+        {
+            //Debug.Log(value);
+            return int.Parse(value);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    private string GetFetchStringValue(string valueName, string defaultValue)
+    {
+        string value = FirebaseRemoteConfig.DefaultInstance.GetValue(valueName).StringValue;
+        if (value != null)
+        {
+            // Debug.Log(value);
+            return value;
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    public bool GetFetchBoolValue(string valueName, bool defaultValue)
+    {
+        bool value = FirebaseRemoteConfig.DefaultInstance.GetValue(valueName).BooleanValue;
+
+        if (value != defaultValue)
+        {
+            return value;
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+    #endregion
+
 }

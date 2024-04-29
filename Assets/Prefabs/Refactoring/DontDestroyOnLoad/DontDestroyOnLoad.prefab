@@ -159,15 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3c1e52e3ef6854abba02a3f295d6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  andoidSdkID: 
-  iosSdkID: 
-  androidBannerID: ca-app-pub-3940256099942544/6300978111
-  androidInterstitialID: ca-app-pub-3940256099942544/1033173712
-  androidrewardID: ca-app-pub-3940256099942544/5224354917
-  androidOpenAdsID: ca-app-pub-3940256099942544/9257395921
+  andoidSdkID: QzzbL8aG4ezPV9WMEy8mG0BmlSoXVxPCP8vTTOriXP7xVrFl7NqTdTDRNRQIwbceWJ_cXD1__Lduo2MdKetggT
+  iosSdkID: QzzbL8aG4ezPV9WMEy8mG0BmlSoXVxPCP8vTTOriXP7xVrFl7NqTdTDRNRQIwbceWJ_cXD1__Lduo2MdKetggT
+  androidBannerID: 
+  androidInterstitialID: be79df2c7ed8206a
+  androidrewardID: 3d5949ece624c690
+  androidOpenAdsID: 
   iosBannerID: 
-  iosInterstitialID: 
-  iosRewardID: 
+  iosInterstitialID: 0f8eb0917da3244f
+  iosRewardID: 9feb292d740bf070
   iosOpenAdsId: 
 --- !u!1 &2812961485236546810
 GameObject:
@@ -263,6 +263,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5917dbf1c1a952846b4d941f87e208d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3932210183946526674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6103231773963043092}
+  - component: {fileID: 8325416650627731241}
+  - component: {fileID: 7209902887392095029}
+  - component: {fileID: 2745050609123026736}
+  m_Layer: 0
+  m_Name: FirebaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6103231773963043092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932210183946526674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9185363628261408461}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8325416650627731241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932210183946526674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba865a3694fa5b4abb5878392b0045a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preInstantiate: 1
+  isOk: 0
+--- !u!114 &7209902887392095029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932210183946526674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbffc7a0cd1bad44ab370b6d7c1da4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preInstantiate: 1
+  _bannerAdLevel: 0
+  _interAdLevel: 0
+  _interFrequencyTime: 0
+  _isShowInterWithClosePopupRemoveAds: 0
+  ValueIsFetch: 
+--- !u!114 &2745050609123026736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932210183946526674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97e10215e49d2a48bd871c1281da68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preInstantiate: 1
 --- !u!1 &4579340674323761475
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,15 +548,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356f87a46fe801046a0d73675f17adee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  androidBannerID: ca-app-pub-3940256099942544/6300978111
-  androidInterstitialID: ca-app-pub-3940256099942544/1033173712
-  androidrewardID: ca-app-pub-3940256099942544/5224354917
-  androidOpenAdsID: ca-app-pub-3940256099942544/9257395921
-  androidNativeID: ca-app-pub-3940256099942544/2247696110
-  iosBannerID: 
+  androidBannerID: ca-app-pub-5345388972296013/7195831606
+  androidInterstitialID: 
+  androidrewardID: 
+  androidOpenAdsID: ca-app-pub-5345388972296013/5707490113
+  androidNativeID: 
+  iosBannerID: ca-app-pub-5345388972296013/5612121340
   iosInterstitialID: 
   iosRewardID: 
-  iosOpenAdsID: 
+  iosOpenAdsID: ca-app-pub-5345388972296013/4394408449
   iosNativeID: 
 --- !u!1 &6528798929341480014
 GameObject:
@@ -513,6 +592,7 @@ Transform:
   - {fileID: 5117311265302932710}
   - {fileID: 6153337180790848713}
   - {fileID: 1673962793948561728}
+  - {fileID: 6103231773963043092}
   m_Father: {fileID: 4824227931617192782}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
