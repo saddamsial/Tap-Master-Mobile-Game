@@ -59,13 +59,13 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "open_front_face_booster");
                     if (x)
                     {
                         _GameEvent.OnUseBoosterOpenFace?.Invoke();
                         _openFrontFaceBoosterButton.SetActive(false);
                     }
-                }
+                }, null, location: "open_front_face_booster"
             );
         }
 
@@ -75,10 +75,10 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
                     if (x)
                         _GameEvent.OnUseBoosterHint?.Invoke();
-                }
+                }, null, location: "hint_booster"
             );
         }
 

@@ -141,18 +141,19 @@ namespace Core.GamePlay.Shop
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     if (x)
                     {
                         if(_isCanPurchaseWithAd){
                             PurchaseItem((int)(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)) * 0.2f));
+                            GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "shop_get_random_item");
                         }
                         else{
                             _PlayerData.UserData.Coin += 300;
                             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+                            GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "shop_get_coin");
                         }
                     }
-                }
+                }, null, location: "shop_get_random_item"
             );
         }
 

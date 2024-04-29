@@ -99,6 +99,24 @@ public class GlobalEventManager : SingletonMonoBehaviour<GlobalEventManager>
         };
         FirebaseAnalytics.LogEvent("reward_complete", parameter);
     }
+
+    public void OnShowRewarded(int level, string adLocation){
+        Parameter[] parameter = new Parameter[]
+        {
+                new Parameter("level", level.ToString()),
+                new Parameter("ad_location", adLocation),
+        };
+        FirebaseAnalytics.LogEvent("reward_show", parameter);
+    }
+
+    public void OnRewardedComplete(int level, string adLocation){
+        Parameter[] parameter = new Parameter[]
+        {
+                new Parameter("level", level.ToString()),
+                new Parameter("ad_location", adLocation),
+        };
+        FirebaseAnalytics.LogEvent("reward_complete", parameter);
+    }
     #endregion
 
     #region Tracking GamePlay
