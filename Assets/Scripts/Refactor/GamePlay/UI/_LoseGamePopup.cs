@@ -25,6 +25,7 @@ namespace Core.UI.ExtendPopup{
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     _GameManager.Instance.GamePlayManager.OnContinueGame();
                     _GameEvent.OnGamePlayContinue?.Invoke();
                     base.Hide();

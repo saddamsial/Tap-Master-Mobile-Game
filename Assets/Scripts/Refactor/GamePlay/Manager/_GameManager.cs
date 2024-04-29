@@ -69,6 +69,7 @@ namespace Core.GamePlay
                 {
                     var currentLevel = Level.levelIndex + 1;
                     StartLevel(currentLevel);
+                    GlobalEventManager.Instance.OnCloseInterstitial();
                 }
             );
         }
@@ -80,6 +81,7 @@ namespace Core.GamePlay
                 {
                     var currentLevel = Level.levelIndex - 1;
                     StartLevel(currentLevel);
+                    GlobalEventManager.Instance.OnCloseInterstitial();
                 }
             );
         }

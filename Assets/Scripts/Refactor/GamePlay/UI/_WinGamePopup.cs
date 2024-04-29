@@ -41,6 +41,7 @@ namespace Core.UI.ExtendPopup{
             AdsManager.Instance.ShowRewarded(
                 (x) => {
                     if(x){
+                        GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                         _PlayerData.UserData.Coin += _PlayerData.UserData.CurrentCollectCoin;
                         _coinText.text = "+" + _PlayerData.UserData.CurrentCollectCoin * 2;
                         _watchAdsButton.SetActive(false);
