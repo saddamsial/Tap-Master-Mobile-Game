@@ -1,3 +1,4 @@
+using Core.Data;
 using GoogleMobileAds.Api;
 using System;
 using System.Collections;
@@ -86,11 +87,13 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     public void ShowInter(Action callBack, string localtion = "")
     {
         _applovinManager?.ShowInterstitial(callBack, localtion);
+        GlobalEventManager.Instance.OnShowInterstitial();
     }
 
     public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string localtion = "")
     {
         _applovinManager?.ShowRewardedAd(closeCallBack, onClick, localtion);
+        GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel);
     }
 
     public void ShowNativeOverlay(){

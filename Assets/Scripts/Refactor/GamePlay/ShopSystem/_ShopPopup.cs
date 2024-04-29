@@ -141,6 +141,7 @@ namespace Core.GamePlay.Shop
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     if (x)
                     {
                         if(_isCanPurchaseWithAd){

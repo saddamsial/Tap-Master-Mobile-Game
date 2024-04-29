@@ -97,7 +97,7 @@ public class ApplovinManager : MonoBehaviour
             AdsManager.Instance.CanLoadAds = true;
         };
 
-        //InitializeAd_impressionEvent();
+        InitializeAd_impressionEvent();
         // InitializeBannerAdsEvent();
         InitializeInterstitialAdsEvent();
         InitializeRewardedAdsEvent();
@@ -367,25 +367,25 @@ public class ApplovinManager : MonoBehaviour
     }
     #endregion
 
-//     public void InitializeAd_impressionEvent()
-//     {
-//         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
-//         MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
-//         //  MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
-//         MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
-//     }
+    public void InitializeAd_impressionEvent()
+    {
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        //  MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+    }
 
-//     // private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo impressionData)
-//     // {
-//     //     double revenue = impressionData.Revenue;
-//     //     var impressionParameters = new[] {
-//     //             new Firebase.Analytics.Parameter("ad_platform", "AppLovin"),
-//     //             new Firebase.Analytics.Parameter("ad_source", impressionData.NetworkName),
-//     //             new Firebase.Analytics.Parameter("ad_unit_name", impressionData.AdUnitIdentifier),
-//     //             new Firebase.Analytics.Parameter("ad_format", impressionData.AdFormat),
-//     //             new Firebase.Analytics.Parameter("value", revenue),
-//     //             new Firebase.Analytics.Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
-//     //     };
-//     //     Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
-//     // }
+    private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo impressionData)
+    {
+        double revenue = impressionData.Revenue;
+        var impressionParameters = new[] {
+                new Firebase.Analytics.Parameter("ad_platform", "AppLovin"),
+                new Firebase.Analytics.Parameter("ad_source", impressionData.NetworkName),
+                new Firebase.Analytics.Parameter("ad_unit_name", impressionData.AdUnitIdentifier),
+                new Firebase.Analytics.Parameter("ad_format", impressionData.AdFormat),
+                new Firebase.Analytics.Parameter("value", revenue),
+                new Firebase.Analytics.Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
+        };
+        Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+    }
 }

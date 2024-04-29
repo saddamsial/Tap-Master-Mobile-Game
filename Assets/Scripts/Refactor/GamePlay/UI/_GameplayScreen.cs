@@ -59,6 +59,7 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     if (x)
                     {
                         _GameEvent.OnUseBoosterOpenFace?.Invoke();
@@ -74,6 +75,7 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     if (x)
                         _GameEvent.OnUseBoosterHint?.Invoke();
                 }

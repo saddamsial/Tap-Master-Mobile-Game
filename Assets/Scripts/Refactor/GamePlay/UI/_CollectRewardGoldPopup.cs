@@ -50,6 +50,7 @@ namespace Core.UI.ExtendPopup{
             _cursor.DOKill();
             AdsManager.Instance.ShowRewarded(
                 (x) => {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     if(x)
                         OnCompleteWatchAds();
                 }

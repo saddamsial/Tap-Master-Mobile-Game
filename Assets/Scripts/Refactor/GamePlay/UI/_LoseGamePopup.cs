@@ -2,6 +2,7 @@ using UnityEngine;
 using PopupSystem;
 using Core.GamePlay;
 using Spine.Unity;
+using Core.Data;
 
 namespace Core.UI.ExtendPopup{
     public class _LoseGamePopup : BasePopup{
@@ -25,6 +26,7 @@ namespace Core.UI.ExtendPopup{
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
                     _GameManager.Instance.GamePlayManager.OnContinueGame();
                     _GameEvent.OnGamePlayContinue?.Invoke();
                     base.Hide();

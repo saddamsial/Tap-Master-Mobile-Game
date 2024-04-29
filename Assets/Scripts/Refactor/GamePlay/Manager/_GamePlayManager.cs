@@ -88,7 +88,9 @@ namespace Core.GamePlay
             }
             if (_GameManager.Instance.CurrentCollectedBlock <= 0)
             {
-                AdsManager.Instance.ShowInter(null);
+                AdsManager.Instance.ShowInter( () => {
+                    GlobalEventManager.Instance.OnCloseInterstitial();
+                });
                 _GameManager.Instance.CurrentCollectedBlock = 100;
                 return false;
             }
@@ -108,7 +110,9 @@ namespace Core.GamePlay
             }
             if (_GameManager.Instance.CurrentCollectedBlock <= 0)
             {
-                AdsManager.Instance.ShowInter(null);
+                AdsManager.Instance.ShowInter(
+                    () => { GlobalEventManager.Instance.OnCloseInterstitial();}
+                );
                 _GameManager.Instance.CurrentCollectedBlock = 100;
                 return;
             }
