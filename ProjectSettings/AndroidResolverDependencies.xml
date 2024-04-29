@@ -1,6 +1,11 @@
 <dependencies>
   <packages>
     <package>androidx.constraintlayout:constraintlayout:2.1.4</package>
+    <package>androidx.recyclerview:recyclerview:1.2.1</package>
+    <package>com.applovin.mediation:facebook-adapter:[6.17.0.0]</package>
+    <package>com.applovin.mediation:google-adapter:[23.0.0.1]</package>
+    <package>com.applovin.mediation:mintegral-adapter:16.7.21.0</package>
+    <package>com.applovin.mediation:unityads-adapter:4.10.0.0</package>
     <package>com.applovin:applovin-sdk:12.4.2</package>
     <package>com.google.android.gms:play-services-ads:23.0.0</package>
     <package>com.google.android.ump:user-messaging-platform:2.2.0</package>
