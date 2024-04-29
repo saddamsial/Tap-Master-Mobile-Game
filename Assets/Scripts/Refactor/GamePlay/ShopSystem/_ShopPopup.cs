@@ -90,6 +90,7 @@ namespace Core.GamePlay.Shop
 
         public void Exit()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             base.Hide(() =>
             {
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
@@ -100,6 +101,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoArrowPage()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Arrow;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -109,6 +111,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoBlockPage()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Block;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -118,6 +121,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoColorPage()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Color;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -127,20 +131,13 @@ namespace Core.GamePlay.Shop
 
         public void OnClickPurchaseButton()
         {
-            // int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
-            // while (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex))
-            // {
-            //     purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
-            // }
-            // StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
-            // _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
-            // _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
-            // UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             PurchaseItem(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)));
         }
 
         public void OnClickWatchAdButton()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
@@ -359,6 +356,7 @@ namespace Core.GamePlay.Shop
 
         private Action<int, _ShopPage> OnClickShopElement()
         {
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             return (int id, _ShopPage type) =>
             {
                 _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);

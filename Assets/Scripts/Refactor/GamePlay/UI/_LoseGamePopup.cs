@@ -22,6 +22,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
                     _GameManager.Instance.GamePlayManager.OnContinueGame();
@@ -32,6 +33,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickRetry(){
+            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             base.Hide(() => {_GameManager.Instance.ReTry();}); 
         }
 
