@@ -2,6 +2,7 @@ using UnityEngine;
 using PopupSystem;
 using Core.GamePlay;
 using Spine.Unity;
+using Core.Data;
 
 namespace Core.UI.ExtendPopup{
     public class _LoseGamePopup : BasePopup{
