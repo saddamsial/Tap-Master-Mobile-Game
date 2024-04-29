@@ -107,7 +107,7 @@ namespace Core.UI
         public void OnClickPauseGame()
         {
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
-            PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
+            PopupManager.CreateNewInstance<_SettingPopup>().Show();
         }
 
         public void OnClickAchievement()
