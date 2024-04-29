@@ -87,7 +87,9 @@ public class FirebaseManager : SingletonMonoBehaviour<FirebaseManager>
    }
 
    #region  FIREBASE REMOTE CONFIG
-    private void FetchValue()
+    private void 
+    
+    FetchValue()
     {
         TimeSpan time = new TimeSpan(0, 0, 10);
         FirebaseRemoteConfig.DefaultInstance.FetchAsync(time).ContinueWithOnMainThread(task =>
