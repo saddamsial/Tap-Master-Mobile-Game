@@ -27,12 +27,14 @@ dependencies {
 // Android Resolver Dependencies Start
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
     implementation 'androidx.recyclerview:recyclerview:1.2.1' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:9
+    implementation 'com.android.installreferrer:installreferrer:2.2' // Assets/ExternalDependencyManager/Google Install Referrer/Editor/Dependencies.xml:4
     implementation 'com.applovin.mediation:facebook-adapter:[6.17.0.0]' // Assets/MaxSdk/Mediation/Facebook/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:google-adapter:[23.0.0.1]' // Assets/MaxSdk/Mediation/Google/Editor/Dependencies.xml:5
     implementation 'com.applovin.mediation:mintegral-adapter:16.7.21.0' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:unityads-adapter:4.10.0.0' // Assets/MaxSdk/Mediation/UnityAds/Editor/Dependencies.xml:4
     implementation 'com.applovin:applovin-sdk:12.4.2' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-ads:23.0.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/ExternalDependencyManager/Google Play Services/Editor/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-base:18.3.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     // implementation 'com.google.android.ump:user-messaging-platform:2.1.0' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:5
     implementation 'com.google.android.ump:user-messaging-platform:2.2.0' // Assets/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7

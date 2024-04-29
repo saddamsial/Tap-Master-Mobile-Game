@@ -490,7 +490,7 @@ public class AdMobManager : MonoBehaviour
             Debug.Log(string.Format("App open ad paid {0} {1}.",
                 adValue.Value,
                 adValue.CurrencyCode));
-            //AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue);
+            AnalyticsRevenueAds.SendRevAdmobToAdjust(adValue.Value);
         };
         // Raised when an impression is recorded for an ad.
         ad.OnAdImpressionRecorded += () =>
