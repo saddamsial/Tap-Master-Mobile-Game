@@ -10,23 +10,29 @@ using PopupSystem;
 using TMPro;
 using UnityEngine;
 
-namespace Core.UI{
-    public class _GameplayScreen : _BaseScreen{
+namespace Core.UI
+{
+    public class _GameplayScreen : _BaseScreen
+    {
         [Header("Gameplay Screen Elements")]
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private GameObject _openFrontFaceBoosterButton;
         [SerializeField] private TMP_Text _remainingWrongMovesText;
 
-        private void Awake(){
+        private void Awake()
+        {
             _GameEvent.OnGamePlayReset += SetupScreen;
             _GameEvent.OnGamePlayReset += UpdateScreen;
-            _GameEvent.OnSelectIdleBlock +=  UpdateScreen;
+            _GameEvent.OnSelectIdleBlock += UpdateScreen;
+            _GameEvent.OnGamePlayContinue += UpdateScreen;
         }
 
-        private void OnDestroy(){
+        private void OnDestroy()
+        {
             _GameEvent.OnGamePlayReset -= SetupScreen;
             _GameEvent.OnGamePlayReset -= UpdateScreen;
             _GameEvent.OnSelectIdleBlock -= UpdateScreen;
+            _GameEvent.OnGamePlayContinue -= UpdateScreen;
         }
 
         protected override void OnStartShowItSelf()
@@ -36,45 +42,69 @@ namespace Core.UI{
         }
 
 
-        private void SetupScreen(){
-            _levelText.text ="Level " + (_PlayerData.UserData.CurrentLevel + 1); 
+        private void SetupScreen()
+        {
+            _levelText.text = "Level " + (_PlayerData.UserData.CurrentLevel + 1);
             _openFrontFaceBoosterButton.SetActive(true);
         }
 
-        private void UpdateScreen(){
+        private void UpdateScreen()
+        {
             _remainingWrongMovesText.text = _GameManager.Instance.GamePlayManager.RemainingWrongMoves.ToString() + " Moves";
         }
 
-        public void OnClickUseOpenFrontFaceBooster(){
-            _GameEvent.OnUseBoosterOpenFace?.Invoke();
-            _openFrontFaceBoosterButton.SetActive(false);
+        public void OnClickUseOpenFrontFaceBooster()
+        {
+            AdsManager.Instance.ShowRewarded(
+                (x) =>
+                {
+                    if (x)
+                    {
+                        _GameEvent.OnUseBoosterOpenFace?.Invoke();
+                        _openFrontFaceBoosterButton.SetActive(false);
+                    }
+                }
+            );
         }
 
-        public void OnClickUseHintBooster(){
-            _GameEvent.OnUseBoosterHint?.Invoke();
+        public void OnClickUseHintBooster()
+        {
+            AdsManager.Instance.ShowRewarded(
+                (x) =>
+                {
+                    if (x)
+                        _GameEvent.OnUseBoosterHint?.Invoke();
+                }
+            );
         }
 
-        public void OnClickReplayGame(){
+        public void OnClickReplayGame()
+        {
             PopupManager.CreateNewInstance<_ReplayGamePopup>().Show("Are you sure you want to replay this level?", false);
         }
 
-        public void OnClickOpenCollection(){
+        public void OnClickOpenCollection()
+        {
             PopupManager.CreateNewInstance<_CollectionPopup>().Show();
         }
 
-        public void OnClickOpenShop(){
+        public void OnClickOpenShop()
+        {
             PopupManager.CreateNewInstance<_ShopPopup>().Show();
         }
 
-        public void OnClickOpenLevel(){
+        public void OnClickOpenLevel()
+        {
             PopupManager.CreateNewInstance<_LevelPopup>().Show();
         }
 
-        public void OnClickPauseGame(){
+        public void OnClickPauseGame()
+        {
             PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
         }
 
-        public void OnClickAchievement(){
+        public void OnClickAchievement()
+        {
             PopupManager.CreateNewInstance<_NotificationPopup>().Show("Coming soon!");
         }
     }

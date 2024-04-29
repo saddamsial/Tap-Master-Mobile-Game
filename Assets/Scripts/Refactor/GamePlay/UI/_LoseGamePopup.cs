@@ -14,7 +14,7 @@ namespace Core.UI.ExtendPopup{
                     _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 }
             );
-            
+            AdsManager.Instance.ShowNativeOverlay();
         }
 
         public void OnClickClose(){
@@ -22,7 +22,13 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
-            
+            AdsManager.Instance.ShowRewarded(
+                (x) => {
+                    _GameManager.Instance.GamePlayManager.OnContinueGame();
+                    _GameEvent.OnGamePlayContinue?.Invoke();
+                    base.Hide();
+                }
+            );
         }
 
         public void OnClickRetry(){

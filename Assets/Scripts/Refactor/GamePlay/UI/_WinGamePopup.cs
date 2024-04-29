@@ -29,6 +29,7 @@ namespace Core.UI.ExtendPopup{
             else{
                 _watchAdsButton.SetActive(false);
             }
+            AdsManager.Instance.ShowNativeOverlay();
         }
 
         public void OnClickClose(){
@@ -36,7 +37,15 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
-            
+            AdsManager.Instance.ShowRewarded(
+                (x) => {
+                    if(x){
+                        _PlayerData.UserData.Coin += _PlayerData.UserData.CurrentCollectCoin;
+                        _coinText.text = "+" + _PlayerData.UserData.CurrentCollectCoin * 2;
+                        _watchAdsButton.SetActive(false);
+                    }
+                }
+            );
         }
 
         public void OnClickToContinue(){

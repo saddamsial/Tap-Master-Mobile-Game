@@ -206,12 +206,16 @@ namespace Core.GamePlay.BlockPool
             blockToRemove = Mathf.Min(blockToRemove, _ConstantGameplayConfig.MAX_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
             blockToRemove = Mathf.Max(blockToRemove, _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
             blockToRemove = Mathf.Min(blockToRemove, _blockObjectPool.Count);
+            int count = 0;
             for (int i = 0; i < blockToRemove; i++)
             {
                 int randomIndex = Random.Range(0, _blockObjectPool.Count);
-                if (_blockObjectPool[randomIndex].CurrentType == _BlockTypeEnum.GoldReward)
+                if (_blockObjectPool[randomIndex].CurrentType != _BlockTypeEnum.Moving)
                 {
                     i--;
+                    count += 1;
+                    if(count >= _blockObjectPool.Count)
+                        return;
                     continue;
                 }
                 _blockObjectPool[randomIndex].SetCurrentTypeBlock(_BlockTypeEnum.MovingSpecial);

@@ -49,19 +49,20 @@ namespace Core.GamePlay
             // _GameManager.Instance.NextLevel();
         }
 
-        public void OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
+        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
             _remainingWrongMoves -= 1;
             if (isBlockCanMove)
             {
                 _totalBlocks -= blocks;
+                _GameManager.Instance.CurrentCollectedBlock -= blocks;
                 _GameEvent.OnSelectIdleBlock?.Invoke();
                 if (_totalBlocks <= 0)
                 {
                     block.IsLastBlock = true;
                     if (!isSpecialBlock)
                         _GameManager.Instance.WinGame();
-                    return;
+                    return true;
                 }
                 if (!isSpecialBlock)
                     _remainBlocksToHaveSpecialBlock -= 1;
@@ -80,18 +81,48 @@ namespace Core.GamePlay
             if (_remainingWrongMoves <= 0)
             {
                 _GameManager.Instance.LoseGame();
+                return true;
             }
+            if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+            {
+                AdsManager.Instance.ShowInter(null);
+                _GameManager.Instance.CurrentCollectedBlock = 100;
+                return false;
+            }
+            return false;
         }
 
         // Only hint idle block
-        public void OnBlockSelectedByHint(int blockNums){
+        public void OnBlockSelectedByHint(int blockNums)
+        {
             _totalBlocks -= blockNums;
-                _GameEvent.OnSelectIdleBlock?.Invoke();
-                if (_totalBlocks <= 0)
-                {
-                    _GameManager.Instance.WinGame();
-                    return;
-                }
+            _GameManager.Instance.CurrentCollectedBlock -= blockNums;
+            _GameEvent.OnSelectIdleBlock?.Invoke();
+            if (_totalBlocks <= 0)
+            {
+                _GameManager.Instance.WinGame();
+                return;
+            }
+            if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+            {
+                AdsManager.Instance.ShowInter(null);
+                _GameManager.Instance.CurrentCollectedBlock = 100;
+                return;
+            }
+        }
+
+        public void OnContinueGame()
+        {
+            if (_remainingWrongMoves > 0)
+            {
+                Debug.LogError("Can't continue game, wrong moves <= 0: " + _remainingWrongMoves);
+                return; // chuwa thua, k can continue
+            }
+            else
+            {
+                IsGameplayInteractable = true;
+                _remainingWrongMoves = BlockPool.BlockObjectPool.Count + 10;
+            }
         }
 
         public _BlockPool BlockPool => _blockPool;

@@ -32,6 +32,7 @@ namespace Core.GamePlay.Shop
         [SerializeField] private Transform _navigationBar;
         [SerializeField] private Transform _elementContainer;
         [SerializeField] private TMP_Text _coinText;
+        [SerializeField] private TMP_Text _adsCoinText;
         [SerializeField] private Transform _purchaseButton;
 
         private Dictionary<_ShopPage, TwoStateElement> _gotoPageButtons;
@@ -42,6 +43,7 @@ namespace Core.GamePlay.Shop
         private MeshRenderer _previewBlockRenderer;
         private _PurchaseItemButton _purchaseItemButton;
         private List<int> _listUnPurchased;
+        private bool _isCanPurchaseWithAd = false;
 
 
         public override void Awake()
@@ -53,7 +55,7 @@ namespace Core.GamePlay.Shop
             _GameEvent.OnSelectRewardBlock += UpdateCoinText;
             _GameEvent.OnSelectRewardBlockToWin += UpdateCoinText;
             _GameEvent.OnReceivedRewardByAds += UpdateCoinText;
-            _GameEvent.OnGameWin += () => {UpdateCoinText(_BlockTypeEnum.GoldReward, 0);};
+            _GameEvent.OnGameWin += () => { UpdateCoinText(_BlockTypeEnum.GoldReward, 0); };
             _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
             _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
@@ -71,13 +73,14 @@ namespace Core.GamePlay.Shop
             _GameEvent.OnSelectRewardBlock -= UpdateCoinText;
             _GameEvent.OnSelectRewardBlockToWin -= UpdateCoinText;
             _GameEvent.OnReceivedRewardByAds -= UpdateCoinText;
-            _GameEvent.OnGameWin -= () => {UpdateCoinText(_BlockTypeEnum.GoldReward, 0);};
+            _GameEvent.OnGameWin -= () => { UpdateCoinText(_BlockTypeEnum.GoldReward, 0); };
         }
 
         public void Show()
         {
             base.Show(
-                () => {
+                () =>
+                {
                     _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 }
             );
@@ -87,7 +90,8 @@ namespace Core.GamePlay.Shop
 
         public void Exit()
         {
-            base.Hide(() => {
+            base.Hide(() =>
+            {
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
             });
             //SetStateGamePlayCamera(true);
@@ -123,21 +127,53 @@ namespace Core.GamePlay.Shop
 
         public void OnClickPurchaseButton()
         {
+            // int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
+            // while (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex))
+            // {
+            //     purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
+            // }
+            // StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
+            // _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            // _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
+            // UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+            PurchaseItem(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)));
+        }
+
+        public void OnClickWatchAdButton()
+        {
+            AdsManager.Instance.ShowRewarded(
+                (x) =>
+                {
+                    if (x)
+                    {
+                        if(_isCanPurchaseWithAd){
+                            PurchaseItem((int)(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)) * 0.2f));
+                        }
+                        else{
+                            _PlayerData.UserData.Coin += 300;
+                            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
+                        }
+                    }
+                }
+            );
+        }
+
+        private void PurchaseItem(int price){
+            if (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Count == _shopElements.Count)
+            {
+                return;
+            }
             int purchasedIndex = UnityEngine.Random.Range(0, _shopElements.Count);
             while (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Contains(purchasedIndex))
             {
                 purchasedIndex = (purchasedIndex + 1) % _shopElements.Count;
             }
             StartCoroutine(RandomPurchasedElement(2f, purchasedIndex));
-            _PlayerData.UserData.Coin -= _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
+            _PlayerData.UserData.Coin -= price;
             _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
         }
-
-        public void OnClickWatchAdButton()
-        {
-
-        }
+        
 
         private void SetStateGamePlayCamera(bool state)
         {
@@ -172,6 +208,16 @@ namespace Core.GamePlay.Shop
             int coin = _PlayerData.UserData.Coin;
             int price = _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
             _purchaseItemButton.SetUpPurchaseItemButton(price, coin < price);
+            if (coin  >= price* 0.2f)
+            {
+                _isCanPurchaseWithAd = true;
+                _adsCoinText.text = (price * 0.2f).ToString();
+            }
+            else
+            {
+                _isCanPurchaseWithAd = false;
+                _adsCoinText.text = "+ 300";
+            }
         }
 
         private void UpdateCoinText(_BlockTypeEnum type, int tmp)

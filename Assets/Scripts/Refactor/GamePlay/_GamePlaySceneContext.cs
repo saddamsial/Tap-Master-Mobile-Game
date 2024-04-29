@@ -36,6 +36,7 @@ namespace Core.GamePlay
             _cameraGamePlay = await SetUpCamera();
             InitGame();
             _GameManager.Instance.StartLevel();
+            AdsManager.Instance.ShowBanner();
         }
 
         private void OnApplicationQuit()

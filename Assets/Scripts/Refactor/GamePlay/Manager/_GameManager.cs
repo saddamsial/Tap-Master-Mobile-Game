@@ -15,7 +15,7 @@ namespace Core.GamePlay
 
         private _LevelSystem _LevelSystem;
         private _GamePlayManager _gamePlayManager;
-        private int _currentCollectedLevelCoin;
+        private int _currentCollectedBlock = 100;
 
         public void InitGame(LevelDatas levelData, Camera cameraGameplay)
         {
@@ -24,6 +24,7 @@ namespace Core.GamePlay
             _gamePlayManager = _GamePlayManager.Instance;
             _gamePlayManager.InitGamePlayManager();
             _gamePlayManager.GamePlayCamera = cameraGameplay;
+            _currentCollectedBlock = 100;
         }
 
         public void StartLevel()
@@ -61,14 +62,24 @@ namespace Core.GamePlay
 
         public void NextLevel()
         {
-            var currentLevel = Level.levelIndex - 1;
-            StartLevel(currentLevel + 1);
+            AdsManager.Instance.ShowInter(
+                () =>
+                {
+                    var currentLevel = Level.levelIndex + 1;
+                    StartLevel(currentLevel);
+                }
+            );
         }
 
         public void ReTry()
         {
-            var currentLevel = Level.levelIndex - 1;
-            StartLevel(currentLevel);
+            AdsManager.Instance.ShowInter(
+                () =>
+                {
+                    var currentLevel = Level.levelIndex - 1;
+                    StartLevel(currentLevel);
+                }
+            );
         }
 
         public void StartLevel(int level)
@@ -89,5 +100,10 @@ namespace Core.GamePlay
         public _ShopElementDatas BlockElementDatas { get; set; }
         public _ItemPriceDatas ItemPriceDatas { get; set; }
         public _CollectionElementDatas CollectionElementDatas { get; set; }
+        public int CurrentCollectedBlock
+        {
+            get => _currentCollectedBlock;
+            set => _currentCollectedBlock = value;
+        }
     }
 }
