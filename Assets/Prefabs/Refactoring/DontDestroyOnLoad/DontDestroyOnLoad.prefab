@@ -219,50 +219,6 @@ MonoBehaviour:
   _applovinManager: {fileID: 5193392127320360493}
   _admnobManager: {fileID: 5070328997386419003}
   CanLoadAds: 0
---- !u!1 &3440257872643062531
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1673962793948561728}
-  - component: {fileID: 7785834430499178984}
-  m_Layer: 0
-  m_Name: VibrationManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1673962793948561728
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3440257872643062531}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9185363628261408461}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7785834430499178984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3440257872643062531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5917dbf1c1a952846b4d941f87e208d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3932210183946526674
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6103231773963043092
 Transform:
   m_ObjectHideFlags: 0
@@ -295,7 +251,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9185363628261408461}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8325416650627731241
 MonoBehaviour:
@@ -591,7 +547,6 @@ Transform:
   - {fileID: 6508580930258288337}
   - {fileID: 5117311265302932710}
   - {fileID: 6153337180790848713}
-  - {fileID: 1673962793948561728}
   - {fileID: 6103231773963043092}
   - {fileID: 6664262253248854196}
   m_Father: {fileID: 4824227931617192782}
@@ -1113,7 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preInstantiate: 1
   soundManager: {fileID: 6153337180790848710}
-  vibrationManager: {fileID: 7785834430499178984}
+  vibrationManager: {fileID: 0}
   _tapSounds:
   - {fileID: 8300000, guid: 25389c9299b414f4b9ebd72b57d2f396, type: 3}
   - {fileID: 8300000, guid: 0e6271c2001cbfc45a4b18938d3141cd, type: 3}
@@ -1149,11 +1104,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 115478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 415478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 415478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_LocalPosition.x

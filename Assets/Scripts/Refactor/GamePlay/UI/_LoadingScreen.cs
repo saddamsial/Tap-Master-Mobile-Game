@@ -46,6 +46,7 @@ namespace Core.UI
             }
             else
                 yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => AdsManager.Instance.CanLoadAds);
             SceneManager.LoadScene(Const.SCENE_GAMEPLAY);
             count += 1;
         }
