@@ -90,10 +90,10 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
         GlobalEventManager.Instance.OnShowInterstitial();
     }
 
-    public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string localtion = "")
+    public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string location = "")
     {
-        _applovinManager?.ShowRewardedAd(closeCallBack, onClick, localtion);
-        GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel);
+        _applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
+        GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel, location);
     }
 
     public void ShowNativeOverlay(){

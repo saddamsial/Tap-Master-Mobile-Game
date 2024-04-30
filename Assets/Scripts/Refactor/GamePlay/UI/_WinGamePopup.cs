@@ -41,12 +41,12 @@ namespace Core.UI.ExtendPopup{
             AdsManager.Instance.ShowRewarded(
                 (x) => {
                     if(x){
-                        GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                        GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "win_game_watch_ads_to_multi_coin");
                         _PlayerData.UserData.Coin += _PlayerData.UserData.CurrentCollectCoin;
                         _coinText.text = "+" + _PlayerData.UserData.CurrentCollectCoin * 2;
                         _watchAdsButton.SetActive(false);
                     }
-                }
+                }, null, location: "win_game_watch_ads_to_multi_coin"
             );
         }
 

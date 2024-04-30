@@ -32,7 +32,9 @@ namespace Core.Data{
             IsTurnOnMusic = true;
             IsTurnOnVibration = true;
 #region Collection and Shop Data
-            RuntimeCollectionData = new Dictionary<int, List<int>>();
+            RuntimeCollectionData = new Dictionary<int, List<int>>{
+                {0, new List<int>()}
+            };
             RuntimePurchasedShopData = new Dictionary<_ShopPage, List<int>>();
             RuntimeSelectedShopData = new Dictionary<_ShopPage, int>();
             UpdatePurchasedData(_ShopPage.Arrow, 0);

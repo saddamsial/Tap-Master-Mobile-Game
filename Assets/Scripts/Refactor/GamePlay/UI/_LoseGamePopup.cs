@@ -26,11 +26,11 @@ namespace Core.UI.ExtendPopup{
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "lose_game_watch_ads_to_continue");
                     _GameManager.Instance.GamePlayManager.OnContinueGame();
                     _GameEvent.OnGamePlayContinue?.Invoke();
                     base.Hide();
-                }
+                }, null, location: "lose_game_watch_ads_to_continue"
             );
         }
 

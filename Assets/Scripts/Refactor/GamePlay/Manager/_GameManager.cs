@@ -69,7 +69,7 @@ namespace Core.GamePlay
             AdsManager.Instance.ShowInter(
                 () =>
                 {
-                    var currentLevel = Level.levelIndex + 1;
+                    var currentLevel = Level.levelIndex;
                     StartLevel(currentLevel);
                     GlobalEventManager.Instance.OnCloseInterstitial();
                     GlobalEventManager.Instance.OnLevelComplete(currentLevel);

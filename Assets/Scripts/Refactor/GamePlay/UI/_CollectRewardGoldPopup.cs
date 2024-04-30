@@ -50,10 +50,10 @@ namespace Core.UI.ExtendPopup{
             _cursor.DOKill();
             AdsManager.Instance.ShowRewarded(
                 (x) => {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "goldBlock_get_multi_coin");
                     if(x)
                         OnCompleteWatchAds();
-                }
+                }, null, location: "goldBlock_get_multi_coin"
             );
         }
 

@@ -1,14 +1,17 @@
 using System;
 using Core.Data;
 using Core.GamePlay;
+using Core.GamePlay.Block;
 using Core.GamePlay.Collection;
 using Core.GamePlay.LevelSystem;
 using Core.GamePlay.Shop;
 using Core.UI.ExtendPopup;
+using DG.Tweening;
 using MyTools.ScreenSystem;
 using PopupSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core.UI
 {
@@ -18,6 +21,7 @@ namespace Core.UI
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private GameObject _openFrontFaceBoosterButton;
         [SerializeField] private TMP_Text _remainingWrongMovesText;
+        [SerializeField] private RectTransform _puzzlePieces;
 
         private void Awake()
         {
@@ -25,6 +29,7 @@ namespace Core.UI
             _GameEvent.OnGamePlayReset += UpdateScreen;
             _GameEvent.OnSelectIdleBlock += UpdateScreen;
             _GameEvent.OnGamePlayContinue += UpdateScreen;
+            _GameEvent.OnSelectRewardBlock += NotifyCollectPuzzlePiece;
         }
 
         private void OnDestroy()
@@ -33,6 +38,7 @@ namespace Core.UI
             _GameEvent.OnGamePlayReset -= UpdateScreen;
             _GameEvent.OnSelectIdleBlock -= UpdateScreen;
             _GameEvent.OnGamePlayContinue -= UpdateScreen;
+            _GameEvent.OnSelectRewardBlock -= NotifyCollectPuzzlePiece;
         }
 
         protected override void OnStartShowItSelf()
@@ -46,6 +52,18 @@ namespace Core.UI
         {
             _levelText.text = "Level " + (_PlayerData.UserData.CurrentLevel + 1);
             _openFrontFaceBoosterButton.SetActive(true);
+            _puzzlePieces.gameObject.SetActive(false);
+            _puzzlePieces.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+
+        private void NotifyCollectPuzzlePiece(_BlockTypeEnum typeEnum, int count){
+            if (typeEnum == _BlockTypeEnum.PuzzleReward)
+            {
+                _puzzlePieces.localPosition = _puzzlePieces.localPosition + new Vector3(0, -100, 0);
+                _puzzlePieces.gameObject.SetActive(true);
+                _puzzlePieces.DOLocalMoveY(_puzzlePieces.localPosition.y + 100, 0.5f).SetEase(Ease.OutBack);
+                _puzzlePieces.GetComponent<Image>().DOFade(1, 0.5f);
+            }
         }
 
         private void UpdateScreen()
@@ -59,13 +77,13 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "open_front_face_booster");
                     if (x)
                     {
                         _GameEvent.OnUseBoosterOpenFace?.Invoke();
                         _openFrontFaceBoosterButton.SetActive(false);
                     }
-                }
+                }, null, location: "open_front_face_booster"
             );
         }
 
@@ -75,10 +93,10 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel);
+                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
                     if (x)
                         _GameEvent.OnUseBoosterHint?.Invoke();
-                }
+                }, null, location: "hint_booster"
             );
         }
 
