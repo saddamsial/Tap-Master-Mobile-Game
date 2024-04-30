@@ -235,7 +235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1673962793948561728
 Transform:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6103231773963043092
 Transform:
   m_ObjectHideFlags: 0
@@ -1077,6 +1077,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1123782333833576860, guid: ac1a955c48018a949b34ff38acf475d0, type: 3}
+      propertyPath: gameMusics.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac1a955c48018a949b34ff38acf475d0, type: 3}
 --- !u!114 &6153337180790848710 stripped
@@ -1109,7 +1113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preInstantiate: 1
   soundManager: {fileID: 6153337180790848710}
-  vibrationManager: {fileID: 0}
+  vibrationManager: {fileID: 7785834430499178984}
   _tapSounds:
   - {fileID: 8300000, guid: 25389c9299b414f4b9ebd72b57d2f396, type: 3}
   - {fileID: 8300000, guid: 0e6271c2001cbfc45a4b18938d3141cd, type: 3}
@@ -1142,6 +1146,10 @@ PrefabInstance:
     - target: {fileID: 115478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_Name
       value: Adjust
+      objectReference: {fileID: 0}
+    - target: {fileID: 115478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 415478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_RootOrder
