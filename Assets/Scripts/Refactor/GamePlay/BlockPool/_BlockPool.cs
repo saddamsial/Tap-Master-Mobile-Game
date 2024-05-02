@@ -101,9 +101,10 @@ namespace Core.GamePlay.BlockPool
                     if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward && _blockObjectPool[i].CurrentType != _BlockTypeEnum.PuzzleReward)
                     {
                         int tmp = Random.Range(0, 100);
-                        if (tmp < 20 && _PlayerData.UserData.CurrentCollectionPuzzlePiece.Key == -1){
+                        if (tmp < 20 && !_GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock){
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
                             _MySoundManager.Instance.PlaySound(SoundType.Spawn);
+                            _GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock = true;
                         }
                         else{
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);

@@ -102,7 +102,7 @@ namespace Core.UI.ExtendPopup{
             else{
                 base.Hide(
                     () => {
-                        _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
+                        _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
                     }
                 );
             }

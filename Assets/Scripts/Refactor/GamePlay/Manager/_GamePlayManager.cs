@@ -25,6 +25,7 @@ namespace Core.GamePlay
             _totalBlocks = 0;
             _blockPool = new _BlockPool();
             IsGameplayInteractable = true;
+            IsSpawnCollectionBlock = false;
         }
 
         public void StartLevel(LevelData level)
@@ -66,9 +67,7 @@ namespace Core.GamePlay
                     if (!isSpecialBlock){
                         _GameManager.Instance.WinGame();
                     }
-                    else if(block._blockType == _BlockTypeEnum.PuzzleReward){
-                        _GameEvent.OnSelectRewardBlockToWin?.Invoke(_BlockTypeEnum.PuzzleReward, -1);
-                    }
+                    
                     return true;
                 }
                 if (!isSpecialBlock)
@@ -145,6 +144,7 @@ namespace Core.GamePlay
         }
 
         public bool IsGameplayInteractable { get; set; }
+        public bool IsSpawnCollectionBlock { get; set; }
         public int RemainingWrongMoves
         {
             get

@@ -56,7 +56,10 @@ namespace Core.GamePlay.Block
                         count = 0;
                     }
                 }
-                _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+                if(!_blockController.IsLastBlock)
+                    _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+                else
+                    _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, -1);
                 _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(randomType, randomIndex);
             }
             _blockController.gameObject.SetActive(false);
