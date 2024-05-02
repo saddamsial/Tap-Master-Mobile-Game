@@ -38,6 +38,7 @@ namespace Core.GamePlay
             _remainingWrongMoves = Mathf.Max(_ConstantGameplayConfig.MIN_REMAINING_WRONG_MOVES, _remainingWrongMoves);
             _remainingWrongMoves = Mathf.Min(_ConstantGameplayConfig.MAX_REMAINING_WRONG_MOVES, _remainingWrongMoves);
             _remainingWrongMoves += _totalBlocks;
+            GlobalEventManager.Instance.OnLevelPlay(level.levelIndex);
         }
 
         private void WinGame()

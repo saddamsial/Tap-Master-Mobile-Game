@@ -78,12 +78,8 @@ namespace Core.GamePlay.Shop
 
         public void Show()
         {
-            base.Show(
-                () =>
-                {
-                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
-                }
-            );
+            base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             //SetStateGamePlayCamera(false);
             RotateBlock();
             UpdateCoinText(_BlockTypeEnum.GoldReward, 0); // Update coin text

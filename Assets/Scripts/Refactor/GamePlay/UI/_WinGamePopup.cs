@@ -15,9 +15,9 @@ namespace Core.UI.ExtendPopup{
             base.Show(
                 () => {
                     AnimWinGame();
-                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 }
             );
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _coinText.gameObject.SetActive(false);
             int currentCoin = _PlayerData.UserData.CurrentCollectCoin;
             int coin = currentCoin;

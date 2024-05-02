@@ -33,12 +33,14 @@ namespace Core.GamePlay.Collection{
                     StartCoroutine(OpenReceivedPiece(0.75f, index));
                 }
             );
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _collectionElement.SetupPuzzle(_collectionDatas.collectionElementDatas[type]);
             SetupCurrentStateCollection(type);
         }
 
         public void Exit(){
             base.Hide(() => {
+                _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
                 _GameEvent.OnGameWin?.Invoke();
                 PopupManager.Instance.ShowFade();
             });
