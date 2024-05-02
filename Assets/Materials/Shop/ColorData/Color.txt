@@ -1,13 +1,13 @@
-#26dfff,#8A9AAD
+#ffdf7d,#B5C2C5
 #d9ead3,#E2C6AD
 #ff9c9c,#CEDCD2
-#ffdf7d,#B5C2C5
+#26dfff,#8A9AAD
 #a575ff,#B2C6DC
 #ff75ed,#DDC9D9
 #4dd672,#CFE1BE
 #ffbe7a,#92A78C
 #a8ffff,#B0ABD1
 #43b2ab,#B4D3B4
-#4a86e8,#B2D7D2
+#f4cce3,#B2D7D2
 #ffffff,#A7BBDA
 #6d9eeb,#BBC5DE

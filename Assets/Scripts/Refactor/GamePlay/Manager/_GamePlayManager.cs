@@ -62,8 +62,12 @@ namespace Core.GamePlay
                 if (_totalBlocks <= 0)
                 {
                     block.IsLastBlock = true;
-                    if (!isSpecialBlock)
+                    if (!isSpecialBlock){
                         _GameManager.Instance.WinGame();
+                    }
+                    else if(block._blockType == _BlockTypeEnum.PuzzleReward){
+                        _GameEvent.OnSelectRewardBlockToWin?.Invoke(_BlockTypeEnum.PuzzleReward, -1);
+                    }
                     return true;
                 }
                 if (!isSpecialBlock)

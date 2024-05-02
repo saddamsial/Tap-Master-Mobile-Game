@@ -30,6 +30,7 @@ namespace Core.UI
             _GameEvent.OnSelectIdleBlock += UpdateScreen;
             _GameEvent.OnGamePlayContinue += UpdateScreen;
             _GameEvent.OnSelectRewardBlock += NotifyCollectPuzzlePiece;
+            _GameEvent.OnSelectRewardBlockToWin += NotifyCollectPuzzlePiece;
         }
 
         private void OnDestroy()
@@ -39,6 +40,7 @@ namespace Core.UI
             _GameEvent.OnSelectIdleBlock -= UpdateScreen;
             _GameEvent.OnGamePlayContinue -= UpdateScreen;
             _GameEvent.OnSelectRewardBlock -= NotifyCollectPuzzlePiece;
+            _GameEvent.OnSelectRewardBlockToWin -= NotifyCollectPuzzlePiece;
         }
 
         protected override void OnStartShowItSelf()
@@ -62,7 +64,11 @@ namespace Core.UI
                 _puzzlePieces.localPosition = _puzzlePieces.localPosition + new Vector3(0, -100, 0);
                 _puzzlePieces.gameObject.SetActive(true);
                 _puzzlePieces.DOLocalMoveY(_puzzlePieces.localPosition.y + 100, 0.5f).SetEase(Ease.OutBack);
-                _puzzlePieces.GetComponent<Image>().DOFade(1, 0.5f);
+                _puzzlePieces.GetComponent<Image>().DOFade(1, 0.5f).OnComplete(() =>
+                {
+                    if(count == -1)
+                        _GameManager.Instance.WinGame();
+                });
             }
         }
 

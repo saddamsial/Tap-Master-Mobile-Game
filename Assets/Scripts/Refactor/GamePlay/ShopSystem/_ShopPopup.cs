@@ -86,6 +86,7 @@ namespace Core.GamePlay.Shop
             );
             //SetStateGamePlayCamera(false);
             RotateBlock();
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0); // Update coin text
         }
 
         public void Exit()
@@ -223,6 +224,7 @@ namespace Core.GamePlay.Shop
         {
             if (type == _BlockTypeEnum.GoldReward)
             {
+                Debug.Log("Update coin text");
                 _coinText.text = _PlayerData.UserData.Coin.ToString();
                 UpdatePurchasedButton();
             }
