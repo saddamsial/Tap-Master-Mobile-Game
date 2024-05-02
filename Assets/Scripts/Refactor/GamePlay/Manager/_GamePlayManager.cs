@@ -104,6 +104,7 @@ namespace Core.GamePlay
         // Only hint idle block
         public void OnBlockSelectedByHint(int blockNums)
         {
+            Debug.Log(_totalBlocks + " - " + blockNums + " = " + (_totalBlocks - blockNums));
             _totalBlocks -= blockNums;
             _GameManager.Instance.CurrentCollectedBlock -= blockNums;
             _GameEvent.OnSelectIdleBlock?.Invoke();
