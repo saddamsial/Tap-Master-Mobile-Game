@@ -27,5 +27,11 @@ namespace Core.GamePlay.Block{
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
             });
         }
+
+        public override void OnBlockReturnToPool()
+        {
+            base.OnBlockReturnToPool();
+            _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
+        }
     }
 }

@@ -45,11 +45,8 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Show(){
-            base.Show(
-                () => {
-                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
-                }
-            );
+            base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             Init();
             SetupCollection();
             SetupCurrentStateCollection();

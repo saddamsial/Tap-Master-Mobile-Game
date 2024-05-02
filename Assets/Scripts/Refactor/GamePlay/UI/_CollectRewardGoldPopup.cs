@@ -28,11 +28,8 @@ namespace Core.UI.ExtendPopup{
         // }
 
         public void Show(int coin , bool isWinGame = false){
-            base.Show(
-                () => {
-                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
-                }
-            );
+            base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _watchAdButton.SetActive(true);
             _barWidth = _multipleBarImage.rectTransform.rect.width;
             _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;
@@ -97,13 +94,17 @@ namespace Core.UI.ExtendPopup{
         public void OnClickClose(){
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
             _cursor.DOKill();
-            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
             if(_isWinGame){
+                _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 this.gameObject.SetActive(false);
                 PopupManager.CreateNewInstance<_WinGamePopup>().Show();
             }
             else{
-                base.Hide();
+                base.Hide(
+                    () => {
+                        _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+                    }
+                );
             }
         }
 

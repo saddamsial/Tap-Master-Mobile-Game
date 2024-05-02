@@ -56,13 +56,23 @@ namespace Core.GamePlay.Block
                         count = 0;
                     }
                 }
-                _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+                if(!_blockController.IsLastBlock)
+                    _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, 1);
+                else
+                    _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.PuzzleReward, -1);
                 _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(randomType, randomIndex);
             }
             _blockController.gameObject.SetActive(false);
             _blockController.GetComponent<MeshFilter>().mesh = _defaultMesh;
             _blockController.GetComponent<MeshRenderer>().material = _defaultMaterial;
             _ObjectPooling.Instance.ReturnToPool(_TypeGameObjectEnum.Block, _blockController.gameObject);
+        }
+
+        public override void OnBlockReturnToPool()
+        {
+            base.OnBlockReturnToPool();
+            _blockController.GetComponent<MeshFilter>().mesh = _defaultMesh;
+            _blockController.GetComponent<MeshRenderer>().material = _defaultMaterial;
         }
     }
 }

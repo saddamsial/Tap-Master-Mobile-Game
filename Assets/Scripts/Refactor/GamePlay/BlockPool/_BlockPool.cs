@@ -101,9 +101,10 @@ namespace Core.GamePlay.BlockPool
                     if (_blockObjectPool[i].CurrentType != _BlockTypeEnum.GoldReward && _blockObjectPool[i].CurrentType != _BlockTypeEnum.PuzzleReward)
                     {
                         int tmp = Random.Range(0, 100);
-                        if (tmp < 20 && _PlayerData.UserData.CurrentCollectionPuzzlePiece.Key == -1){
+                        if (tmp < 20 && !_GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock){
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
                             _MySoundManager.Instance.PlaySound(SoundType.Spawn);
+                            _GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock = true;
                         }
                         else{
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
@@ -152,6 +153,7 @@ namespace Core.GamePlay.BlockPool
             foreach (var block in _blockObjectPool)
             {
                 int t = block.transform.DOKill();
+                block.OnBlockReturnToPool();
                 ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             }
             _blockObjectPool.Clear();
@@ -160,6 +162,7 @@ namespace Core.GamePlay.BlockPool
         public void DespawnBlock(_BlockController block)
         {
             block.transform.DOKill();
+            block.OnBlockReturnToPool();
             ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             _blockObjectPool.Remove(block);
         }
@@ -211,6 +214,7 @@ namespace Core.GamePlay.BlockPool
             blockToRemove = Mathf.Max(blockToRemove, _ConstantGameplayConfig.MIN_BLOCKS_TO_BE_REMOVED_WHEN_HINT);
             blockToRemove = Mathf.Min(blockToRemove, _blockObjectPool.Count);
             int count = 0;
+            int totalBlockToRemove = 0;
             for (int i = 0; i < blockToRemove; i++)
             {
                 int randomIndex = Random.Range(0, _blockObjectPool.Count);
@@ -219,15 +223,16 @@ namespace Core.GamePlay.BlockPool
                     i--;
                     count += 1;
                     if(count >= _blockObjectPool.Count)
-                        return;
+                        break;
                     continue;
                 }
+                totalBlockToRemove += 1;
                 _blockObjectPool[randomIndex].SetCurrentTypeBlock(_BlockTypeEnum.MovingSpecial);
                 _blockObjectPool.RemoveAt(randomIndex);
                 //DespawnBlock(_blockObjectPool[randomIndex]);
                 //_GamePlayManager.Instance.OnBlockSelected(_blockObjectPool[randomIndex], true, false, 1);
             }
-            _GamePlayManager.Instance.OnBlockSelectedByHint(blockToRemove);
+            _GamePlayManager.Instance.OnBlockSelectedByHint(totalBlockToRemove);
             //_GamePlayManager.Instance.OnBlockSelected(, true, false, blockToRemove);
         }
 

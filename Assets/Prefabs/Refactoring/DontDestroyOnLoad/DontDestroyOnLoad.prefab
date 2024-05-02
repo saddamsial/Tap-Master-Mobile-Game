@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preInstantiate: 1
   _bannerAdLevel: 0
-  _interAdLevel: 0
+  _interAdLevel: 6
   _interFrequencyTime: 0
   _isShowInterWithClosePopupRemoveAds: 0
   ValueIsFetch: 

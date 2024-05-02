@@ -65,7 +65,7 @@ namespace Core.Data{
             }
             Coin += CurrentCollectCoin;
             if(CurrentCollectionPuzzlePiece.Key != - 1)
-                RuntimeCollectionData[CurrentCollectionPuzzlePiece.Key].Add(CurrentCollectionPuzzlePiece.Value);
+                UpdateCollectionData(CurrentCollectionPuzzlePiece.Key, CurrentCollectionPuzzlePiece.Value);
         }
 
         public void UpdateCollectionData(int colelctionId, int puzzlePieceId){

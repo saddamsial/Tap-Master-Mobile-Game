@@ -8,6 +8,7 @@ using TMPro;
 namespace Core.UI.ExtendPopup{
     public class _WinGamePopup : BasePopup{
         [SerializeField] private TMPro.TMP_Text _coinText;
+        [SerializeField] private TMP_Text _multiCoinText;
         [SerializeField] private GameObject _watchAdsButton;
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
         
@@ -15,13 +16,14 @@ namespace Core.UI.ExtendPopup{
             base.Show(
                 () => {
                     AnimWinGame();
-                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 }
             );
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             _coinText.gameObject.SetActive(false);
             int currentCoin = _PlayerData.UserData.CurrentCollectCoin;
             int coin = currentCoin;
             _coinText.text = "+" + coin.ToString();
+            _multiCoinText.text =  "+" + (coin * 2).ToString();
             if (coin > 0){
                 _coinText.gameObject.SetActive(true);
                 _watchAdsButton.SetActive(true);

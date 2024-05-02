@@ -66,8 +66,9 @@ namespace Core.UI
                 _puzzlePieces.DOLocalMoveY(_puzzlePieces.localPosition.y + 100, 0.5f).SetEase(Ease.OutBack);
                 _puzzlePieces.GetComponent<Image>().DOFade(1, 0.5f).OnComplete(() =>
                 {
-                    if(count == -1)
+                    if(count == -1){
                         _GameManager.Instance.WinGame();
+                    }
                 });
             }
         }

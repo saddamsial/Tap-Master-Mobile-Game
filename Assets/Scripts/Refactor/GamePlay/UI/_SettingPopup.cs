@@ -19,13 +19,18 @@ namespace Core.UI.ExtendPopup{
 
         public void Show(){
             base.Show();
+            _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
             InitButton();
             ShowSettingState();
         }
 
         public void OnClickClose(){
             _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
-            base.Hide();
+            base.Hide(
+                () => {
+                    _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
+                }
+            );
         }
 
         public override void OnDestroy(){

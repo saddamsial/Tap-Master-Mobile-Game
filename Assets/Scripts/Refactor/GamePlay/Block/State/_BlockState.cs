@@ -21,6 +21,9 @@ namespace Core.GamePlay.Block{
         public virtual void OnSelect(){
         }
 
+        public virtual void OnBlockReturnToPool(){
+        }
+
         public bool IsCanMove {get; protected set;}
     }
 }
