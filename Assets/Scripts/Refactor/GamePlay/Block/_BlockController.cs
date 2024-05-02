@@ -127,6 +127,10 @@ namespace Core.GamePlay.Block
             return GeometryUtility.TestPlanesAABB(planes, _meshRenderer.bounds);
         }
 
+        public void OnBlockReturnToPool(){
+            _blockStates[_currentType].OnBlockReturnToPool();
+        }
+
         private void AnimationInitBlock(Vector3 rotation)
         {
             transform.rotation = Quaternion.Euler(rotation);

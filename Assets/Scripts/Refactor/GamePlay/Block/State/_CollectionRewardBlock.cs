@@ -64,5 +64,12 @@ namespace Core.GamePlay.Block
             _blockController.GetComponent<MeshRenderer>().material = _defaultMaterial;
             _ObjectPooling.Instance.ReturnToPool(_TypeGameObjectEnum.Block, _blockController.gameObject);
         }
+
+        public override void OnBlockReturnToPool()
+        {
+            base.OnBlockReturnToPool();
+            _blockController.GetComponent<MeshFilter>().mesh = _defaultMesh;
+            _blockController.GetComponent<MeshRenderer>().material = _defaultMaterial;
+        }
     }
 }

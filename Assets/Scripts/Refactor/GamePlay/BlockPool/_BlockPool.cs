@@ -152,6 +152,7 @@ namespace Core.GamePlay.BlockPool
             foreach (var block in _blockObjectPool)
             {
                 int t = block.transform.DOKill();
+                block.OnBlockReturnToPool();
                 ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             }
             _blockObjectPool.Clear();
@@ -160,6 +161,7 @@ namespace Core.GamePlay.BlockPool
         public void DespawnBlock(_BlockController block)
         {
             block.transform.DOKill();
+            block.OnBlockReturnToPool();
             ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
             _blockObjectPool.Remove(block);
         }
