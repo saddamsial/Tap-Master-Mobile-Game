@@ -4,6 +4,7 @@ using Core.GamePlay.BlockPool;
 using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
+using MyTools.ScreenSystem;
 using UnityEngine;
 
 namespace Core.GamePlay
@@ -29,6 +30,19 @@ namespace Core.GamePlay
 
         public void StartLevel()
         {
+            if(_PlayerData.UserData.CurrentLevel == 0)
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial1);
+            }
+            else if (_PlayerData.UserData.CurrentLevel == 1)
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial2);    
+            }
+            else
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);    
+            }
+
             _PlayerData.UserData.CurrentCollectCoin = 0;
             _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
             Level = _LevelSystem.GetLevelData();

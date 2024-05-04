@@ -3,5 +3,7 @@ namespace MyTools.ScreenSystem{
         None,
         Loading,
         GamePlay,
+        Tutorial1,
+        Tutorial2
     }
 }

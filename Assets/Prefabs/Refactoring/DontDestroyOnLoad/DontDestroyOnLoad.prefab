@@ -731,9 +731,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: _screens.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: _screens.Array.data[0]
       value: 
       objectReference: {fileID: 2050869049392127359, guid: 82f80574873225348a8f88c1dff23926, type: 3}
+    - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: _screens.Array.data[1]
+      value: 
+      objectReference: {fileID: 679561694449658520, guid: c096a41c3d4cbed46a3d4e8d8d65afb9, type: 3}
+    - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: _screens.Array.data[2]
+      value: 
+      objectReference: {fileID: 679561694449658520, guid: ae5d7a26d7e6e7147af10f440f2c12e0, type: 3}
+    - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: _screens.Array.data[3]
+      value: 
+      objectReference: {fileID: 5101544107247149521, guid: d9a9bcd75c2c5d84b81ef39a6f1bb418, type: 3}
     - target: {fileID: 9205374936801022264, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: m_Camera
       value: 

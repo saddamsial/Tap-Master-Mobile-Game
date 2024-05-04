@@ -31,6 +31,7 @@ namespace Core.GamePlay
         public void StartLevel(LevelData level)
         {
             _blockPool?.InitPool(level);
+            IsInTutorial = level.levelIndex == 1;
             _totalBlocks = level.numOfBlocks;
             _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
             _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
@@ -146,6 +147,7 @@ namespace Core.GamePlay
 
         public bool IsGameplayInteractable { get; set; }
         public bool IsSpawnCollectionBlock { get; set; }
+        public bool IsInTutorial { get; set; }
         public int RemainingWrongMoves
         {
             get
