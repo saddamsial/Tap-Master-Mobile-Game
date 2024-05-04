@@ -25,6 +25,9 @@ namespace Core.GamePlay.Block{
             _meshRenderer.material.DOFade(0,_ConstantBlockSetting.KEY_CORLOR_SETTING, 1.2f).OnComplete(() => {
                 _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
+            }).OnKill(() => {
+                _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
+                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
             });
         }
 

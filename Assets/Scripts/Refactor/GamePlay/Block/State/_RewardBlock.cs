@@ -41,6 +41,10 @@ namespace Core.GamePlay.Block{
 
         private void AnimatedCollectRewardBlock(){
             _meshRenderer.material.DOFade(0, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0.5f).OnComplete(() => {
+                _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
+                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
+            }).OnKill(() => {
+                _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
             });
         }
