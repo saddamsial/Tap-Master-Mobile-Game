@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Coffee.UIExtensions;
 using UnityEngine;
 
 namespace MyTools.ParticleSystem
@@ -11,7 +10,7 @@ namespace MyTools.ParticleSystem
         [SerializeField] private string _particlePath;
         [SerializeField] private Camera _uiCamera;
 
-        private Dictionary<_ParticleTypeEnum, _BaseMyParticles> _particleDict = new Dictionary<_ParticleTypeEnum, _BaseMyParticles>();
+        private Dictionary<_ParticleTypeEnum, List<_BaseMyParticles>> _particleDict = new Dictionary<_ParticleTypeEnum, List<_BaseMyParticles>>();
 
 #if UNITY_EDITOR
         [ContextMenu("LoadPopupPrefabs")]
@@ -38,7 +37,7 @@ namespace MyTools.ParticleSystem
             {
                 var go = Instantiate(particle.gameObject, Vector3.zero, Quaternion.identity, _canvas.transform);
                 go.SetActive(false);
-                _particleDict.Add(particle.ParticleType, go.GetComponent<_BaseMyParticles>());
+                _particleDict.Add(particle.ParticleType, new List<_BaseMyParticles>{go.GetComponent<_BaseMyParticles>()});
             }
         }
 
@@ -48,14 +47,14 @@ namespace MyTools.ParticleSystem
             {
                 PreLoad();
             }
-            _particleDict[typeEnum].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
-            _particleDict[typeEnum].gameObject.SetActive(true);
-            _particleDict[typeEnum].Play();
+            _particleDict[typeEnum][0].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            _particleDict[typeEnum][0].gameObject.SetActive(true);
+            _particleDict[typeEnum][0].Play();
         }
 
         public void HideParticle(_ParticleTypeEnum type)
         {
-            _particleDict[type].gameObject.SetActive(false);
+            _particleDict[type][0].gameObject.SetActive(false);
         }
 
         public Camera UICamera {

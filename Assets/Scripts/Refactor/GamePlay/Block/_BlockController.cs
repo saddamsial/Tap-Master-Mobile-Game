@@ -110,7 +110,6 @@ namespace Core.GamePlay.Block
 
         public void HittedByMovingBlock(Vector3 direction)
         {
-            _MySoundManager.Instance.PlaySound(SoundType.TapFail);
             var t = transform.DOMove(transform.position + direction * 0.1f, 0.1f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetEase(Ease.InSine);
@@ -118,8 +117,12 @@ namespace Core.GamePlay.Block
             {
                 if (t.ElapsedPercentage() == 1) return;
                 var thisObstacle = _GameManager.Instance.BlockPool.GetBlock(_logicPos + _NormalizingVector3.ConvertToVector3Int(direction));
-                if (thisObstacle != null)
+                if (thisObstacle != null){
+                    _MySoundManager.Instance.PlaySoundPitchIncrease(SoundType.TapFail);
                     thisObstacle.HittedByMovingBlock(direction);
+                }
+                else
+                    _MySoundManager.Instance.PlaySoundPitchIncrease(SoundType.TapFail, true);
             });
         }
 

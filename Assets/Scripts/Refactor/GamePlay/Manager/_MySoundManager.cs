@@ -18,30 +18,59 @@ namespace Core.GamePlay
 
         private AudioClip _currentBackgroundMusic = null;
         private int _currentBackgroundMusicRequestIndex = -1;
+        public static float defaultPitch = 1f;
 
+        /// <summary>
+        /// Play sound with type and default configured value
+        /// </summary>
         public void PlaySound(SoundType type)
         {
-            if(!_PlayerData.UserData.IsTurnOnSound) return;
+            if (!_PlayerData.UserData.IsTurnOnSound) return;
             var audioClip = GetAudioClip(type);
             if (audioClip == null) return;
             soundManager.PlaySfxOverride(audioClip);
         }
 
-        public void PlayMusic(){
-            if(!_PlayerData.UserData.IsTurnOnMusic) return;
+        /// <summary>
+        /// Play sound with type and pitch
+        /// </summary>
+        public void PlaySound(SoundType type, float pitch)
+        {
+            if (!_PlayerData.UserData.IsTurnOnSound) return;
+            var audioClip = GetAudioClip(type);
+            if (audioClip == null) return;
+            soundManager.PlaySfxConfig(audioClip, pitch);
+        }
+
+        public void PlaySoundPitchIncrease(SoundType type, bool isComplete = false)
+        {
+            if (!_PlayerData.UserData.IsTurnOnSound) return;
+            var audioClip = GetAudioClip(type);
+            if (audioClip == null) return;
+            soundManager.PlaySfxConfig(audioClip, defaultPitch);
+            defaultPitch += 0.2f;
+            if (isComplete)
+                defaultPitch = 1f;
+        }
+
+        public void PlayMusic()
+        {
+            if (!_PlayerData.UserData.IsTurnOnMusic) return;
             StopMusic();
             _currentBackgroundMusic = _backgroundMusics[Random.Range(0, _backgroundMusics.Length)];
             _currentBackgroundMusicRequestIndex = 0;
             soundManager.PlaySfxLoop(_currentBackgroundMusic, _currentBackgroundMusicRequestIndex);
         }
 
-        public void StopMusic(){
-            if(_currentBackgroundMusic != null)
+        public void StopMusic()
+        {
+            if (_currentBackgroundMusic != null)
                 soundManager.StopLoopSound(_currentBackgroundMusic, _currentBackgroundMusicRequestIndex);
         }
 
-        public void Vibrate(){
-            if(!_PlayerData.UserData.IsTurnOnVibration) return;
+        public void Vibrate()
+        {
+            if (!_PlayerData.UserData.IsTurnOnVibration) return;
             Vibration.VibrateAndroid(50);
         }
 

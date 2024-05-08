@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MyTools.ParticleSystem;
 using UnityEngine;
 
 namespace Core.GamePlay.Block{
@@ -16,6 +17,7 @@ namespace Core.GamePlay.Block{
         public override void SetUp()
         {
             base.SetUp();
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, _blockController.transform.position);
             MoveSpecial();
         }
 
