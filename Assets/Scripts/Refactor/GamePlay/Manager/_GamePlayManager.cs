@@ -83,7 +83,7 @@ namespace Core.GamePlay
             }
             else
             {
-                _MySoundManager.Instance.PlaySound(SoundType.TapFail);
+                //_MySoundManager.Instance.PlaySound(SoundType.TapFail);
                 _GameEvent.OnSelectIdleBlock?.Invoke();
             }
             if (_remainingWrongMoves <= 0)

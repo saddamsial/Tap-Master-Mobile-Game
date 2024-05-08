@@ -110,6 +110,7 @@ namespace Core.GamePlay.Block
 
         public void HittedByMovingBlock(Vector3 direction)
         {
+            _MySoundManager.Instance.PlaySound(SoundType.TapFail);
             var t = transform.DOMove(transform.position + direction * 0.1f, 0.1f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetEase(Ease.InSine);
