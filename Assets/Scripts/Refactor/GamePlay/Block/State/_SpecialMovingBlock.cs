@@ -23,7 +23,7 @@ namespace Core.GamePlay.Block{
 
         private void MoveSpecial(){
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
-            _blockController.transform.DOLocalMove(_blockController.transform.localPosition + -_blockController.transform.right, 0.08f).SetLoops(30, LoopType.Incremental);
+            _blockController.transform.DOLocalMove(_blockController.transform.localPosition + -_blockController.transform.right * 20, 0.08f * 30).SetEase(Ease.OutExpo);
             _meshRenderer.material.DOFade(0,_ConstantBlockSetting.KEY_CORLOR_SETTING, 1.2f).OnComplete(() => {
                 _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
@@ -31,12 +31,14 @@ namespace Core.GamePlay.Block{
                 _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
                 _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
             });
+            _blockController.transform.DOScale(Vector3.zero, 0.5f).SetDelay(0.7f).SetEase(Ease.OutSine);
         }
 
         public override void OnBlockReturnToPool()
         {
             base.OnBlockReturnToPool();
             _meshRenderer.material.DOFade(1,_ConstantBlockSetting.KEY_CORLOR_SETTING, 0f);
+            _blockController.transform.DOScale(Vector3.one, 0f);
         }
     }
 }
