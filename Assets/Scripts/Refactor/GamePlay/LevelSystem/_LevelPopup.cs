@@ -82,7 +82,7 @@ namespace Core.GamePlay.LevelSystem
 
         public void Exit()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(
                 () => { _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;}
             );
@@ -144,7 +144,7 @@ namespace Core.GamePlay.LevelSystem
         }
 
         public void OnGoToLevelClick(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             if(_isCanGoToLevel){
                 _GameManager.Instance.StartLevel(_gotoLevel);
                 PopupManager.Instance.CloseAllPopup();
@@ -165,7 +165,7 @@ namespace Core.GamePlay.LevelSystem
 
         public void GotoLevelPage(int i)
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             var nextLevelType = (_LevelType)i;
             if (_currentLevelType == nextLevelType) return;
             if (_currentLevelType != _LevelType.None)

@@ -58,7 +58,7 @@ namespace Core.GamePlay
             _MySoundManager.Instance.Vibrate();
             if (isBlockCanMove)
             {
-                _MySoundManager.Instance.PlaySound(SoundType.Tap);
+                _MySoundManager.Instance.PlaySound(_SoundType.Tap);
                 _totalBlocks -= blocks;
                 _GameManager.Instance.CurrentCollectedBlock -= blocks;
                 _GameEvent.OnSelectIdleBlock?.Invoke();

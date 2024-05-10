@@ -43,7 +43,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAd(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             _cursor.DOKill();
             AdsManager.Instance.ShowRewarded(
                 (x) => {
@@ -92,7 +92,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             _cursor.DOKill();
             if(_isWinGame){
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;

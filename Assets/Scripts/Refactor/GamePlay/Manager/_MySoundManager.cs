@@ -23,7 +23,7 @@ namespace Core.GamePlay
         /// <summary>
         /// Play sound with type and default configured value
         /// </summary>
-        public void PlaySound(SoundType type)
+        public void PlaySound(_SoundType type)
         {
             if (!_PlayerData.UserData.IsTurnOnSound) return;
             var audioClip = GetAudioClip(type);
@@ -34,7 +34,7 @@ namespace Core.GamePlay
         /// <summary>
         /// Play sound with type and pitch
         /// </summary>
-        public void PlaySound(SoundType type, float pitch)
+        public void PlaySound(_SoundType type, float pitch)
         {
             if (!_PlayerData.UserData.IsTurnOnSound) return;
             var audioClip = GetAudioClip(type);
@@ -42,7 +42,7 @@ namespace Core.GamePlay
             soundManager.PlaySfxConfig(audioClip, pitch);
         }
 
-        public void PlaySoundPitchIncrease(SoundType type, bool isComplete = false)
+        public void PlaySoundPitchIncrease(_SoundType type, bool isComplete = false)
         {
             if (!_PlayerData.UserData.IsTurnOnSound) return;
             var audioClip = GetAudioClip(type);
@@ -74,16 +74,16 @@ namespace Core.GamePlay
             Vibration.VibrateAndroid(50);
         }
 
-        private AudioClip GetAudioClip(SoundType type)
+        private AudioClip GetAudioClip(_SoundType type)
         {
             return type switch
             {
-                SoundType.Tap => _tapSounds[Random.Range(0, _tapSounds.Length)],
-                SoundType.Spawn => _spawnSounds[Random.Range(0, _spawnSounds.Length)],
-                SoundType.TapFail => _tapFailSounds[Random.Range(0, _tapFailSounds.Length)],
-                SoundType.Win => _winSounds[Random.Range(0, _winSounds.Length)],
-                SoundType.Lose => _loseSounds[Random.Range(0, _loseSounds.Length)],
-                SoundType.ClickUIButton => _clickUIButtonSounds[Random.Range(0, _clickUIButtonSounds.Length)],
+                _SoundType.Tap => _tapSounds[Random.Range(0, _tapSounds.Length)],
+                _SoundType.Spawn => _spawnSounds[Random.Range(0, _spawnSounds.Length)],
+                _SoundType.TapFail => _tapFailSounds[Random.Range(0, _tapFailSounds.Length)],
+                _SoundType.Win => _winSounds[Random.Range(0, _winSounds.Length)],
+                _SoundType.Lose => _loseSounds[Random.Range(0, _loseSounds.Length)],
+                _SoundType.ClickUIButton => _clickUIButtonSounds[Random.Range(0, _clickUIButtonSounds.Length)],
                 //SoundType.BackgroundMusic => _backgroundMusics[Random.Range(0, _backgroundMusics.Length)],
                 _ => null
             };
@@ -91,7 +91,7 @@ namespace Core.GamePlay
     }
 }
 
-public enum SoundType
+public enum _SoundType
 {
     Tap,
     Spawn,

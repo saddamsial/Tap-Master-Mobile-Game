@@ -25,7 +25,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickClose(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(
                 () => {
                     _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
