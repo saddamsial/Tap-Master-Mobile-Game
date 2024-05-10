@@ -100,6 +100,7 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
+                    _MySoundManager.Instance.PlaySound(_SoundType.TapBooster);
                     GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
                     if (x)
                         _GameEvent.OnUseBoosterHint?.Invoke();

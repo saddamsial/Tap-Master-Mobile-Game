@@ -1094,11 +1094,7 @@ MonoBehaviour:
   _spawnSounds:
   - {fileID: 8300000, guid: 4dbec6a9adf5c784ba56be452bc31c8d, type: 3}
   _tapFailSounds:
-  - {fileID: 8300000, guid: 25389c9299b414f4b9ebd72b57d2f396, type: 3}
-  - {fileID: 8300000, guid: 0e6271c2001cbfc45a4b18938d3141cd, type: 3}
-  - {fileID: 8300000, guid: be90bfff4a96dcb4d81a1356736974fe, type: 3}
-  - {fileID: 8300000, guid: 34ce7975aa09d24469b1fd2ccf9dc4b0, type: 3}
-  - {fileID: 8300000, guid: ce6c9990d25421843b64cffe1b5e0fa3, type: 3}
+  - {fileID: 8300000, guid: 54b9e4e39f4409f449122b85946227e7, type: 3}
   _winSounds:
   - {fileID: 8300000, guid: 224a897bdae4099478da918f883ee9e3, type: 3}
   _loseSounds:
@@ -1106,6 +1102,8 @@ MonoBehaviour:
   _clickUIButtonSounds:
   - {fileID: 8300000, guid: c609719bdbcb71e499e224e59ed26005, type: 3}
   _backgroundMusics: []
+  _tapBoosterSounds:
+  - {fileID: 8300000, guid: 35f4e19479302d5488cf25b5d01cf550, type: 3}
 --- !u!4 &6153337180790848713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1123782333833576851, guid: ac1a955c48018a949b34ff38acf475d0, type: 3}

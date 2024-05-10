@@ -15,6 +15,7 @@ namespace Core.GamePlay
         [SerializeField] private AudioClip[] _loseSounds;
         [SerializeField] private AudioClip[] _clickUIButtonSounds;
         [SerializeField] private AudioClip[] _backgroundMusics;
+        [SerializeField] private AudioClip[] _tapBoosterSounds;
 
         private AudioClip _currentBackgroundMusic = null;
         private int _currentBackgroundMusicRequestIndex = -1;
@@ -52,7 +53,6 @@ namespace Core.GamePlay
             if (isComplete)
                 defaultPitch = 1f;
         }
-
         public void PlayMusic()
         {
             if (!_PlayerData.UserData.IsTurnOnMusic) return;
@@ -84,6 +84,7 @@ namespace Core.GamePlay
                 _SoundType.Win => _winSounds[Random.Range(0, _winSounds.Length)],
                 _SoundType.Lose => _loseSounds[Random.Range(0, _loseSounds.Length)],
                 _SoundType.ClickUIButton => _clickUIButtonSounds[Random.Range(0, _clickUIButtonSounds.Length)],
+                _SoundType.TapBooster => _tapBoosterSounds[Random.Range(0, _tapBoosterSounds.Length)],
                 //SoundType.BackgroundMusic => _backgroundMusics[Random.Range(0, _backgroundMusics.Length)],
                 _ => null
             };
@@ -99,5 +100,6 @@ public enum _SoundType
     Win,
     Lose,
     ClickUIButton,
-    BackgroundMusic
+    BackgroundMusic,
+    TapBooster,
 }
