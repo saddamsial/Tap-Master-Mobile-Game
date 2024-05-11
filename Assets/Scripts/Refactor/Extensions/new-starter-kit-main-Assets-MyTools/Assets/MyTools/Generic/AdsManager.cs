@@ -100,8 +100,8 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
 
     public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string location = "")
     {
-        closeCallBack?.Invoke(true);
-        //_applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
+        //closeCallBack?.Invoke(true);
+        _applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
         GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel, location);
     }
 

@@ -1094,9 +1094,9 @@ MonoBehaviour:
   _spawnSounds:
   - {fileID: 8300000, guid: 4dbec6a9adf5c784ba56be452bc31c8d, type: 3}
   _tapFailSounds:
-  - {fileID: 8300000, guid: 54b9e4e39f4409f449122b85946227e7, type: 3}
+  - {fileID: 8300000, guid: 7b0300aa4190fc347ad116529272726f, type: 3}
   _winSounds:
-  - {fileID: 8300000, guid: 224a897bdae4099478da918f883ee9e3, type: 3}
+  - {fileID: 8300000, guid: 274678b9cb352a641871d4b75b40ee33, type: 3}
   _loseSounds:
   - {fileID: 8300000, guid: b9a7ce5bb10aaa3429a6b7c47aab17f9, type: 3}
   _clickUIButtonSounds:
