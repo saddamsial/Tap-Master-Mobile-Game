@@ -81,13 +81,14 @@ namespace Core.GamePlay.Block
             else
             {
                 IsCanMove = false;
-                Debug.Log("Can't move");
+                //Debug.Log("Can't move");
                 var obstacle = _GameManager.Instance.BlockPool.GetBlock(_blockController.ObstacleLogicPos);
                 var t = _blockController.transform.DOMove(obstacle.transform.position - -_blockController.transform.right * 0.9f, 0.1f * _NormalizingVector3.GetDistanceBetweenVector3(_blockController.LogicPos, obstacle.LogicPos))
                     .SetLoops(2, LoopType.Yoyo)
                     .SetEase(Ease.InSine)
                     .OnStart(() =>
                     {
+                        _MySoundManager.Instance.PlaySound(_SoundType.TapFail);
                         _blockController.SetMaterial(_blockedMaterial);
                     })
                     .OnComplete(() =>

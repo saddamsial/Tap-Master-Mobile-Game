@@ -32,7 +32,6 @@ namespace Core.GamePlay
         // Start is called before the first frame update
         async void Start()
         {
-            _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             _cameraGamePlay = await SetUpCamera();
             InitGame();
             _GameManager.Instance.StartLevel();

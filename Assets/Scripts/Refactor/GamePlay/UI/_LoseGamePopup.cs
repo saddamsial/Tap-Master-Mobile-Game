@@ -23,7 +23,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
                     GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "lose_game_watch_ads_to_continue");
@@ -35,7 +35,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickRetry(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(() => {_GameManager.Instance.ReTry();}); 
         }
 

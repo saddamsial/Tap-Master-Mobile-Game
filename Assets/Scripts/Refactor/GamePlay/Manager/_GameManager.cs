@@ -4,6 +4,7 @@ using Core.GamePlay.BlockPool;
 using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
+using MyTools.ScreenSystem;
 using UnityEngine;
 
 namespace Core.GamePlay
@@ -29,6 +30,19 @@ namespace Core.GamePlay
 
         public void StartLevel()
         {
+            if(_PlayerData.UserData.CurrentLevel == 0)
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial1);
+            }
+            else if (_PlayerData.UserData.CurrentLevel == 1)
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial2);    
+            }
+            else
+            {
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);    
+            }
+
             _PlayerData.UserData.CurrentCollectCoin = 0;
             _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
             Level = _LevelSystem.GetLevelData();
@@ -47,7 +61,7 @@ namespace Core.GamePlay
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
             GlobalEventManager.Instance.OnLevelComplete(Level.levelIndex);
-            _MySoundManager.Instance.PlaySound(SoundType.Win);
+            _MySoundManager.Instance.PlaySound(_SoundType.Win);
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
             {
                 PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
@@ -59,7 +73,7 @@ namespace Core.GamePlay
 
         public void LoseGame()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.Lose);
+            _MySoundManager.Instance.PlaySound(_SoundType.Lose);
             _GameEvent.OnGameLose?.Invoke();
             GlobalEventManager.Instance.OnLevelLose(Level.levelIndex);
         }

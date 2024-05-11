@@ -87,7 +87,7 @@ namespace Core.GamePlay.Shop
 
         public void Exit()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(() =>
             {
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
@@ -98,7 +98,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoArrowPage()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Arrow;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -108,7 +108,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoBlockPage()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Block;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -118,7 +118,7 @@ namespace Core.GamePlay.Shop
 
         public void OnClickGotoColorPage()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             _gotoPageButtons[_currentPage].SetState(false);
             _currentPage = _ShopPage.Color;
             _gotoPageButtons[_currentPage].SetState(true);
@@ -128,13 +128,13 @@ namespace Core.GamePlay.Shop
 
         public void OnClickPurchaseButton()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             PurchaseItem(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)));
         }
 
         public void OnClickWatchAdButton()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
@@ -356,7 +356,7 @@ namespace Core.GamePlay.Shop
 
         private Action<int, _ShopPage> OnClickShopElement()
         {
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             return (int id, _ShopPage type) =>
             {
                 _shopElements[_PlayerData.UserData.RuntimeSelectedShopData[type]].SetState(true, false);

@@ -39,7 +39,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickWatchAds(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             AdsManager.Instance.ShowRewarded(
                 (x) => {
                     if(x){
@@ -53,7 +53,7 @@ namespace Core.UI.ExtendPopup{
         }
 
         public void OnClickToContinue(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(() => {_GameManager.Instance.NextLevel();}); 
         }
 

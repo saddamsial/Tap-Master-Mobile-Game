@@ -27,6 +27,7 @@ public class _LoadingSceneController : MonoBehaviour
         var dontDestroyOnLoad = await AddressablesManager.LoadAssetAsync<GameObject>(_KeyPrefabResources.KeyDontDestroyOnLoad);
         var gameObject = GameObject.Instantiate(dontDestroyOnLoad);
         _isLoadedManager = true;
+        Vibration.Init();
     }
 
     

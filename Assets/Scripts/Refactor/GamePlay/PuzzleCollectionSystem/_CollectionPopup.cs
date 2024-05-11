@@ -53,7 +53,7 @@ namespace Core.GamePlay.Collection{
         }
 
         public void Exit(){
-            _MySoundManager.Instance.PlaySound(SoundType.ClickUIButton);
+            _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             base.Hide(
                 () => {
                     _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;

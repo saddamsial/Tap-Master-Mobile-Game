@@ -178,6 +178,26 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
     }
 
+    /// <summary>
+    /// play the sfx with configured sfx value, one more time no matter it is playing or not
+    /// </summary>
+    public void PlaySfxConfig(AudioClip sfx, float pitch = 1){
+        if (sfx == null || playingSound==null)
+            return;
+        int id = sfx.GetInstanceID();
+        if (playingSound.ContainsKey(id))
+        {
+            playingSound[id].pitch = pitch;
+            playingSound[id].PlayOneShot(sfx);
+        }
+        else
+        {
+            AudioSource ac = AddAudioSource(sfx);
+            ac.pitch = pitch;
+            ac.Play();
+        }
+    }
+
     public void PlaySfxLoop(AudioClip sfx, int requesterId)
     {
         if (sfx == null || playingSound==null)

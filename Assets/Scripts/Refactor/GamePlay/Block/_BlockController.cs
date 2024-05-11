@@ -117,8 +117,12 @@ namespace Core.GamePlay.Block
             {
                 if (t.ElapsedPercentage() == 1) return;
                 var thisObstacle = _GameManager.Instance.BlockPool.GetBlock(_logicPos + _NormalizingVector3.ConvertToVector3Int(direction));
-                if (thisObstacle != null)
+                if (thisObstacle != null){
+                    _MySoundManager.Instance.PlaySoundPitchIncrease(_SoundType.Tap);
                     thisObstacle.HittedByMovingBlock(direction);
+                }
+                else
+                    _MySoundManager.Instance.PlaySoundPitchIncrease(_SoundType.Tap, true);
             });
         }
 

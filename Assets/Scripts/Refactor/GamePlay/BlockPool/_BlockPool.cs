@@ -103,12 +103,12 @@ namespace Core.GamePlay.BlockPool
                         int tmp = Random.Range(0, 100);
                         if (tmp < 20 && !_GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock){
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.PuzzleReward);
-                            _MySoundManager.Instance.PlaySound(SoundType.Spawn);
+                            _MySoundManager.Instance.PlaySound(_SoundType.Spawn);
                             _GameManager.Instance.GamePlayManager.IsSpawnCollectionBlock = true;
                         }
                         else{
                             _blockObjectPool[i].SetCurrentTypeBlock(_BlockTypeEnum.GoldReward);
-                            _MySoundManager.Instance.PlaySound(SoundType.Spawn);
+                            _MySoundManager.Instance.PlaySound(_SoundType.Spawn);
                         }
                         return;
                     }

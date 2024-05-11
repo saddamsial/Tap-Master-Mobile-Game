@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Coffee.UIExtensions;
+using System.Linq;
 using UnityEngine;
 
 namespace MyTools.ParticleSystem
@@ -7,7 +7,7 @@ namespace MyTools.ParticleSystem
     public class _ParticleSystemManager : SingletonMonoBehaviour<_ParticleSystemManager>
     {
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private _BaseMyParticles[] _uiParticles;
+        [SerializeField] private List<_BaseMyParticles> _uiParticles;
         [SerializeField] private string _particlePath;
         [SerializeField] private Camera _uiCamera;
 
@@ -27,7 +27,7 @@ namespace MyTools.ParticleSystem
                 lstPrefabs.Add(obj);
             }
 
-            _uiParticles = lstPrefabs.ToArray();
+            _uiParticles = lstPrefabs.ToList();
             UnityEditor.EditorUtility.SetDirty(gameObject);
         }
 #endif
@@ -36,26 +36,44 @@ namespace MyTools.ParticleSystem
         {
             foreach (var particle in _uiParticles)
             {
-                var go = Instantiate(particle.gameObject, Vector3.zero, Quaternion.identity, _canvas.transform);
-                go.SetActive(false);
-                _particleDict.Add(particle.ParticleType, go.GetComponent<_BaseMyParticles>());
+                // var tmp = SimplePool.Spawn(particle.gameObject, Vector3.zero, Quaternion.identity);
+                // tmp.SetActive(false);
+                // tmp.transform.SetParent(_canvas.transform);
+                // var go = Instantiate(particle.gameObject, Vector3.zero, Quaternion.identity, _canvas.transform);
+                // go.SetActive(false);
+                // _particleDict.Add(particle.ParticleType, new List<_BaseMyParticles>{go.GetComponent<_BaseMyParticles>()});
+                _particleDict.Add(particle.ParticleType, particle);
             }
         }
 
         public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos)
         {
-            if (_particleDict.ContainsKey(typeEnum) == false)
-            {
+            // if (_particleDict.ContainsKey(typeEnum) == false)
+            // {
+            //     PreLoad();
+            // }
+            // _particleDict[typeEnum][0].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            // _particleDict[typeEnum][0].gameObject.SetActive(true);
+            // _particleDict[typeEnum][0].Play();
+            if(!_particleDict.ContainsKey(typeEnum)){
                 PreLoad();
             }
-            _particleDict[typeEnum].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
-            _particleDict[typeEnum].gameObject.SetActive(true);
-            _particleDict[typeEnum].Play();
+            if(!_particleDict.ContainsKey(typeEnum)){
+                throw new System.Exception("Can't find particle type");
+            }
+            var particle = SimplePool.Spawn(_particleDict[typeEnum].gameObject, pos, Quaternion.identity).GetComponent<_BaseMyParticles>();
+            particle.transform.gameObject.SetActive(false);
+            particle.transform.SetParent(_canvas.transform);
+            particle.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            particle.gameObject.SetActive(true);
+            particle.Play(() => { SimplePool.Despawn(particle.gameObject); });
         }
 
         public void HideParticle(_ParticleTypeEnum type)
         {
-            _particleDict[type].gameObject.SetActive(false);
+            //_particleDict[type][0].gameObject.SetActive(false);
+
         }
 
         public Camera UICamera {

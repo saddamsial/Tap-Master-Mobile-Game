@@ -31,6 +31,7 @@ namespace Core.GamePlay
         public void StartLevel(LevelData level)
         {
             _blockPool?.InitPool(level);
+            IsInTutorial = level.levelIndex == 1;
             _totalBlocks = level.numOfBlocks;
             _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
             _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
@@ -57,7 +58,7 @@ namespace Core.GamePlay
             _MySoundManager.Instance.Vibrate();
             if (isBlockCanMove)
             {
-                _MySoundManager.Instance.PlaySound(SoundType.Tap);
+                _MySoundManager.Instance.PlaySound(_SoundType.Tap);
                 _totalBlocks -= blocks;
                 _GameManager.Instance.CurrentCollectedBlock -= blocks;
                 _GameEvent.OnSelectIdleBlock?.Invoke();
@@ -82,7 +83,7 @@ namespace Core.GamePlay
             }
             else
             {
-                _MySoundManager.Instance.PlaySound(SoundType.TapFail);
+                //_MySoundManager.Instance.PlaySound(SoundType.TapFail);
                 _GameEvent.OnSelectIdleBlock?.Invoke();
             }
             if (_remainingWrongMoves <= 0)
@@ -146,6 +147,7 @@ namespace Core.GamePlay
 
         public bool IsGameplayInteractable { get; set; }
         public bool IsSpawnCollectionBlock { get; set; }
+        public bool IsInTutorial { get; set; }
         public int RemainingWrongMoves
         {
             get
