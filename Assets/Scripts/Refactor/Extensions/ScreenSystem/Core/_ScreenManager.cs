@@ -52,6 +52,21 @@ namespace MyTools.ScreenSystem
             _currentScreenType = screenType;
             _screenDict[_currentScreenType].Show();
         }
+
+        public void HideScreen(_ScreenTypeEnum screenType){
+            if(_currentScreenType != screenType || screenType == _ScreenTypeEnum.None || _currentScreenType == _ScreenTypeEnum.None)
+                return;
+            _screenDict[screenType].Hide();
+            _currentScreenType = _ScreenTypeEnum.None;
+        }
+
+        public void HideCurrentScreen(){
+            if(_currentScreenType == _ScreenTypeEnum.None)
+                return;
+            _screenDict[_currentScreenType].Hide();
+            _currentScreenType = _ScreenTypeEnum.None;
+        }
+
 #if UNITY_EDITOR
         private void Update(){
             if(Input.GetKeyDown(KeyCode.A)){

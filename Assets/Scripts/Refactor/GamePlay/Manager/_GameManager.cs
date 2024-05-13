@@ -61,6 +61,7 @@ namespace Core.GamePlay
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
             GlobalEventManager.Instance.OnLevelComplete(Level.levelIndex);
+            _ScreenManager.Instance.HideCurrentScreen();
             _MySoundManager.Instance.PlaySound(_SoundType.Win);
             _GameEvent.OnGameEnd?.Invoke();
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
@@ -76,6 +77,7 @@ namespace Core.GamePlay
 
         public void LoseGame()
         {
+            _ScreenManager.Instance.HideCurrentScreen();
             _MySoundManager.Instance.PlaySound(_SoundType.Lose);
             _GameEvent.OnGameLose?.Invoke();
             GlobalEventManager.Instance.OnLevelLose(Level.levelIndex);

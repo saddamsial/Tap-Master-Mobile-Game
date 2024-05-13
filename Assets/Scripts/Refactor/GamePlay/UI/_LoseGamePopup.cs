@@ -3,6 +3,7 @@ using PopupSystem;
 using Core.GamePlay;
 using Spine.Unity;
 using Core.Data;
+using MyTools.ScreenSystem;
 
 namespace Core.UI.ExtendPopup{
     public class _LoseGamePopup : BasePopup{
@@ -29,6 +30,7 @@ namespace Core.UI.ExtendPopup{
                     GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "lose_game_watch_ads_to_continue");
                     _GameManager.Instance.GamePlayManager.OnContinueGame();
                     _GameEvent.OnGamePlayContinue?.Invoke();
+                    _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
                     base.Hide();
                 }, null, location: "lose_game_watch_ads_to_continue"
             );
@@ -36,7 +38,9 @@ namespace Core.UI.ExtendPopup{
 
         public void OnClickRetry(){
             _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
-            base.Hide(() => {_GameManager.Instance.ReTry();}); 
+            base.Hide(() => {
+                _GameManager.Instance.ReTry();
+            }); 
         }
 
         private void AnimLoseGame(){
