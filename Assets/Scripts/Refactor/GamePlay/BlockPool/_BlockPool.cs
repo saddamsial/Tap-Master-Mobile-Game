@@ -7,6 +7,7 @@ using UnityEngine.AddressableAssets;
 using DG.Tweening;
 using Core.SystemGame;
 using Core.Data;
+using System.Threading.Tasks;
 
 namespace Core.GamePlay.BlockPool
 {
@@ -38,10 +39,10 @@ namespace Core.GamePlay.BlockPool
             _GameEvent.OnUseBoosterHint -= UseBoosterHint;
         }
 
-        public async void InitPool(LevelData levelData)
+        public async Task InitPool(LevelData levelData)
         {
             _blockObjectPool ??= new List<_BlockController>();
-            _blockObjectPool.Clear();
+            DeSpawnAllBlocks();
             ClearLogicPool();
             _blockContainer ??= new GameObject("BlockContainer");
             _blockContainer.transform.position = Vector3.zero;
@@ -49,19 +50,17 @@ namespace Core.GamePlay.BlockPool
             _movingMaterial ??= await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyMovingMaterial);
             _blockedMaterial ??= await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyBlockedMaterial);
             _idleMaterial ??= await AddressablesManager.LoadAssetAsync<Material>(_KeyMaterialResources.KeyIdleMaterial);
-            if (!_isInitPool)
-            {
-                _isInitPool = true;
-                ObjectPooling._ObjectPooling.Instance.CreatePool(ObjectPooling._TypeGameObjectEnum.Block, _blockPrefab, 100);
-            }
             int minX = 0;
             int minY = 0;
             int minZ = 0;
             for (int i = 0; i < levelData.blockStates.Count; i++)
             {
-                var block = ObjectPooling._ObjectPooling.Instance.SpawnFromPool(ObjectPooling._TypeGameObjectEnum.Block, Vector3.zero, Quaternion.identity);
+                //var block = SimplePool.Spawn(_blockPrefab, Vector3.zero, Quaternion.identity);
+                var block = GameObject.Instantiate(_blockPrefab, Vector3.zero, Quaternion.identity);
                 block.name = "Block" + i;
+                //Debug.Log("Block " + i + " Is Tweening: " + DOTween.IsTweening(block.transform));
                 block.transform.SetParent(_blockContainer.transform);
+                block.SetActive(true);
                 block.GetComponent<_BlockController>().InitBlock(_idleMaterial, _movingMaterial, _blockedMaterial, levelData.blockStates[i].rotation, levelData.blockStates[i].color, levelData.isSetColor);
                 _blockObjectPool.Add(block.GetComponent<_BlockController>());
                 block.transform.position = levelData.blockStates[i].pos;
@@ -152,18 +151,22 @@ namespace Core.GamePlay.BlockPool
         {
             foreach (var block in _blockObjectPool)
             {
-                int t = block.transform.DOKill();
-                block.OnBlockReturnToPool();
-                ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+                //DOTween.Kill(block.transform);
+                //block.OnBlockReturnToPool();
+                //ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+                if(block == null) continue;
+                if(block.gameObject == null) continue;
+                SimplePool.Despawn(block.gameObject);
             }
             _blockObjectPool.Clear();
         }
 
         public void DespawnBlock(_BlockController block)
         {
-            block.transform.DOKill();
+            DOTween.Kill(block.transform);
             block.OnBlockReturnToPool();
-            ObjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+            //bjectPooling._ObjectPooling.Instance.ReturnToPool(ObjectPooling._TypeGameObjectEnum.Block, block.gameObject);
+            SimplePool.Despawn(block.gameObject);
             _blockObjectPool.Remove(block);
         }
 

@@ -75,7 +75,8 @@ namespace Core.GamePlay.Block
                     })
                     .OnComplete(() =>
                     {
-                        _ObjectPooling.Instance.ReturnToPool(_TypeGameObjectEnum.Block, _blockController.gameObject);
+                        //_ObjectPooling.Instance.ReturnToPool(_TypeGameObjectEnum.Block, _blockController.gameObject);
+                        SimplePool.Despawn(_blockController.gameObject);
                     });
             }
             else

@@ -36,12 +36,16 @@ namespace Core.GamePlay.Block
         {
             _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
             _GameEvent.OnUseBoosterOpenFace -= OnUseBoosterOpenFace;
+            _GameEvent.OnGameEnd -= ForceBlockReturnToPool;
+            //Debug.Log("OnDisable" + gameObject.name + " Is Tweening" + DOTween.IsTweening(transform));
         }
 
         private void OnDestroy()
         {
             _GameEvent.OnSelectShopElement -= ChangeBlockDisplayed();
             _GameEvent.OnUseBoosterOpenFace -= OnUseBoosterOpenFace;
+            _GameEvent.OnGameEnd -= ForceBlockReturnToPool;
+            //Debug.Log("OnDestroy" + gameObject.name + " Is Tweening" + DOTween.IsTweening(transform));
         }
 
         public void InitBlock(Material idleMaterial, Material movingMaterial, Material blockedMaterial, Vector3 rotation, Vector3 color, bool isSetColor = false)
@@ -58,6 +62,7 @@ namespace Core.GamePlay.Block
             ChangeBlockNormalMap().Invoke(_PlayerData.UserData.RuntimeSelectedShopData[_ShopPage.Block]);
             _GameEvent.OnUseBoosterOpenFace += OnUseBoosterOpenFace;
             _GameEvent.OnSelectShopElement += ChangeBlockDisplayed();
+            _GameEvent.OnGameEnd += ForceBlockReturnToPool;
             IsMoving = false;
             IsLastBlock = false;
         }
@@ -133,6 +138,13 @@ namespace Core.GamePlay.Block
 
         public void OnBlockReturnToPool(){
             _blockStates[_currentType].OnBlockReturnToPool();
+        }
+
+        private void ForceBlockReturnToPool()
+        {
+            OnBlockReturnToPool();
+            DOTween.Kill(transform);
+            SimplePool.Despawn(gameObject);
         }
 
         private void AnimationInitBlock(Vector3 rotation)

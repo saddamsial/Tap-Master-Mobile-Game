@@ -28,9 +28,9 @@ namespace Core.GamePlay
             IsSpawnCollectionBlock = false;
         }
 
-        public void StartLevel(LevelData level)
+        public async void StartLevel(LevelData level)
         {
-            _blockPool?.InitPool(level);
+            await _blockPool?.InitPool(level);
             IsInTutorial = level.levelIndex == 1;
             _totalBlocks = level.numOfBlocks;
             _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;

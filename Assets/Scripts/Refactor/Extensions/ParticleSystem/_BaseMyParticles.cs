@@ -15,7 +15,7 @@ namespace MyTools.ParticleSystem{
         }
 
         private IEnumerator Close(float duration, Action closeCallBack){
-            Debug.Log("Complete Particle");
+//            Debug.Log("Complete Particle");
             yield return new WaitForSeconds(duration);
             closeCallBack?.Invoke();
         }

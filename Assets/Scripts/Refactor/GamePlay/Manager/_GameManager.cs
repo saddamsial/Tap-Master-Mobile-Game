@@ -30,17 +30,17 @@ namespace Core.GamePlay
 
         public void StartLevel()
         {
-            if(_PlayerData.UserData.CurrentLevel == 0)
+            if (_PlayerData.UserData.CurrentLevel == 0)
             {
                 _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial1);
             }
             else if (_PlayerData.UserData.CurrentLevel == 1)
             {
-                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial2);    
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial2);
             }
             else
             {
-                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);    
+                _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             }
 
             _PlayerData.UserData.CurrentCollectCoin = 0;
@@ -62,12 +62,15 @@ namespace Core.GamePlay
             //_GameEvent.OnGamePlayWin?.Invoke();
             GlobalEventManager.Instance.OnLevelComplete(Level.levelIndex);
             _MySoundManager.Instance.PlaySound(_SoundType.Win);
+            _GameEvent.OnGameEnd?.Invoke();
             if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
             {
                 PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
             }
             else
+            {
                 _GameEvent.OnGameWin?.Invoke();
+            }
             _PlayerData.UserData.UpdateWinGameUserDataValue();
         }
 

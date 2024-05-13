@@ -97,7 +97,9 @@ namespace Core.UI.ExtendPopup{
             if(_isWinGame){
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
                 this.gameObject.SetActive(false);
-                PopupManager.CreateNewInstance<_WinGamePopup>().Show();
+                //_GameEvent.OnGameWin?.Invoke();
+                _GameManager.Instance.WinGame();
+                //PopupManager.CreateNewInstance<_WinGamePopup>().Show();
             }
             else{
                 base.Hide(

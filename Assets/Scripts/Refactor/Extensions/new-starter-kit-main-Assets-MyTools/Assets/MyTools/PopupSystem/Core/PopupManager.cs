@@ -328,7 +328,7 @@ namespace PopupSystem
                     CreateNewInstance<_CollectRewardGoldPopup>().Show(rewardNumber);
                     break;
                 case _BlockTypeEnum.PuzzleReward:
-                    Debug.Log("ShowPopupCollectReward");
+//                    Debug.Log("ShowPopupCollectReward");
                     break;
             }
         }

@@ -29,12 +29,13 @@ namespace Core.GamePlay.Block{
             AnimatedCollectRewardBlock();
             _GameManager.Instance.BlockPool.SetStateElementBlockInPool(_blockController.LogicPos.x, _blockController.LogicPos.y, _blockController.LogicPos.z, false);
             bool isEndGame = _GamePlayManager.Instance.OnBlockSelected(_blockController ,true, true);
-            Debug.Log(isEndGame);
+//            Debug.Log(isEndGame);
             //_PlayerData.UserData.Coin += _rewardCoin;
             _PlayerData.UserData.CurrentCollectCoin += _rewardCoin;
             if(!_blockController.IsLastBlock && !isEndGame)
                 _GameEvent.OnSelectRewardBlock?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
             else if(isEndGame && _blockController.IsLastBlock){
+                _GameEvent.OnGameEnd?.Invoke();
                 _GameEvent.OnSelectRewardBlockToWin?.Invoke(_BlockTypeEnum.GoldReward, _rewardCoin);
             }
         }
@@ -42,11 +43,17 @@ namespace Core.GamePlay.Block{
         private void AnimatedCollectRewardBlock(){
             _meshRenderer.material.DOFade(0, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0.5f).OnComplete(() => {
                 _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
-                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
-            }).OnKill(() => {
-                _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
-                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
-            });
+                _GameManager.Instance.BlockPool.DespawnBlock(_blockController);});
+            // }).OnKill(() => {
+            //     _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
+            //     _GameManager.Instance.BlockPool.DespawnBlock(_blockController);
+            // });
+        }
+
+        public override void OnBlockReturnToPool(){
+            base.OnBlockReturnToPool();
+            _meshRenderer.material.DOFade(1, _ConstantBlockSetting.KEY_IS_SPECIAL_COLOR, 0f);
+            _meshRenderer.material.SetInt(_ConstantBlockSetting.KEY_IS_IDLE_BLOCK, 1);
         }
     }
 }
