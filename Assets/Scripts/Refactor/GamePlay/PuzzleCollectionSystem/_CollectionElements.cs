@@ -57,7 +57,7 @@ namespace Core.GamePlay.Collection
 
         public void SetupPuzzle(_CollectionElementData data)
         {
-            _rewardImage.sprite = data.rewardImage;
+//            _rewardImage.sprite = data.rewardImage;
             _headTitle.text = data.name;
             for (int i = 0; i < data.mainImages.Length; i++)
             {
