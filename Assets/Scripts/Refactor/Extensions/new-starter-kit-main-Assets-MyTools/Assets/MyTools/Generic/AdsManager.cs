@@ -66,8 +66,8 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     {
         //if (!PlayerData.UserData.IsNotRemoveAds) return;
         //if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
-        if(_isShowBanner) return;
-        if(_PlayerData.UserData.CurrentLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
+        if (_isShowBanner) return;
+        if (_PlayerData.UserData.CurrentLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
         _isShowBanner = true;
         _admnobManager?.LoadBannerAd();
     }
@@ -89,23 +89,36 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
 
     public void ShowInter(Action callBack, string localtion = "")
     {
-        if(_PlayerData.UserData.CurrentLevel + 1 >= AppConfig.Instance.InterAdLevel){
-            _applovinManager?.ShowInterstitial(callBack, localtion);
-            GlobalEventManager.Instance.OnShowInterstitial();
+
+        if (_PlayerData.UserData.CurrentLevel + 1 >= AppConfig.Instance.InterAdLevel)
+        {
+            PopupSystem.PopupManager.CreateNewInstance<Core.UI._LoadingAdsPopup>().Show(() =>
+            {
+                _applovinManager?.ShowInterstitial(callBack, localtion);
+                GlobalEventManager.Instance.OnShowInterstitial();
+            });
         }
-        else{
+        else
+        {
             callBack?.Invoke();
         }
+
     }
 
     public void ShowRewarded(Action<bool> closeCallBack, Action onClick = null, string location = "")
     {
+        PopupSystem.PopupManager.CreateNewInstance<Core.UI._LoadingAdsPopup>().Show(() =>
+        {
+            _applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
+            GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel, location);
+        });
         //closeCallBack?.Invoke(true);
-        _applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
-        GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel, location);
+        //_applovinManager?.ShowRewardedAd(closeCallBack, onClick, location);
+        //GlobalEventManager.Instance.OnShowRewarded(_PlayerData.UserData.CurrentLevel, location);
     }
 
-    public void ShowNativeOverlay(){
+    public void ShowNativeOverlay()
+    {
         _admnobManager?.RenderAd();
     }
 }

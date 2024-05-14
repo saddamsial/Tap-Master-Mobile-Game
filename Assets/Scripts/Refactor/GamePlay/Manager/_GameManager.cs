@@ -45,6 +45,7 @@ namespace Core.GamePlay
 
             _PlayerData.UserData.CurrentCollectCoin = 0;
             _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
+            PopupSystem.PopupManager.Instance.CloseAllPopup();
             Level = _LevelSystem.GetLevelData();
             _gamePlayManager.StartLevel(Level);
             _GameEvent.OnGamePlayReset?.Invoke();
