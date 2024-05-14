@@ -12,7 +12,7 @@ namespace MyTools.ScreenSystem
         [SerializeField] private AnimationClip _hideAnimation;
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _showWithAnimation = true;
-        private bool _isShown = false;
+        protected bool _isShown = false;
         public _ScreenTypeEnum ScreenType;
 
         // // Start is called before the first frame update

@@ -100,6 +100,10 @@ namespace Core.GamePlay
             }
             _lastRemainingDelta = _remainingDelta;
             _lastZoomCameraValue = _zoomCameraValue;
+
+            if(Input.GetKeyDown(KeyCode.Backspace)){
+                ShakedCamera();
+            }
         }
 
         //Set Camera size by modify position.z and position.y of camera
@@ -139,6 +143,11 @@ namespace Core.GamePlay
             //Debug.Log(_ConstantCameraSetting.GetCameraPositionValue((int)_GameManager.Instance.Level.size.x));
             int max = Mathf.Max((int)_GameManager.Instance.Level.size.x, (int)_GameManager.Instance.Level.size.y, (int)_GameManager.Instance.Level.size.z);
             (this.transform.localPosition, _maxSizeZoomCamera, _minSizeZoomCamera) = _ConstantCameraSetting.GetCameraPositionValue(max);
+        }
+
+        private void ShakedCamera(){
+            Vector3 startPos = _cameraRotation.position ;
+            _cameraRotation.DOLocalMove(startPos+ this.transform.right * 0.2f, 0.05f).SetLoops( 7, LoopType.Yoyo).SetEase(Ease.InOutBack).OnComplete(() => {_cameraRotation.position = startPos;});
         }
 
         public float Sensitivity
