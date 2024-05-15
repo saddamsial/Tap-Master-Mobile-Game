@@ -20,7 +20,6 @@ namespace Core.UI
 
         private void RunLoading()
         {
-            SetSizeOfLoadingImage();
             StartCoroutine(CounterTime.CounterUp(_percent, _delayTime, OnCouter, OnCounterComplete));
         }
 
@@ -50,13 +49,14 @@ namespace Core.UI
                 yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => AdsManager.Instance.CanLoadAds);
             SceneManager.LoadScene(Const.SCENE_GAMEPLAY);
+            //_ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             count += 1;
         }
 
         private void SetSizeOfLoadingImage()
         {
             //float coef = Screen.height / 1080;
-            _loadingImage.rectTransform.sizeDelta = new Vector2(Screen.height, Screen.height);
+            _loadingImage.rectTransform.sizeDelta = new Vector2(1535 * Screen.height / 2048, Screen.height);
         }
 
         private async void LoadAddressables()
@@ -70,6 +70,7 @@ namespace Core.UI
 
         protected override void OnCompleteShowItSelf()
         {
+            SetSizeOfLoadingImage();
             base.OnCompleteShowItSelf();
             RunLoading();
         }

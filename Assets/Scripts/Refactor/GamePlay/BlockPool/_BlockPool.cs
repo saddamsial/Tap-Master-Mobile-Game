@@ -190,7 +190,7 @@ namespace Core.GamePlay.BlockPool
             return neighborBlocks;
         }
 
-        public void ExplodeBlocks(List<_BlockController> blocks){
+        public void ExplodeBlocks(List<_BlockController> blocks, _BlockController block){
             // for(int i = 0; i <= blocks.Count - 2; i++){
             //     blocks[i].SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
             // }
@@ -198,8 +198,10 @@ namespace Core.GamePlay.BlockPool
             _GameManager.Instance.CameraController.ShakedCamera();
             _MySoundManager.Instance.PlaySound(_SoundType.Explode);
             _MySoundManager.Instance.Vibrate();
-            foreach(var block in blocks){
-                block.gameObject.SetActive(false);
+            block.SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            foreach(var b in blocks){
+                //b.gameObject.SetActive(false);
+                b.SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
             }
         }
 

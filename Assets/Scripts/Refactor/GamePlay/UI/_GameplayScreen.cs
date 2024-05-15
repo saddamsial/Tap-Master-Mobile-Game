@@ -54,6 +54,7 @@ namespace Core.UI
         private void SetupScreen()
         {
             _levelText.text = "Level " + (_PlayerData.UserData.CurrentLevel + 1);
+            _remainingWrongMovesText.text = _GameManager.Instance.GamePlayManager.RemainingWrongMoves.ToString() + " Moves";
             //_openFrontFaceBoosterButton.SetActive(true);
             _puzzlePieces.gameObject.SetActive(false);
             _puzzlePieces.GetComponent<Image>().color = new Color(1, 1, 1, 0);

@@ -79,6 +79,7 @@ namespace Core.GamePlay.Block
             _blockStates.Add(_BlockTypeEnum.GoldReward, new _RewardBlock(this));
             _blockStates.Add(_BlockTypeEnum.MovingSpecial, new _SpecialMovingBlock(this));
             _blockStates.Add(_BlockTypeEnum.PuzzleReward, new _CollectionRewardBlock(this));
+            _blockStates.Add(_BlockTypeEnum.InExplosion, new _InExplosionState(this));
             _isInit = true;
         }
 
@@ -88,6 +89,7 @@ namespace Core.GamePlay.Block
             _blockStates[_BlockTypeEnum.GoldReward].Init();
             _blockStates[_BlockTypeEnum.MovingSpecial].Init();
             _blockStates[_BlockTypeEnum.PuzzleReward].Init(false, default, _specialMesh[0], _specialMaterial[0]);
+            _blockStates[_BlockTypeEnum.InExplosion].Init();
         }
 
         private void OnUseBoosterOpenFace()
@@ -165,7 +167,6 @@ namespace Core.GamePlay.Block
 
         private void OnMouseUp()
         {
-            
             StopCoroutine("CaculateHodingTime");
             if (_InputSystem.Instance.Timer > 0.15f)
                 return;
@@ -186,7 +187,11 @@ namespace Core.GamePlay.Block
 
         private void OnSelected()
         {
-            _blockStates[_currentType].OnSelect();
+            if(_GameManager.Instance.GamePlayManager.IsGameInHintMode){
+                SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+                _GameManager.Instance.GamePlayManager.OnBlockSelected(this);
+            }
+            else _blockStates[_currentType].OnSelect();
             //_GamePlayManager.Instance.OnBlockSelected(this ,_blockStates[_currentType].IsCanMove);
         }
 

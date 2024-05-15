@@ -4,6 +4,7 @@ using Core.GamePlay.BlockPool;
 using Core.SystemGame;
 using Cysharp.Threading.Tasks;
 using MyTools.ParticleSystem;
+using MyTools.ScreenSystem;
 using UnityEngine;
 
 namespace Core.GamePlay
@@ -48,16 +49,17 @@ namespace Core.GamePlay
 
         public async void StartLevel(LevelData level)
         {
-            await _blockPool?.InitPool(level);
-            IsInTutorial = level.levelIndex == 1;
             _totalBlocks = level.numOfBlocks;
-            _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
-            _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
-            _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
             _remainingWrongMoves = _totalBlocks / 10;
             _remainingWrongMoves = Mathf.Max(_ConstantGameplayConfig.MIN_REMAINING_WRONG_MOVES, _remainingWrongMoves);
             _remainingWrongMoves = Mathf.Min(_ConstantGameplayConfig.MAX_REMAINING_WRONG_MOVES, _remainingWrongMoves);
             _remainingWrongMoves += _totalBlocks;
+            await _blockPool?.InitPool(level);
+            IsInTutorial = level.levelIndex == 1;
+            _remainBlocksToHaveSpecialBlock = _totalBlocks / 10;
+            _remainBlocksToHaveSpecialBlock = Mathf.Max(_ConstantGameplayConfig.MIN_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+            _remainBlocksToHaveSpecialBlock = Mathf.Min(_ConstantGameplayConfig.MAX_BLOCKS_TO_SPECIAL, _remainBlocksToHaveSpecialBlock);
+
             GlobalEventManager.Instance.OnLevelPlay(level.levelIndex);
         }
 
@@ -86,6 +88,7 @@ namespace Core.GamePlay
 
         public bool OnBlockSelectedNotHint(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
+            Debug.Log("Not Hint");
             _remainingWrongMoves -= 1;
             _MySoundManager.Instance.Vibrate();
             if (isBlockCanMove)
@@ -158,9 +161,9 @@ namespace Core.GamePlay
             // }
             _isGameInHintMode = false;
             var listBlocks = _blockPool.GetNeighborBlock(1, block);
-            _blockPool.ExplodeBlocks(listBlocks);
-            _totalBlocks -= listBlocks.Count;
-            _GameManager.Instance.CurrentCollectedBlock -= listBlocks.Count;
+            _blockPool.ExplodeBlocks(listBlocks, block);
+            _totalBlocks -= (listBlocks.Count + 1);
+            _GameManager.Instance.CurrentCollectedBlock -= (listBlocks.Count + 1);
             _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position,
                 () =>
                 {
@@ -169,6 +172,7 @@ namespace Core.GamePlay
                     {
                         _GameManager.Instance.WinGame();
                     }
+                    _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
                     if (_GameManager.Instance.CurrentCollectedBlock <= 0)
                     {
                         AdsManager.Instance.ShowInter(() =>
@@ -211,6 +215,14 @@ namespace Core.GamePlay
             get
             {
                 return _remainingWrongMoves;
+            }
+        }
+
+        public bool IsGameInHintMode
+        {
+            get
+            {
+                return _isGameInHintMode;
             }
         }
     }
