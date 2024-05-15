@@ -116,7 +116,7 @@ namespace Core.GamePlay
         //     Debug.Log(cameraSize);
         // }
 
-        private void ZoomCamera(float zoomValue = 0)
+        public void ZoomCamera(float zoomValue = 0)
         {
             if (zoomValue > 0)
             {

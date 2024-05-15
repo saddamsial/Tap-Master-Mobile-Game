@@ -13,15 +13,19 @@ namespace Core.GamePlay
         private static _GamePlayManager _instance;
         public static _GamePlayManager Instance => _instance ?? (_instance = new _GamePlayManager());
 
-        public _GamePlayManager(){
+        public _GamePlayManager()
+        {
             _isGameInHintMode = false;
-            _GameEvent.OnUseBoosterHint += () => {
+            _GameEvent.OnUseBoosterHint += () =>
+            {
                 _isGameInHintMode = true;
             };
         }
 
-        ~_GamePlayManager(){
-            _GameEvent.OnUseBoosterHint -= () => {
+        ~_GamePlayManager()
+        {
+            _GameEvent.OnUseBoosterHint -= () =>
+            {
                 _isGameInHintMode = true;
             };
         }
@@ -66,11 +70,14 @@ namespace Core.GamePlay
             // _GameManager.Instance.NextLevel();
         }
 
-        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1){
-            if(!_isGameInHintMode){
+        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
+        {
+            if (!_isGameInHintMode)
+            {
                 return OnBlockSelectedNotHint(block, isBlockCanMove, isSpecialBlock, blocks);
             }
-            else{
+            else
+            {
                 OnBlockSelectedByHint(block, blocks);
                 return false;
             }
@@ -90,10 +97,11 @@ namespace Core.GamePlay
                 if (_totalBlocks <= 0)
                 {
                     block.IsLastBlock = true;
-                    if (!isSpecialBlock){
+                    if (!isSpecialBlock)
+                    {
                         _GameManager.Instance.WinGame();
                     }
-                    
+
                     return true;
                 }
                 if (!isSpecialBlock)
@@ -118,7 +126,8 @@ namespace Core.GamePlay
             }
             if (_GameManager.Instance.CurrentCollectedBlock <= 0)
             {
-                AdsManager.Instance.ShowInter( () => {
+                AdsManager.Instance.ShowInter(() =>
+                {
                     GlobalEventManager.Instance.OnCloseInterstitial();
                 });
                 _GameManager.Instance.CurrentCollectedBlock = 100;
@@ -148,23 +157,29 @@ namespace Core.GamePlay
             //     return;
             // }
             _isGameInHintMode = false;
-            var listBlocks = _blockPool.GetNeighborBlock(1 , block);
-            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position);
+            var listBlocks = _blockPool.GetNeighborBlock(1, block);
             _blockPool.ExplodeBlocks(listBlocks);
             _totalBlocks -= listBlocks.Count;
             _GameManager.Instance.CurrentCollectedBlock -= listBlocks.Count;
-            if (_totalBlocks <= 0)
-            {
-                _GameManager.Instance.WinGame();
-            }
-            if (_GameManager.Instance.CurrentCollectedBlock <= 0)
-            {
-                AdsManager.Instance.ShowInter( () => {
-                    GlobalEventManager.Instance.OnCloseInterstitial();
-                });
-                _GameManager.Instance.CurrentCollectedBlock = 100;
-                return;
-            }
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position,
+                () =>
+                {
+                    Debug.Log("Explode particle done");
+                    if (_totalBlocks <= 0)
+                    {
+                        _GameManager.Instance.WinGame();
+                    }
+                    if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+                    {
+                        AdsManager.Instance.ShowInter(() =>
+                        {
+                            GlobalEventManager.Instance.OnCloseInterstitial();
+                        });
+                        _GameManager.Instance.CurrentCollectedBlock = 100;
+                        return;
+                    }
+                }
+            );
         }
 
         public void OnContinueGame()

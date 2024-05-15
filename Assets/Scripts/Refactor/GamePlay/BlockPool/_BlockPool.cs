@@ -195,6 +195,9 @@ namespace Core.GamePlay.BlockPool
             //     blocks[i].SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
             // }
             // blocks[blocks.Count - 1].SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            _GameManager.Instance.CameraController.ShakedCamera();
+            _MySoundManager.Instance.PlaySound(_SoundType.Explode);
+            _MySoundManager.Instance.Vibrate();
             foreach(var block in blocks){
                 block.gameObject.SetActive(false);
             }
