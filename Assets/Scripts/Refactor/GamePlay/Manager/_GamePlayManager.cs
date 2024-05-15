@@ -3,6 +3,7 @@ using Core.GamePlay.Block;
 using Core.GamePlay.BlockPool;
 using Core.SystemGame;
 using Cysharp.Threading.Tasks;
+using MyTools.ParticleSystem;
 using UnityEngine;
 
 namespace Core.GamePlay
@@ -11,6 +12,19 @@ namespace Core.GamePlay
     {
         private static _GamePlayManager _instance;
         public static _GamePlayManager Instance => _instance ?? (_instance = new _GamePlayManager());
+
+        public _GamePlayManager(){
+            _isGameInHintMode = false;
+            _GameEvent.OnUseBoosterHint += () => {
+                _isGameInHintMode = true;
+            };
+        }
+
+        ~_GamePlayManager(){
+            _GameEvent.OnUseBoosterHint -= () => {
+                _isGameInHintMode = true;
+            };
+        }
 
         private Camera _gamePlayCamera;
         private _BlockPool _blockPool;
@@ -57,7 +71,7 @@ namespace Core.GamePlay
                 return OnBlockSelectedNotHint(block, isBlockCanMove, isSpecialBlock, blocks);
             }
             else{
-                OnBlockSelectedByHint(blocks);
+                OnBlockSelectedByHint(block, blocks);
                 return false;
             }
         }
@@ -114,22 +128,40 @@ namespace Core.GamePlay
         }
 
         // Only hint idle block
-        public void OnBlockSelectedByHint(int blockNums)
+        public void OnBlockSelectedByHint(_BlockController block, int blockNums)
         {
-            Debug.Log(_totalBlocks + " - " + blockNums + " = " + (_totalBlocks - blockNums));
-            _totalBlocks -= blockNums;
-            _GameManager.Instance.CurrentCollectedBlock -= blockNums;
-            _GameEvent.OnSelectIdleBlock?.Invoke();
+            // Debug.Log(_totalBlocks + " - " + blockNums + " = " + (_totalBlocks - blockNums));
+            // _totalBlocks -= blockNums;
+            // _GameManager.Instance.CurrentCollectedBlock -= blockNums;
+            // _GameEvent.OnSelectIdleBlock?.Invoke();
+            // if (_totalBlocks <= 0)
+            // {
+            //     _GameManager.Instance.WinGame();
+            //     return;
+            // }
+            // if (_GameManager.Instance.CurrentCollectedBlock <= 0)
+            // {
+            //     AdsManager.Instance.ShowInter(
+            //         () => { GlobalEventManager.Instance.OnCloseInterstitial();}
+            //     );
+            //     _GameManager.Instance.CurrentCollectedBlock = 100;
+            //     return;
+            // }
+            _isGameInHintMode = false;
+            var listBlocks = _blockPool.GetNeighborBlock(1 , block);
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position);
+            _blockPool.ExplodeBlocks(listBlocks);
+            _totalBlocks -= listBlocks.Count;
+            _GameManager.Instance.CurrentCollectedBlock -= listBlocks.Count;
             if (_totalBlocks <= 0)
             {
                 _GameManager.Instance.WinGame();
-                return;
             }
             if (_GameManager.Instance.CurrentCollectedBlock <= 0)
             {
-                AdsManager.Instance.ShowInter(
-                    () => { GlobalEventManager.Instance.OnCloseInterstitial();}
-                );
+                AdsManager.Instance.ShowInter( () => {
+                    GlobalEventManager.Instance.OnCloseInterstitial();
+                });
                 _GameManager.Instance.CurrentCollectedBlock = 100;
                 return;
             }

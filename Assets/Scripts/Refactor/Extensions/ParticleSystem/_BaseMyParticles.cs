@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using Coffee.UIExtensions;
 using UnityEngine;
+using UnityEngine.UI.Extensions.CasualGame;
 
 namespace MyTools.ParticleSystem{
-    public class _BaseMyParticles : UIParticle{
+    public class _BaseMyParticles : UIParticleSystem{
         public _ParticleTypeEnum ParticleType;
         public RectTransform RectTransform;
 
         public void Play(Action closeCallBack = null){
-            base.Play();
+            base.StartParticleEmission();
             float duration = (this.GetComponent<UnityEngine.ParticleSystem>().main.duration);
             StartCoroutine(Close(duration, closeCallBack));
         }

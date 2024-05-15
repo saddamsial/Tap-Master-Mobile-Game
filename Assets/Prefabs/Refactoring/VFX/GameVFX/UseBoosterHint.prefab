@@ -8,31 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 939261108578226197}
+  - component: {fileID: 6460622976330260666}
   - component: {fileID: 939261108578226408}
   - component: {fileID: 939261108578226374}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GlowR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &939261108578226197
-Transform:
+--- !u!224 &6460622976330260666
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939261108578226208}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -540, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2406807685986197590}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -540, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &939261108578226408
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -2313,31 +2318,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 939261108578226198}
+  - component: {fileID: 8913666976015909557}
   - component: {fileID: 939261108578226413}
   - component: {fileID: 939261108578226427}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: caipiaoR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &939261108578226198
-Transform:
+--- !u!224 &8913666976015909557
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939261108578226213}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: -540, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2406807685986197590}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: -0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -540, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &939261108578226413
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4609,31 +4619,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 939261108578226188}
+  - component: {fileID: 2096082068661597236}
   - component: {fileID: 939261108578226403}
   - component: {fileID: 939261108578226417}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Qiu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &939261108578226188
-Transform:
+--- !u!224 &2096082068661597236
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939261108578226267}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 960, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2406807685986197590}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: -0, z: -0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 910}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &939261108578226403
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -7009,7 +7024,7 @@ GameObject:
   - component: {fileID: 939261108578226419}
   - component: {fileID: 389619540997240186}
   - component: {fileID: 1608937321367958772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UseBoosterHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7028,11 +7043,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 939261108578226179}
-  - {fileID: 939261108578226176}
-  - {fileID: 939261108578226198}
-  - {fileID: 939261108578226197}
-  - {fileID: 939261108578226188}
+  - {fileID: 4910826053005271433}
+  - {fileID: 563283133520503673}
+  - {fileID: 8913666976015909557}
+  - {fileID: 6460622976330260666}
+  - {fileID: 2096082068661597236}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9329,31 +9344,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 939261108578226179}
+  - component: {fileID: 4910826053005271433}
   - component: {fileID: 939261108578226407}
   - component: {fileID: 939261108578226421}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: caipiaoL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &939261108578226179
-Transform:
+--- !u!224 &4910826053005271433
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939261108578226270}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 540, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2406807685986197590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -0, z: -90}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 540, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &939261108578226407
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -11625,31 +11645,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 939261108578226176}
+  - component: {fileID: 563283133520503673}
   - component: {fileID: 939261108578226404}
   - component: {fileID: 939261108578226418}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GlowL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &939261108578226176
-Transform:
+--- !u!224 &563283133520503673
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939261108578226271}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 540, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2406807685986197590}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 540, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &939261108578226404
 ParticleSystem:
   m_ObjectHideFlags: 0

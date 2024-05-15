@@ -145,7 +145,7 @@ namespace Core.GamePlay
             (this.transform.localPosition, _maxSizeZoomCamera, _minSizeZoomCamera) = _ConstantCameraSetting.GetCameraPositionValue(max);
         }
 
-        private void ShakedCamera(){
+        public void ShakedCamera(){
             Vector3 startPos = _cameraRotation.position ;
             _cameraRotation.DOLocalMove(startPos+ this.transform.right * 0.2f, 0.05f).SetLoops( 7, LoopType.Yoyo).SetEase(Ease.InOutBack).OnComplete(() => {_cameraRotation.position = startPos;});
         }
