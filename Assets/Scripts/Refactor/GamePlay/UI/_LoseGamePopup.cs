@@ -38,9 +38,11 @@ namespace Core.UI.ExtendPopup{
 
         public void OnClickRetry(){
             _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
-            base.Hide(() => {
-                _GameManager.Instance.ReTry();
-            }); 
+            // base.Hide(() => {
+            //     _GameManager.Instance.ReTry();
+            // }); 
+            this.gameObject.SetActive(false);
+            _GameManager.Instance.ReTry();
         }
 
         private void AnimLoseGame(){

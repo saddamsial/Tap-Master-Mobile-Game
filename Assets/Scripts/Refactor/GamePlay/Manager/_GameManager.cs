@@ -30,6 +30,12 @@ namespace Core.GamePlay
 
         public void StartLevel()
         {
+            _PlayerData.UserData.CurrentCollectCoin = 0;
+            _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
+            PopupSystem.PopupManager.Instance.CloseAllPopup();
+            Level = _LevelSystem.GetLevelData();
+            _gamePlayManager.StartLevel(Level);
+            _GameEvent.OnGamePlayReset?.Invoke();
             if (_PlayerData.UserData.CurrentLevel == 0)
             {
                 _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.Tutorial1);
@@ -42,12 +48,6 @@ namespace Core.GamePlay
             {
                 _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             }
-
-            _PlayerData.UserData.CurrentCollectCoin = 0;
-            _PlayerData.UserData.CurrentCollectionPuzzlePiece = new KeyValuePair<int, int>(-1, -1);
-            Level = _LevelSystem.GetLevelData();
-            _gamePlayManager.StartLevel(Level);
-            _GameEvent.OnGamePlayReset?.Invoke();
         }
 #if UNITY_EDITOR
         public void StartLevelByTool()

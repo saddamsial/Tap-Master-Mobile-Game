@@ -31,12 +31,12 @@ namespace Core.GamePlay.BlockPool
         public _BlockPool()
         {
             InitLogicPool(sizeX, sizeY, sizeZ);
-            _GameEvent.OnUseBoosterHint += UseBoosterHint;
+            //_GameEvent.OnUseBoosterHint += UseBoosterHint;
         }
 
         ~_BlockPool()
         {
-            _GameEvent.OnUseBoosterHint -= UseBoosterHint;
+            //_GameEvent.OnUseBoosterHint -= UseBoosterHint;
         }
 
         public async Task InitPool(LevelData levelData)
@@ -170,6 +170,41 @@ namespace Core.GamePlay.BlockPool
             _blockObjectPool.Remove(block);
         }
 
+        public List<_BlockController> GetNeighborBlock(int r, _BlockController block){
+            List<_BlockController> neighborBlocks = new List<_BlockController>();
+            for(int i = -r; i <= r; i++){
+                for(int j = -r; j <= r; j++){
+                    for(int k = -r; k <= r; k++){
+                        if(i == 0 && j == 0 && k == 0) continue;
+                        Vector3Int logicPos = block.LogicPos + new Vector3Int(i, j, k);
+                        if(logicPos.x < 0 || logicPos.x >= sizeX) continue;
+                        if(logicPos.y < 0 || logicPos.y >= sizeY) continue;
+                        if(logicPos.z < 0 || logicPos.z >= sizeZ) continue;
+                        if(_blockLogicPool[logicPos.x][logicPos.y][logicPos.z]){
+                            _BlockController neighborBlock = GetBlock(logicPos);
+                            neighborBlocks.Add(neighborBlock);
+                        }
+                    }
+                }
+            }
+            return neighborBlocks;
+        }
+
+        public void ExplodeBlocks(List<_BlockController> blocks, _BlockController block){
+            // for(int i = 0; i <= blocks.Count - 2; i++){
+            //     blocks[i].SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            // }
+            // blocks[blocks.Count - 1].SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            _GameManager.Instance.CameraController.ShakedCamera();
+            _MySoundManager.Instance.PlaySound(_SoundType.Explode);
+            _MySoundManager.Instance.Vibrate();
+            block.SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            foreach(var b in blocks){
+                //b.gameObject.SetActive(false);
+                b.SetCurrentTypeBlock(_BlockTypeEnum.InExplosion);
+            }
+        }
+
         public _BlockController GetBlock(Vector3Int logicPos)
         {
             return _blockObjectPool.Find(block => block.LogicPos.Equals(logicPos));
@@ -235,7 +270,7 @@ namespace Core.GamePlay.BlockPool
                 //DespawnBlock(_blockObjectPool[randomIndex]);
                 //_GamePlayManager.Instance.OnBlockSelected(_blockObjectPool[randomIndex], true, false, 1);
             }
-            _GamePlayManager.Instance.OnBlockSelectedByHint(totalBlockToRemove);
+            //_GamePlayManager.Instance.OnBlockSelected(null, totalBlockToRemove);
             //_GamePlayManager.Instance.OnBlockSelected(, true, false, blockToRemove);
         }
 

@@ -14,6 +14,7 @@ namespace Core.UI
         [SerializeField] private int _percent = 100;
         [SerializeField] private Slider _loadingSlider;
         [SerializeField] private float _delayTime = 0.1f;
+        [SerializeField] private Image _loadingImage;
 
         private bool _isLoadedAsset = false;
 
@@ -48,7 +49,14 @@ namespace Core.UI
                 yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => AdsManager.Instance.CanLoadAds);
             SceneManager.LoadScene(Const.SCENE_GAMEPLAY);
+            //_ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             count += 1;
+        }
+
+        private void SetSizeOfLoadingImage()
+        {
+            //float coef = Screen.height / 1080;
+            _loadingImage.rectTransform.sizeDelta = new Vector2(1535 * Screen.height / 2048, Screen.height);
         }
 
         private async void LoadAddressables()
@@ -62,6 +70,7 @@ namespace Core.UI
 
         protected override void OnCompleteShowItSelf()
         {
+            SetSizeOfLoadingImage();
             base.OnCompleteShowItSelf();
             RunLoading();
         }

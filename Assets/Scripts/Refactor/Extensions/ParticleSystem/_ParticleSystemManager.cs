@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -55,10 +56,12 @@ namespace MyTools.ParticleSystem
             // _particleDict[typeEnum][0].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
             // _particleDict[typeEnum][0].gameObject.SetActive(true);
             // _particleDict[typeEnum][0].Play();
-            if(!_particleDict.ContainsKey(typeEnum)){
+            if (!_particleDict.ContainsKey(typeEnum))
+            {
                 PreLoad();
             }
-            if(!_particleDict.ContainsKey(typeEnum)){
+            if (!_particleDict.ContainsKey(typeEnum))
+            {
                 throw new System.Exception("Can't find particle type");
             }
             var particle = SimplePool.Spawn(_particleDict[typeEnum].gameObject, pos, Quaternion.identity).GetComponent<_BaseMyParticles>();
@@ -70,13 +73,36 @@ namespace MyTools.ParticleSystem
             particle.Play(() => { SimplePool.Despawn(particle.gameObject); });
         }
 
+        public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos, Action complete = null)
+        {
+            if (!_particleDict.ContainsKey(typeEnum))
+            {
+                PreLoad();
+            }
+            if (!_particleDict.ContainsKey(typeEnum))
+            {
+                throw new System.Exception("Can't find particle type");
+            }
+            var particle = SimplePool.Spawn(_particleDict[typeEnum].gameObject, pos, Quaternion.identity).GetComponent<_BaseMyParticles>();
+            particle.transform.gameObject.SetActive(false);
+            particle.transform.SetParent(_canvas.transform);
+            particle.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            particle.gameObject.SetActive(true);
+            particle.Play(() => { 
+                complete?.Invoke();
+                SimplePool.Despawn(particle.gameObject); 
+            });
+        }
+
         public void HideParticle(_ParticleTypeEnum type)
         {
             //_particleDict[type][0].gameObject.SetActive(false);
 
         }
 
-        public Camera UICamera {
+        public Camera UICamera
+        {
             get => _uiCamera;
             set => _uiCamera = value;
         }

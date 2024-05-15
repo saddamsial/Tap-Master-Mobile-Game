@@ -4,6 +4,7 @@ namespace MyTools.ScreenSystem{
         Loading,
         GamePlay,
         Tutorial1,
-        Tutorial2
+        Tutorial2,
+        UseHint
     }
 }
