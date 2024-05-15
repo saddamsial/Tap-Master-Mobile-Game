@@ -18,7 +18,7 @@ namespace Core.GamePlay
         private int _totalBlocks;
         private int _remainBlocksToHaveSpecialBlock;
         private int _remainingWrongMoves;
-
+        private bool _isGameInHintMode = false;
 
         public void InitGamePlayManager()
         {
@@ -52,7 +52,18 @@ namespace Core.GamePlay
             // _GameManager.Instance.NextLevel();
         }
 
-        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
+        public bool OnBlockSelected(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1){
+            if(!_isGameInHintMode){
+                return OnBlockSelectedNotHint(block, isBlockCanMove, isSpecialBlock, blocks);
+            }
+            else{
+                OnBlockSelectedByHint(blocks);
+                return false;
+            }
+        }
+
+
+        public bool OnBlockSelectedNotHint(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
             _remainingWrongMoves -= 1;
             _MySoundManager.Instance.Vibrate();

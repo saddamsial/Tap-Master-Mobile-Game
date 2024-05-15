@@ -31,7 +31,7 @@ namespace Core.GamePlay.BlockPool
         public _BlockPool()
         {
             InitLogicPool(sizeX, sizeY, sizeZ);
-            _GameEvent.OnUseBoosterHint += UseBoosterHint;
+            //_GameEvent.OnUseBoosterHint += UseBoosterHint;
         }
 
         ~_BlockPool()
@@ -235,7 +235,7 @@ namespace Core.GamePlay.BlockPool
                 //DespawnBlock(_blockObjectPool[randomIndex]);
                 //_GamePlayManager.Instance.OnBlockSelected(_blockObjectPool[randomIndex], true, false, 1);
             }
-            _GamePlayManager.Instance.OnBlockSelectedByHint(totalBlockToRemove);
+            //_GamePlayManager.Instance.OnBlockSelected(null, totalBlockToRemove);
             //_GamePlayManager.Instance.OnBlockSelected(, true, false, blockToRemove);
         }
 

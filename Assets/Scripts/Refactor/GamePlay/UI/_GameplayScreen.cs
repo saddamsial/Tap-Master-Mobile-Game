@@ -105,8 +105,8 @@ namespace Core.UI
                     _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.UseHint);
                     //_ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.BoderScreen, Vector3.zero);
                     GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
-                    // if (x)
-                    //     _GameEvent.OnUseBoosterHint?.Invoke();
+                    if (x)
+                        _GameEvent.OnUseBoosterHint?.Invoke();
                 }, null, location: "hint_booster"
             );
         }
