@@ -732,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: _screens.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: _screens.Array.data[0]
@@ -750,6 +750,10 @@ PrefabInstance:
       propertyPath: _screens.Array.data[3]
       value: 
       objectReference: {fileID: 5101544107247149521, guid: d9a9bcd75c2c5d84b81ef39a6f1bb418, type: 3}
+    - target: {fileID: 8721241805653213866, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: _screens.Array.data[4]
+      value: 
+      objectReference: {fileID: 3564303454581686245, guid: 0f14c315ac70a4740a7a503fcd0de9b5, type: 3}
     - target: {fileID: 9205374936801022264, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: m_Camera
       value: 
@@ -976,12 +980,16 @@ PrefabInstance:
       objectReference: {fileID: 3450038001923573061}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[0]
       value: 
       objectReference: {fileID: 8112375123411251522, guid: cf0c0ceed544df34090ac74e0d80a9e8, type: 3}
+    - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
+      propertyPath: _uiParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1608937321367958772, guid: de45574374e54ac40973b99f52babf97, type: 3}
     - target: {fileID: 7348248246308546357, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: m_Name
       value: ParticleManager
@@ -1108,6 +1116,12 @@ MonoBehaviour:
   _backgroundMusics: []
   _tapBoosterSounds:
   - {fileID: 8300000, guid: 35f4e19479302d5488cf25b5d01cf550, type: 3}
+  _purchasedStartSounds:
+  - {fileID: 8300000, guid: 57d7ed9b53992de468e1c87a506160da, type: 3}
+  _purchasedEndSounds:
+  - {fileID: 8300000, guid: 055dc298228ed9346bb765313aebab29, type: 3}
+  _explodeSounds:
+  - {fileID: 8300000, guid: 63c488655ff6e0645b1278969d708e44, type: 3}
 --- !u!4 &6153337180790848713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1123782333833576851, guid: ac1a955c48018a949b34ff38acf475d0, type: 3}

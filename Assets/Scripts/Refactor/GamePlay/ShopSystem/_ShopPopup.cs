@@ -291,6 +291,7 @@ namespace Core.GamePlay.Shop
                     _listUnPurchased.Add(i);
                 }
             }
+            //_MySoundManager.Instance.PlaySound(_SoundType.PurchasedStart);
             if (_listUnPurchased.Count == 0)
             {
                 yield return null;
@@ -320,6 +321,7 @@ namespace Core.GamePlay.Shop
                 _shopElements[_listUnPurchased[currentElement]].DisplayHighlightElement(false);
                 _shopElements[purchasedIndex].DisplayHighlightElement(true);
                 yield return new WaitForSeconds(0.2f);
+                _MySoundManager.Instance.PlaySound(_SoundType.PurchasedEnd);
                 _shopElements[purchasedIndex].SetState(true);
                 _shopElements[purchasedIndex].DisplayHighlightElement(false);
             }

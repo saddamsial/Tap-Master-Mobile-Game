@@ -7,6 +7,7 @@ using Core.GamePlay.LevelSystem;
 using Core.GamePlay.Shop;
 using Core.UI.ExtendPopup;
 using DG.Tweening;
+using MyTools.ParticleSystem;
 using MyTools.ScreenSystem;
 using PopupSystem;
 using TMPro;
@@ -101,9 +102,11 @@ namespace Core.UI
                 (x) =>
                 {
                     _MySoundManager.Instance.PlaySound(_SoundType.TapBooster);
+                    _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.UseHint);
+                    //_ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.BoderScreen, Vector3.zero);
                     GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
-                    if (x)
-                        _GameEvent.OnUseBoosterHint?.Invoke();
+                    // if (x)
+                    //     _GameEvent.OnUseBoosterHint?.Invoke();
                 }, null, location: "hint_booster"
             );
         }

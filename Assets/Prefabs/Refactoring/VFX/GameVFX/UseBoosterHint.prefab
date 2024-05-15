@@ -9319,8 +9319,8 @@ MonoBehaviour:
   m_GroupId: 0
   m_GroupMaxId: 0
   m_AbsoluteMode: 0
-  ParticleType: 0
-  RectTransform: {fileID: 0}
+  ParticleType: 1
+  RectTransform: {fileID: 2406807685986197590}
 --- !u!1 &939261108578226270
 GameObject:
   m_ObjectHideFlags: 0
