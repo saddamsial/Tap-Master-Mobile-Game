@@ -33,7 +33,10 @@ namespace Core.Data{
             IsTurnOnVibration = true;
 #region Collection and Shop Data
             RuntimeCollectionData = new Dictionary<int, List<int>>{
-                {0, new List<int>()}
+                {0, new List<int>()},
+                {1, new List<int>()},
+                {2, new List<int>()},
+                {3, new List<int>()}
             };
             RuntimePurchasedShopData = new Dictionary<_ShopPage, List<int>>();
             RuntimeSelectedShopData = new Dictionary<_ShopPage, int>();
