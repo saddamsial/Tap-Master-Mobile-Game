@@ -67,6 +67,10 @@ namespace MyTools.ScreenSystem
             _currentScreenType = _ScreenTypeEnum.None;
         }
 
+        public float GetScreenHeight(){
+            return _screenCanvas.GetComponent<RectTransform>().sizeDelta.y;
+        }
+
 #if UNITY_EDITOR
         private void Update(){
             if(Input.GetKeyDown(KeyCode.A)){

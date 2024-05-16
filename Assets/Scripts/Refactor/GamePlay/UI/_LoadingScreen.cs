@@ -56,7 +56,8 @@ namespace Core.UI
         private void SetSizeOfLoadingImage()
         {
             //float coef = Screen.height / 1080;
-            _loadingImage.rectTransform.sizeDelta = new Vector2(1535 * Screen.height / 2048, Screen.height);
+            Debug.Log(Screen.height);
+            _loadingImage.rectTransform.sizeDelta = new Vector2(1535 * _ScreenManager.Instance.GetScreenHeight() / 2048, _ScreenManager.Instance.GetScreenHeight());
         }
 
         private async void LoadAddressables()

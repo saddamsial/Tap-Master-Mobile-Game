@@ -686,6 +686,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5912717484550411935, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912717484550411935, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8564440030489958275, guid: bf8e1453e74e41f499ae5aac76bd055e, type: 3}
       propertyPath: m_RootOrder
       value: 1
