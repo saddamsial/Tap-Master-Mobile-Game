@@ -1125,7 +1125,7 @@ MonoBehaviour:
   _tapBoosterSounds:
   - {fileID: 8300000, guid: 35f4e19479302d5488cf25b5d01cf550, type: 3}
   _purchasedStartSounds:
-  - {fileID: 8300000, guid: 57d7ed9b53992de468e1c87a506160da, type: 3}
+  - {fileID: 8300000, guid: 09e30c7c72bd6344287034e9d0884a5b, type: 3}
   _purchasedEndSounds:
   - {fileID: 8300000, guid: 055dc298228ed9346bb765313aebab29, type: 3}
   _explodeSounds:

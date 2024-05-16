@@ -140,11 +140,13 @@ namespace Core.GamePlay.Shop
                 {
                     if (x)
                     {
-                        if(_isCanPurchaseWithAd){
+                        if (_isCanPurchaseWithAd)
+                        {
                             PurchaseItem((int)(_itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage)) * 0.2f));
                             GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "shop_get_random_item");
                         }
-                        else{
+                        else
+                        {
                             _PlayerData.UserData.Coin += 300;
                             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
                             GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "shop_get_coin");
@@ -154,7 +156,8 @@ namespace Core.GamePlay.Shop
             );
         }
 
-        private void PurchaseItem(int price){
+        private void PurchaseItem(int price)
+        {
             if (_PlayerData.UserData.RuntimePurchasedShopData[_currentPage].Count == _shopElements.Count)
             {
                 return;
@@ -169,7 +172,7 @@ namespace Core.GamePlay.Shop
             _PlayerData.UserData.UpdatePurchasedData(_currentPage, purchasedIndex);
             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
         }
-        
+
 
         private void SetStateGamePlayCamera(bool state)
         {
@@ -204,7 +207,7 @@ namespace Core.GamePlay.Shop
             int coin = _PlayerData.UserData.Coin;
             int price = _itemPriceDatas.GetPrice(_currentPage, _PlayerData.UserData.GetCurrentTimePurchaseItem(_currentPage));
             _purchaseItemButton.SetUpPurchaseItemButton(price, coin < price);
-            if (coin  >= price* 0.2f)
+            if (coin >= price * 0.2f)
             {
                 _isCanPurchaseWithAd = true;
                 _adsCoinText.text = (price * 0.2f).ToString();
@@ -291,7 +294,6 @@ namespace Core.GamePlay.Shop
                     _listUnPurchased.Add(i);
                 }
             }
-            //_MySoundManager.Instance.PlaySound(_SoundType.PurchasedStart);
             if (_listUnPurchased.Count == 0)
             {
                 yield return null;
@@ -305,10 +307,11 @@ namespace Core.GamePlay.Shop
             }
             else
             {
+                _MySoundManager.Instance.PlaySound(_SoundType.PurchasedStart);
                 while (tmp > 0)
                 {
-                    tmp -= 0.2f;
-                    yield return new WaitForSeconds(0.2f);
+                    tmp -= 0.04f;
+                    yield return new WaitForSeconds(0.04f);
                     currentElement = UnityEngine.Random.Range(0, _listUnPurchased.Count);
                     if (currentElement == lastElment)
                     {
