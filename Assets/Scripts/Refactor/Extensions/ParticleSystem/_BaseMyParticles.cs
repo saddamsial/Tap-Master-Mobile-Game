@@ -10,7 +10,8 @@ namespace MyTools.ParticleSystem{
         public RectTransform RectTransform;
 
         public void Play(Action closeCallBack = null){
-            base.StartParticleEmission();
+            //base.StartParticleEmission();
+            this.GetComponent<UnityEngine.ParticleSystem>().Play();
             float duration = (this.GetComponent<UnityEngine.ParticleSystem>().main.duration);
             StartCoroutine(Close(duration, closeCallBack));
         }

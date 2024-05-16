@@ -985,11 +985,11 @@ PrefabInstance:
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[0]
       value: 
-      objectReference: {fileID: 8112375123411251522, guid: cf0c0ceed544df34090ac74e0d80a9e8, type: 3}
+      objectReference: {fileID: 5275232856249534873, guid: cf0c0ceed544df34090ac74e0d80a9e8, type: 3}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[1]
       value: 
-      objectReference: {fileID: 3848708286675092024, guid: 534d0ed0de050dc46a7f5b3d2def7976, type: 3}
+      objectReference: {fileID: 760311644644545540, guid: 534d0ed0de050dc46a7f5b3d2def7976, type: 3}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[2]
       value: 

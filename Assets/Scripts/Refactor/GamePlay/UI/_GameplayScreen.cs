@@ -60,7 +60,8 @@ namespace Core.UI
             _puzzlePieces.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
 
-        private void NotifyCollectPuzzlePiece(_BlockTypeEnum typeEnum, int count){
+        private void NotifyCollectPuzzlePiece(_BlockTypeEnum typeEnum, int count)
+        {
             if (typeEnum == _BlockTypeEnum.PuzzleReward)
             {
                 _puzzlePieces.localPosition = _puzzlePieces.localPosition + new Vector3(0, -100, 0);
@@ -68,7 +69,8 @@ namespace Core.UI
                 _puzzlePieces.DOLocalMoveY(_puzzlePieces.localPosition.y + 100, 0.5f).SetEase(Ease.OutBack);
                 _puzzlePieces.GetComponent<Image>().DOFade(1, 0.5f).OnComplete(() =>
                 {
-                    if(count == -1){
+                    if (count == -1)
+                    {
                         _GameManager.Instance.WinGame();
                     }
                 });
@@ -102,12 +104,16 @@ namespace Core.UI
             AdsManager.Instance.ShowRewarded(
                 (x) =>
                 {
-                    _MySoundManager.Instance.PlaySound(_SoundType.TapBooster);
-                    _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.UseHint);
-                    //_ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.BoderScreen, Vector3.zero);
-                    GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
+
                     if (x)
+                    {
+                        _MySoundManager.Instance.PlaySound(_SoundType.TapBooster);
+                        _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.UseHint);
+                        //_ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.BoderScreen, Vector3.zero);
                         _GameEvent.OnUseBoosterHint?.Invoke();
+                        GlobalEventManager.Instance.OnRewardedComplete(_PlayerData.UserData.CurrentLevel, "hint_booster");
+                    }
+                    
                 }, null, location: "hint_booster"
             );
         }
