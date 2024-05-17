@@ -508,12 +508,12 @@ MonoBehaviour:
   androidInterstitialID: 
   androidrewardID: 
   androidOpenAdsID: ca-app-pub-5345388972296013/5707490113
-  androidNativeID: 
+  androidNativeID: ca-app-pub-3940256099942544/2247696110
   iosBannerID: ca-app-pub-5345388972296013/5612121340
   iosInterstitialID: 
   iosRewardID: 
   iosOpenAdsID: ca-app-pub-5345388972296013/4394408449
-  iosNativeID: 
+  iosNativeID: ca-app-pub-3940256099942544/3986624511
 --- !u!1 &6528798929341480014
 GameObject:
   m_ObjectHideFlags: 0

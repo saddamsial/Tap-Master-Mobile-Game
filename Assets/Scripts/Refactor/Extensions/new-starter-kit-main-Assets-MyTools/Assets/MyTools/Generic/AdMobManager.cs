@@ -704,6 +704,9 @@ public class AdMobManager : MonoBehaviour
             Debug.Log("Showing Native Overlay ad.");
             _nativeOverlayAd.Show();
         }
+        else{
+            Debug.Log("Native Overlay ad is not ready yet.");
+        }
     }
 
     /// <summary>
@@ -719,4 +722,10 @@ public class AdMobManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region NATIVE
+    
+    #endregion
 }
+
+

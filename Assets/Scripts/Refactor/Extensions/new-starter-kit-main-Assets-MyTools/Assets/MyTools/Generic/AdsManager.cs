@@ -120,5 +120,6 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     public void ShowNativeOverlay()
     {
         _admnobManager?.RenderAd();
+        _admnobManager?.ShowAd();
     }
 }

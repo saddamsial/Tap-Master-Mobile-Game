@@ -88,7 +88,7 @@ namespace Core.GamePlay
 
         public bool OnBlockSelectedNotHint(_BlockController block, bool isBlockCanMove = true, bool isSpecialBlock = false, int blocks = 1)
         {
-            Debug.Log("Not Hint");
+            //Debug.Log("Not Hint");
             _remainingWrongMoves -= 1;
             _MySoundManager.Instance.Vibrate();
             if (isBlockCanMove)
