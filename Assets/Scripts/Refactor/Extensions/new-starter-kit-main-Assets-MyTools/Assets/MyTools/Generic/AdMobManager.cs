@@ -32,6 +32,10 @@ public class AdMobManager : MonoBehaviour
     private RewardedAd _rewardedAd;
     private AppOpenAd _appOpenAd;
     private NativeOverlayAd _nativeOverlayAd;
+    private NativeAd _nativeAd;
+
+
+    private AdLoader _adLoader;
 
 
     private Action closeInter;
@@ -100,8 +104,9 @@ public class AdMobManager : MonoBehaviour
             //LoadInterstitialAd();
             //LoadRewardedAd();
             LoadAppOpenAd();
-            LoadNativeAd();
+            LoadNativeOverLayAd();
             InitAdEvent();
+            RequestNativeAd();
         });
     }
 
@@ -574,7 +579,7 @@ public class AdMobManager : MonoBehaviour
     /// <summary>
     /// Loads the ad.
     /// </summary>
-    public void LoadNativeAd()
+    public void LoadNativeOverLayAd()
     {
         // Clean up the old ad before loading a new one.
         if (_nativeOverlayAd != null)
@@ -704,7 +709,8 @@ public class AdMobManager : MonoBehaviour
             Debug.Log("Showing Native Overlay ad.");
             _nativeOverlayAd.Show();
         }
-        else{
+        else
+        {
             Debug.Log("Native Overlay ad is not ready yet.");
         }
     }
@@ -724,7 +730,32 @@ public class AdMobManager : MonoBehaviour
     #endregion
 
     #region NATIVE
-    
+    [Obsolete]
+    private void RequestNativeAd()
+    {
+        _adLoader ??= new AdLoader.Builder(_nativeID)
+            .ForNativeAd().Build();
+        _adLoader.OnNativeAdLoaded += this.HandleNativeAdLoaded;
+        _adLoader.OnAdFailedToLoad += this.HandleNativeAdFailedToLoad;
+        //_adLoader.LoadAd(new AdRequest());
+    }
+
+    [Obsolete]
+    private void HandleNativeAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        Debug.Log("Native ad failed to load: " + args.LoadAdError.GetMessage());
+    }
+
+    private void HandleNativeAdLoaded(object sender, NativeAdEventArgs args)
+    {
+        Debug.Log("Native ad loaded.");
+        _nativeAd = args.nativeAd;
+    }
+
+    public void ShowNativeAds(){
+        _adLoader.LoadAd(new AdRequest());
+    }
+
     #endregion
 }
 
