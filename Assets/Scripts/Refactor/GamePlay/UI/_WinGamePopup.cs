@@ -4,6 +4,7 @@ using Core.GamePlay;
 using Core.Data;
 using Spine.Unity;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Core.UI.ExtendPopup{
     public class _WinGamePopup : BasePopup{
@@ -11,6 +12,7 @@ namespace Core.UI.ExtendPopup{
         [SerializeField] private TMP_Text _multiCoinText;
         [SerializeField] private GameObject _watchAdsButton;
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
+        [SerializeField] Image _nativeAdImage;
         
         public void Show(){
             base.Show(
@@ -31,7 +33,7 @@ namespace Core.UI.ExtendPopup{
             else{
                 _watchAdsButton.SetActive(false);
             }
-            AdsManager.Instance.ShowNativeOverlay();
+            AddNativeAd();
         }
 
         public void OnClickClose(){
@@ -63,6 +65,13 @@ namespace Core.UI.ExtendPopup{
             _skeletonAnimation.initialSkinName = "default";
             _skeletonAnimation.AnimationState.SetAnimation(0, "Win-Appear", false);
             _skeletonAnimation.AnimationState.AddAnimation(0, "Win-Idle", true, 0);
+        }
+
+        private void AddNativeAd(){
+            var nativeAd = AdsManager.Instance.GetNativeAd();
+            if(nativeAd != null){
+                _nativeAdImage.sprite = Sprite.Create(nativeAd.GetIconTexture(), new Rect(0, 0, nativeAd.GetIconTexture().width, nativeAd.GetIconTexture().height), new Vector2(0.5f, 0.5f));
+            }
         }
     }
 }

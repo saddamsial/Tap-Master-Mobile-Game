@@ -4,10 +4,12 @@ using Core.GamePlay;
 using Spine.Unity;
 using Core.Data;
 using MyTools.ScreenSystem;
+using UnityEngine.UI;
 
 namespace Core.UI.ExtendPopup{
     public class _LoseGamePopup : BasePopup{
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
+        [SerializeField] Image _nativeAdImage;
 
         public void Show(){
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
@@ -16,7 +18,7 @@ namespace Core.UI.ExtendPopup{
                     AnimLoseGame();
                 }
             );
-            AdsManager.Instance.ShowNativeOverlay();
+            AddNativeAd();
         }
 
         public void OnClickClose(){
@@ -49,6 +51,13 @@ namespace Core.UI.ExtendPopup{
             _skeletonAnimation.initialSkinName = "default";
             _skeletonAnimation.AnimationState.SetAnimation(0, "Lose-Appear", false);
             _skeletonAnimation.AnimationState.AddAnimation(0, "Lose-Idle", true, 0);
+        }
+
+        private void AddNativeAd(){
+            var nativeAd = AdsManager.Instance.GetNativeAd();
+            if(nativeAd != null){
+                _nativeAdImage.sprite = Sprite.Create(nativeAd.GetIconTexture(), new Rect(0, 0, nativeAd.GetIconTexture().width, nativeAd.GetIconTexture().height), new Vector2(0.5f, 0.5f));
+            }
         }
     }
 }

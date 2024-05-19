@@ -122,4 +122,8 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
         _admnobManager?.RenderAd();
         _admnobManager?.ShowAd();
     }
+
+    public NativeAd GetNativeAd(){
+        return _admnobManager?.GetNativeAd();
+    }
 }

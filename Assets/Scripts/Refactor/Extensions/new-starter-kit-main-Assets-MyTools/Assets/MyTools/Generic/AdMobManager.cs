@@ -730,21 +730,16 @@ public class AdMobManager : MonoBehaviour
     #endregion
 
     #region NATIVE
-    [Obsolete]
+
     private void RequestNativeAd()
     {
-        _adLoader ??= new AdLoader.Builder(_nativeID)
-            .ForNativeAd().Build();
-        _adLoader.OnNativeAdLoaded += this.HandleNativeAdLoaded;
-        _adLoader.OnAdFailedToLoad += this.HandleNativeAdFailedToLoad;
-        //_adLoader.LoadAd(new AdRequest());
+        _adLoader ??= new AdLoader.Builder(_nativeID).ForNativeAd().Build();
+        _adLoader.OnNativeAdLoaded += HandleNativeAdLoaded;
+        // _adLoader.OnAdFailedToLoad += () => {
+        //     HandleNativeAdFailedToLoad(null, null);
+        // };
     }
 
-    [Obsolete]
-    private void HandleNativeAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
-    {
-        Debug.Log("Native ad failed to load: " + args.LoadAdError.GetMessage());
-    }
 
     private void HandleNativeAdLoaded(object sender, NativeAdEventArgs args)
     {
@@ -752,8 +747,17 @@ public class AdMobManager : MonoBehaviour
         _nativeAd = args.nativeAd;
     }
 
-    public void ShowNativeAds(){
-        _adLoader.LoadAd(new AdRequest());
+    public NativeAd GetNativeAd()
+    {
+        if (_nativeAd == null)
+        {
+            _adLoader.LoadAd(new AdRequest());
+        }
+        return _nativeAd;
+    }
+
+    private void HandleNativeAdFailedToLoad(object sender, LoadAdError args){
+
     }
 
     #endregion
