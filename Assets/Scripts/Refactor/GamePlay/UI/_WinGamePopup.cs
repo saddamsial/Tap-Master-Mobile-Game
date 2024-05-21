@@ -57,7 +57,7 @@ namespace Core.UI.ExtendPopup{
         public void OnClickToContinue(){
             _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
             //base.Hide(() => {_GameManager.Instance.NextLevel();}); 
-            this.gameObject.SetActive(false);
+            base.Hide();
             _GameManager.Instance.NextLevel();
         }
 

@@ -8,8 +8,9 @@ namespace Core.UI.ExtendPopup
         public void OnClickAccept()
         {
             _MySoundManager.Instance.PlaySound(_SoundType.ClickUIButton);
-            this.gameObject.SetActive(false);
+            // this.gameObject.SetActive(false);
             //PopupManager.Instance.CloseAllPopup();
+            base.Hide();
             _GameManager.Instance.ReTry();
         }
     }

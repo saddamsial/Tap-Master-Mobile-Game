@@ -35,7 +35,7 @@ namespace Core.UI.ExtendPopup{
             _pivotPos = _multipleBarImage.rectTransform.localPosition.x - _barWidth / 2;
             _coinText.text = "+" + coin.ToString();
             _finalCoinText.text = ( coin).ToString();
-            _multiCoinText.text = ( coin * 5).ToString();
+            //_multiCoinText.text = ( coin * 5).ToString();
             _coin = coin;
             _cursor.GetComponent<RectTransform>().localPosition = new Vector3(_pivotPos, _cursor.localPosition.y, _cursor.localPosition.z);
             StartMovingCursor();
@@ -116,7 +116,44 @@ namespace Core.UI.ExtendPopup{
         }
 
         private void StartMovingCursor(){
-            _cursor.DOLocalMoveX(_cursor.localPosition.x + _barWidth, 1.25f).SetEase(Ease.InOutCubic).SetLoops(-1, LoopType.Yoyo);
+            _cursor.DOLocalMoveX(_cursor.localPosition.x + _barWidth, 1.25f).SetEase(Ease.InOutCubic).SetLoops(-1, LoopType.Yoyo)
+                .OnUpdate(
+                    ()=>{
+                        CalculateReceivedCoin();
+                    }
+                );
+        }
+
+        private void CalculateReceivedCoin(){
+            float tmpX = _cursor.localPosition.x;
+            float value = tmpX - _pivotPos;
+            float dis = _barWidth / 7;
+            int val = Mathf.FloorToInt(value / dis);
+            int coin = _coin;
+            switch (val){
+                case 0:
+                    coin = _coin * 2;
+                    break;
+                case 1:
+                    coin =  _coin * 3;
+                    break;
+                case 2:
+                    coin = _coin * 4;
+                    break;
+                case 3:
+                    coin = _coin *5;
+                    break;
+                case 4:
+                    coin = _coin * 4;
+                    break;
+                case 5:
+                    coin = _coin * 3;
+                    break;
+                case 6:
+                    coin = _coin * 2;
+                    break;
+            }
+            _multiCoinText.text = "+" + coin.ToString();
         }
     }
 }

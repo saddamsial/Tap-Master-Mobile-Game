@@ -42,7 +42,7 @@ namespace Core.GamePlay.Collection{
             base.Hide(() => {
                 _GameManager.Instance.GamePlayManager.IsGameplayInteractable = true;
                 _GameEvent.OnGameWin?.Invoke();
-                PopupManager.Instance.ShowFade();
+                //PopupManager.Instance.ShowFade();
             });
         }
         private IEnumerator OpenReceivedPiece(float time, int index){
@@ -50,7 +50,7 @@ namespace Core.GamePlay.Collection{
             yield return new WaitForSeconds(time);
             _collectionElement.FadeOpenPuzzlePiece(index);
             yield return new WaitForSeconds(1);
-            this.gameObject.SetActive(false);
+            base.Hide();
             _GameEvent.OnGameWin?.Invoke();
         }
 
