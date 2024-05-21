@@ -6,6 +6,8 @@ using Spine.Unity;
 using TMPro;
 using UnityEngine.UI;
 using MyTools.ParticleSystem;
+using System.Collections;
+using DG.Tweening;
 
 namespace Core.UI.ExtendPopup
 {
@@ -14,6 +16,7 @@ namespace Core.UI.ExtendPopup
         [SerializeField] private TMPro.TMP_Text _coinText;
         [SerializeField] private TMP_Text _multiCoinText;
         [SerializeField] private GameObject _watchAdsButton;
+        [SerializeField] private GameObject _continueButton;
         [SerializeField] private SkeletonAnimation _skeletonAnimation;
         [SerializeField] Image _nativeAdImage;
 
@@ -23,6 +26,7 @@ namespace Core.UI.ExtendPopup
                 () =>
                 {
                     AnimWinGame();
+                    StartCoroutine(DelayShowContinueButton(1.5f));
                 }
             );
             _GameManager.Instance.GamePlayManager.IsGameplayInteractable = false;
@@ -31,6 +35,7 @@ namespace Core.UI.ExtendPopup
             int coin = currentCoin;
             _coinText.text = "+" + coin.ToString();
             _multiCoinText.text = "+" + (coin * 2).ToString();
+            _continueButton.SetActive(false);
             if (coin > 0)
             {
                 _coinText.gameObject.SetActive(true);
@@ -106,6 +111,14 @@ namespace Core.UI.ExtendPopup
             {
                 _nativeAdImage.gameObject.SetActive(false);
             }
+        }
+
+        private IEnumerator DelayShowContinueButton(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _continueButton.transform.localScale = Vector3.zero;
+            _continueButton.SetActive(true);
+            _continueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         }
     }
 }
