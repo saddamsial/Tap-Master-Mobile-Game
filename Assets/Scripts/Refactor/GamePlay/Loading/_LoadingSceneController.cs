@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using Core.Data;
 using Core.ResourceGamePlay;
 using Core.SystemGame;

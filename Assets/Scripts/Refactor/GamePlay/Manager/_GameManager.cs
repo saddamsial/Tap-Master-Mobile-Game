@@ -48,6 +48,7 @@ namespace Core.GamePlay
             {
                 _ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
             }
+            AdsManager.Instance.ShowBanner();
         }
 #if UNITY_EDITOR
         public void StartLevelByTool()
