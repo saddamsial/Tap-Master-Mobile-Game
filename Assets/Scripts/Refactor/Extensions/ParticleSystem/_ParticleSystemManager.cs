@@ -47,15 +47,8 @@ namespace MyTools.ParticleSystem
             }
         }
 
-        public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos)
+        public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos, bool isRectTransformPos = false)
         {
-            // if (_particleDict.ContainsKey(typeEnum) == false)
-            // {
-            //     PreLoad();
-            // }
-            // _particleDict[typeEnum][0].RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
-            // _particleDict[typeEnum][0].gameObject.SetActive(true);
-            // _particleDict[typeEnum][0].Play();
             if (!_particleDict.ContainsKey(typeEnum))
             {
                 PreLoad();
@@ -68,12 +61,16 @@ namespace MyTools.ParticleSystem
             particle.transform.gameObject.SetActive(false);
             particle.transform.SetParent(_canvas.transform);
             particle.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            if (isRectTransformPos){
+                particle.RectTransform.localPosition = pos;
+            }
+            else
+                particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
             particle.gameObject.SetActive(true);
             particle.Play(() => { SimplePool.Despawn(particle.gameObject); });
         }
 
-        public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos, Action complete = null)
+        public void ShowParticle(_ParticleTypeEnum typeEnum, Vector3 pos, bool isRectTransformPos = false ,Action complete = null)
         {
             if (!_particleDict.ContainsKey(typeEnum))
             {
@@ -87,7 +84,11 @@ namespace MyTools.ParticleSystem
             particle.transform.gameObject.SetActive(false);
             particle.transform.SetParent(_canvas.transform);
             particle.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
+            if (isRectTransformPos){
+                particle.RectTransform.localPosition = pos;
+            }
+            else
+                particle.RectTransform.position = _uiCamera.WorldToScreenPoint(pos);
             particle.gameObject.SetActive(true);
             particle.Play(() => { 
                 complete?.Invoke();
