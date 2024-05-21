@@ -46,7 +46,7 @@ namespace Core.UI
                 yield return new WaitUntil(() => _isLoadedAsset);
             }
             else
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(0.1f);
             yield return new WaitUntil(() => AdsManager.Instance.CanLoadAds);
             SceneManager.LoadScene(Const.SCENE_GAMEPLAY);
             //_ScreenManager.Instance.ShowScreen(_ScreenTypeEnum.GamePlay);
