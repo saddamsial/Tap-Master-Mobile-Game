@@ -17,7 +17,7 @@ namespace Core.GamePlay.Block{
         public override void SetUp()
         {
             base.SetUp();
-            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, _blockController.transform.position);
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, _blockController.transform.position, false);
             MoveSpecial();
         }
 

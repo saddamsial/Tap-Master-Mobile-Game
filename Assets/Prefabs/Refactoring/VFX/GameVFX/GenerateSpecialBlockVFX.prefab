@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26953cbdeb2398e4cb01db810632c1bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 8fbdaa3015c192643a1d938eefa8b57b, type: 2}
+  m_Material: {fileID: 2100000, guid: 8db5f240222076d4cb18c3f95c39c30d, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4849,5 +4849,5 @@ MonoBehaviour:
       m_Calls: []
   fixedTime: 1
   use3dRotation: 0
-  ParticleType: 0
+  ParticleType: 1
   RectTransform: {fileID: 2313433833850465046}

@@ -14,6 +14,14 @@ namespace Core.GamePlay.LevelSystem{
             Init(_numberOfItemsPerRow);
         }
 
+        private void OnDestroy(){
+            for(int i = 0; i < _listContainedLevelElements.Count; i++){
+                //SimplePool.Despawn(_listContainedLevelElements[i].GetGameObject());
+                _listContainedLevelElements[i].Dispose();
+            }
+            _listContainedLevelElements.Clear();
+        }
+
         public void Init(int numberOfItems){
             if(_isInit) return;
             _isInit = true;

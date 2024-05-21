@@ -33,6 +33,11 @@ namespace Core.GamePlay.LevelSystem{
             _GameEvent.OnGamePlayReset -= SetSelected;
         }
 
+        public void Dispose(){
+            _playButton.onClick.RemoveListener(OnClickLevelPlay);
+            _GameEvent.OnGamePlayReset -= SetSelected;
+        }
+
         public void SetLevel(int level){
             _currentLevel = level;
             _levelText.text = _levelTextFormat + _currentLevel;

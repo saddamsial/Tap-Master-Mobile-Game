@@ -1,8 +1,6 @@
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AdMobManager : MonoBehaviour
@@ -32,6 +30,10 @@ public class AdMobManager : MonoBehaviour
     private RewardedAd _rewardedAd;
     private AppOpenAd _appOpenAd;
     private NativeOverlayAd _nativeOverlayAd;
+    private NativeAd _nativeAd;
+
+
+    private AdLoader _adLoader;
 
 
     private Action closeInter;
@@ -100,8 +102,9 @@ public class AdMobManager : MonoBehaviour
             //LoadInterstitialAd();
             //LoadRewardedAd();
             LoadAppOpenAd();
-            LoadNativeAd();
+            LoadNativeOverLayAd();
             InitAdEvent();
+            //RequestNativeAd();
         });
     }
 
@@ -197,7 +200,8 @@ public class AdMobManager : MonoBehaviour
 
         // Create an extra parameter that aligns the bottom of the expanded ad to the
         // bottom of the bannerView.
-        //    adRequest.Extras.Add("collapsible", "bottom");
+        adRequest.Extras.Add("collapsible", "bottom");
+        
         // send the request to load the ad.
         Debug.Log("Loading banner ad.");
         _bannerView.LoadAd(adRequest);
@@ -574,7 +578,7 @@ public class AdMobManager : MonoBehaviour
     /// <summary>
     /// Loads the ad.
     /// </summary>
-    public void LoadNativeAd()
+    public void LoadNativeOverLayAd()
     {
         // Clean up the old ad before loading a new one.
         if (_nativeOverlayAd != null)
@@ -704,7 +708,8 @@ public class AdMobManager : MonoBehaviour
             Debug.Log("Showing Native Overlay ad.");
             _nativeOverlayAd.Show();
         }
-        else{
+        else
+        {
             Debug.Log("Native Overlay ad is not ready yet.");
         }
     }
@@ -723,9 +728,282 @@ public class AdMobManager : MonoBehaviour
     }
     #endregion
 
-    #region NATIVE
-    
-    #endregion
+//     #region NATIVE
+
+//         #region Native Ad
+//     private bool _nativeAdLoaded;
+
+//     public void RequestNativeAd()
+//     {
+//         AdLoader adLoader = new AdLoader.Builder(_nativeAdId)
+//             .ForNativeAd()
+//             .Build();
+//         adLoader.OnNativeAdLoaded += this.HandleNativeAdLoaded;
+//         adLoader.OnAdFailedToLoad += this.HandleNativeAdFailedToLoad;
+//         adLoader.OnNativeAdImpression += this
+//             .HandleNativeImpression;
+//         adLoader.OnNativeAdClicked += this.HandleNativeAdClicked;
+//         adLoader.LoadAd(new AdRequest());
+//     }
+
+//     private void HandleNativeAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+//     {
+//         Debug.Log("Native ad failed to load: " + args.LoadAdError.GetMessage());
+//         _nativeAdLoaded = false;
+//         RequestNativeAd();
+//     }
+
+//     private void HandleNativeAdLoaded(object sender, NativeAdEventArgs args)
+//     {
+//         Debug.Log("Native ad loaded.");
+
+//         this._nativeAd = args.nativeAd;
+
+//         if (CreateNativeAd())
+//         {
+//             _nativeAdLoaded = true;
+//             Debug.Log("Native Ad Show");
+//         }
+//         else
+//         {
+//             Debug.Log("Native Ad Show Fail");
+//             _nativeAdLoaded = false;
+//             RequestNativeAd();
+//         }
+//     }
+
+//     private void HandleNativeImpression(object sender, EventArgs args)
+//     {
+//         Debug.Log("Handle native ad Impression!");
+//     }
+
+//     private void HandleNativeAdClicked(object sender, EventArgs args)
+//     {
+//         Debug.Log("Handle native ad clicked!");
+//     }
+
+//     public bool CreateNativeAd()
+//     {
+//         Debug.Log($"===>set object native <===");
+// #if UNITY_EDITOR
+
+//         _adNativeObj.body.text = "<color=blue>" +   + "</color>\n";
+//         _adNativeObj.setAdBG(new Texture2D[3].ToList());
+//         return true;
+// #endif
+
+//         List<Texture2D> imagetexture = _nativeAd.GetImageTextures();
+//         if (imagetexture.Any())
+//         {
+//             List<GameObject> Bgs = _adNativeObj.setAdBG(imagetexture);
+
+//             _nativeAd.RegisterImageGameObjects(Bgs);
+//         }
+
+
+//         Texture2D iconTexture = _nativeAd.GetIconTexture();
+//         if (iconTexture)
+//         {
+//             _adNativeObj.adIcon.texture = iconTexture;
+
+//             if (!_nativeAd.RegisterIconImageGameObject(_adNativeObj.adIcon.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register adIcon error <====");
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.adIcon.gameObject.SetActive(false);
+//         }
+
+//         string headLineText = _nativeAd.GetHeadlineText();
+//         if (!string.IsNullOrEmpty(headLineText))
+//         {
+//             _adNativeObj.headLine.text = headLineText;
+//             if (!_nativeAd.RegisterHeadlineTextGameObject(_adNativeObj.headLine.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register adHeadline error <====");
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.headLine.gameObject.SetActive(false);
+//         }
+
+//         Texture2D iconChoice = _nativeAd.GetAdChoicesLogoTexture();
+//         if (iconChoice != null)
+//         {
+//             _adNativeObj.adChoice.texture = iconChoice;
+//             if (!_nativeAd.RegisterAdChoicesLogoGameObject(_adNativeObj.adChoice.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register adChoiceIcon error <====");
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.adChoice.gameObject.SetActive(false);
+//         }
+
+//         string CTAText = _nativeAd.GetCallToActionText();
+//         if (!string.IsNullOrEmpty(CTAText))
+//         {
+//             _adNativeObj.callToAction.text = CTAText;
+//             if (!_nativeAd.RegisterCallToActionGameObject(_adNativeObj.callToAction.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register CTA error <====");
+//                 return false;
+//             }
+//         }
+
+//         string advertiseText = _nativeAd.GetAdvertiserText();
+//         if (!string.IsNullOrEmpty(advertiseText))
+//         {
+//             _adNativeObj.advertiser.text = advertiseText;
+//             if (!_nativeAd.RegisterAdvertiserTextGameObject(_adNativeObj.advertiser.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register advertise text error!<====");
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.advertiser.gameObject.SetActive(false);
+//         }
+
+//         string bodyText = _nativeAd.GetBodyText();
+//         if (!string.IsNullOrEmpty(bodyText))
+//         {
+//             _adNativeObj.body.text = bodyText;
+//             if (!_nativeAd.RegisterBodyTextGameObject(_adNativeObj.body.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register body text error!<====");
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.body.gameObject.SetActive(false);
+//         }
+
+//         string priceText = _nativeAd.GetPrice();
+//         if (!string.IsNullOrEmpty(priceText))
+//         {
+//             _adNativeObj.price.text = priceText;
+//             if (!_nativeAd.RegisterPriceGameObject(_adNativeObj.price.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register price text error!<====");
+//                 _adNativeObj.price.gameObject.SetActive(false);
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.price.gameObject.SetActive(false);
+//         }
+
+//         string storeText = _nativeAd.GetStore();
+//         if (!string.IsNullOrEmpty(storeText))
+//         {
+//             _adNativeObj.store.text = storeText;
+//             if (!_nativeAd.RegisterStoreGameObject(_adNativeObj.store.gameObject))
+//             {
+//                 Debug.LogError($"===> Native Ad register store text error!<====");
+//                 _adNativeObj.store.gameObject.SetActive(false);
+//                 return false;
+//             }
+//         }
+//         else
+//         {
+//             _adNativeObj.store.gameObject.SetActive(false);
+//         }
+//         return true;
+//     }
+
+//     public void ShowNative(Action<AdNativeObject> callBack = null)
+//     {
+//         StartCoroutine(WaitShowNative(callBack));
+//     }
+//     /// <summary>
+//     /// ID is index of ID native AD
+//     /// Actually, Native AD object already create right when native AD success!
+//     /// Show function using for assign Native AD object into right canvas
+//     /// <code>
+//     /// _= AdMHighFather.Instant.ShowNative(0,(nativePanel)=>{
+//     ///       nativePanel.transform.SetParent(canvas.transform);
+//     ///       nativePanel.transform.localScale = Vector3.one;
+//     ///       nativePanel.transform.localPosition = Vector3.zero;
+//     ///       nativePanel.rectTransform.sizeDelta = Vector2.zero;
+//     ///       nativePanel.rectTransform.anchorMax = new Vector2(1, 0.4f);
+//     /// 
+//     /// })
+//     /// </code>
+//     /// </summary> 
+//     /// <param name="callback">Callback using for assign Native AD object into right canvas</param>
+//     private IEnumerator WaitShowNative(Action<AdNativeObject> callBack = null)
+//     {
+//         if (!_nativeAdLoaded)
+//             yield break;
+//         Debug.Log("Show Native");
+// #if UNITY_EDITOR
+//         yield return new WaitForSeconds(0.5f);
+// #else
+//         while (!_nativeAdLoaded)
+//         {
+//             yield return new WaitForSeconds(5f);
+//         }
+// #endif
+//         _adNativeObj.gameObject.SetActive(true);
+//         try
+//         {
+//             callBack?.Invoke(_adNativeObj);
+//         }
+//         catch (Exception e)
+//         {
+//             Debug.LogError($"===>Error on callback show native! error: " + e.ToString() + "<====");
+//         }
+//         _adNativeObj.FitCollider();
+//     }
+
+//     public void HideNative(Action<AdNativeObject> callBack = null)
+//     {
+//         StartCoroutine(WaitHideNative(callBack));
+//     }
+
+//     public IEnumerator WaitHideNative(Action<AdNativeObject> callBack = null)
+//     {
+//         if (!_nativeAdLoaded)
+//         {
+//             Debug.LogError("===> item ad native doesnt exist! ");
+//             callBack?.Invoke(null);
+//             yield break;
+//         }
+
+// #if UNITY_EDITOR
+//         yield return new WaitForSeconds(0.5f);
+// #else
+//         while (!_nativeAdLoaded)
+//         {
+//             yield return new WaitForSeconds(5f);
+//         }
+// #endif
+//         _adNativeObj.gameObject.SetActive(false);
+//         _adNativeObj.transform.SetParent(this.transform);
+
+//         try
+//         {
+//             callBack?.Invoke(_adNativeObj);
+//         }
+//         catch (Exception e)
+//         {
+//             Debug.LogError($"===>Error on callback show native! error: " + e.ToString() + "<====");
+//         }
+//     }
+//     #endregion
+
+//     #endregion
 }
 
 

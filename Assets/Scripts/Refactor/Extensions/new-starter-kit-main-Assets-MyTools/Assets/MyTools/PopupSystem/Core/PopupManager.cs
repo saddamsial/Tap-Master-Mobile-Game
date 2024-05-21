@@ -58,7 +58,7 @@ namespace PopupSystem
         private int defaultSortingOrder;
         private static PopupManager mInstance;
         private Queue<BasePopup> popupQueue = new Queue<BasePopup>();
-        private List<BasePopup> instancePopup = new List<BasePopup>();
+        //private List<BasePopup> instancePopup = new List<BasePopup>();
         public bool hasPopupShowing;
         public static PopupManager Instance
         {
@@ -104,15 +104,15 @@ namespace PopupSystem
             System.Type type = typeof(T);
             GameObject go = null;
 
-            for(int i = 0; i < instancePopup.Count; i++)
-            {
-                if (instancePopup[i].GetType() == type)
-                {
-                    go = instancePopup[i].gameObject;
-                    go.SetActive(true);
-                    return go.GetComponent<T>();
-                }
-            }
+            // for(int i = 0; i < instancePopup.Count; i++)
+            // {
+            //     if (instancePopup[i].GetType() == type)
+            //     {
+            //         go = instancePopup[i].gameObject;
+            //         go.SetActive(true);
+            //         return go.GetComponent<T>();
+            //     }
+            // }
 
             for (int i = 0; i < prefabs.Length; i++)
             {
@@ -152,12 +152,13 @@ namespace PopupSystem
             }
             else
             {
-                // if (parent.childCount >= 2)
-                // {
-                //     mTransparentTrans.SetSiblingIndex(parent.childCount - 2);
-                //     hasPopupShowing = true;
-                // }
-                // else
+                if (parent.childCount >= 2)
+                {
+                    //Debug.Log("2 child");
+                    mTransparentTrans.SetSiblingIndex(parent.childCount - 2);
+                    hasPopupShowing = true;
+                }
+                else
                 {
                     HideFade();
                     hasPopupShowing = false;
@@ -246,13 +247,13 @@ namespace PopupSystem
         public void OnPopupOpen(BasePopup popup)
         {
             EvtPopupOpen?.Invoke(popup);
-            instancePopup.Remove(popup);
+            //instancePopup.Remove(popup);
         }
 
         public void OnPopupClose(BasePopup popup)
         {
             EvtPopupClose?.Invoke(popup);
-            instancePopup.Add(popup);
+            //instancePopup.Add(popup);
         }
 
         #endregion
@@ -275,6 +276,7 @@ namespace PopupSystem
 
         public void ShowFade()
         {
+            transparent.DOKill();
             transparent.gameObject.SetActive(true);
             transparent.DOFade(transparentAmount, fadeTweenTime).SetEase(fadeInTweenType);
         }

@@ -164,7 +164,7 @@ namespace Core.GamePlay
             _blockPool.ExplodeBlocks(listBlocks, block);
             _totalBlocks -= (listBlocks.Count + 1);
             _GameManager.Instance.CurrentCollectedBlock -= (listBlocks.Count + 1);
-            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position,
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.Explode, block.transform.position, false,
                 () =>
                 {
                     Debug.Log("Explode particle done");

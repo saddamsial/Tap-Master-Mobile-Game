@@ -102,7 +102,7 @@ namespace Core.GamePlay.Block
             _currentType = blockType;
             _blockStates[_currentType].SetUp();
             if (blockType == _BlockTypeEnum.GoldReward || blockType == _BlockTypeEnum.PuzzleReward)
-                _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position);
+                _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.SpawnSpecialBlock, transform.position, false);
         }
 
         public void SetMaterial(Material material)

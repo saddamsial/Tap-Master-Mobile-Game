@@ -66,9 +66,9 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     {
         //if (!PlayerData.UserData.IsNotRemoveAds) return;
         //if (!GlobalSetting.NetWorkRequirements() || PlayerData.UserData.HighestLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
-        if (_isShowBanner) return;
+        //if (_isShowBanner) return;
         if (_PlayerData.UserData.CurrentLevel + 1 < AppConfig.Instance.BannerAdLevel) return;
-        _isShowBanner = true;
+        //_isShowBanner = true;
         _admnobManager?.LoadBannerAd();
     }
 
@@ -121,5 +121,10 @@ public class AdsManager : SingletonMonoBehaviour<AdsManager>
     {
         _admnobManager?.RenderAd();
         _admnobManager?.ShowAd();
+    }
+
+    public NativeAd GetNativeAd(){
+        //return _admnobManager?.GetNativeAd();
+        return null;
     }
 }

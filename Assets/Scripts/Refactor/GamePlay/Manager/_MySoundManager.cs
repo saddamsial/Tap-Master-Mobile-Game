@@ -19,6 +19,7 @@ namespace Core.GamePlay
         [SerializeField] private AudioClip[] _purchasedStartSounds;
         [SerializeField] private AudioClip[] _purchasedEndSounds;
         [SerializeField] private AudioClip[] _explodeSounds;
+        [SerializeField] private AudioClip[] _coinSounds;
 
         private AudioClip _currentBackgroundMusic = null;
         private int _currentBackgroundMusicRequestIndex = -1;
@@ -91,6 +92,7 @@ namespace Core.GamePlay
                 _SoundType.PurchasedStart => _purchasedStartSounds[Random.Range(0, _purchasedStartSounds.Length)],
                 _SoundType.PurchasedEnd => _purchasedEndSounds[Random.Range(0, _purchasedEndSounds.Length)],
                 _SoundType.Explode => _explodeSounds[Random.Range(0, _explodeSounds.Length)],
+                _SoundType.Coin => _coinSounds[Random.Range(0, _coinSounds.Length)],
                 //SoundType.BackgroundMusic => _backgroundMusics[Random.Range(0, _backgroundMusics.Length)],
                 _ => null
             };
@@ -110,5 +112,6 @@ public enum _SoundType
     TapBooster,
     PurchasedStart,
     PurchasedEnd,
-    Explode
+    Explode,
+    Coin
 }

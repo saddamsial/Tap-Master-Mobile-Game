@@ -988,24 +988,32 @@ PrefabInstance:
       objectReference: {fileID: 3450038001923573061}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[0]
       value: 
-      objectReference: {fileID: 5275232856249534873, guid: cf0c0ceed544df34090ac74e0d80a9e8, type: 3}
+      objectReference: {fileID: 8847993311539497826, guid: cee2f3d26de6b744a960220cfe0417e1, type: 3}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[1]
       value: 
-      objectReference: {fileID: 760311644644545540, guid: 534d0ed0de050dc46a7f5b3d2def7976, type: 3}
+      objectReference: {fileID: 5275232856249534873, guid: cf0c0ceed544df34090ac74e0d80a9e8, type: 3}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[2]
       value: 
-      objectReference: {fileID: 1608937321367958772, guid: de45574374e54ac40973b99f52babf97, type: 3}
+      objectReference: {fileID: 760311644644545540, guid: 534d0ed0de050dc46a7f5b3d2def7976, type: 3}
     - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: _uiParticles.Array.data[3]
       value: 
-      objectReference: {fileID: 1608937321367958772, guid: de45574374e54ac40973b99f52babf97, type: 3}
+      objectReference: {fileID: 8847993311539497826, guid: 887b65499da3a27408a780c706b36e88, type: 3}
+    - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
+      propertyPath: _uiParticles.Array.data[4]
+      value: 
+      objectReference: {fileID: 8847993311539497826, guid: 887b65499da3a27408a780c706b36e88, type: 3}
+    - target: {fileID: 2940954174494386791, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
+      propertyPath: _uiParticles.Array.data[5]
+      value: 
+      objectReference: {fileID: 8847993311539497826, guid: 887b65499da3a27408a780c706b36e88, type: 3}
     - target: {fileID: 7348248246308546357, guid: 791ec192a1c08f04c89885a44142e2a6, type: 3}
       propertyPath: m_Name
       value: ParticleManager
@@ -1138,6 +1146,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 055dc298228ed9346bb765313aebab29, type: 3}
   _explodeSounds:
   - {fileID: 8300000, guid: 63c488655ff6e0645b1278969d708e44, type: 3}
+  _coinSounds:
+  - {fileID: 8300000, guid: 0562ff4437ec51b4ebd1bbfa6137ab93, type: 3}
 --- !u!4 &6153337180790848713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1123782333833576851, guid: ac1a955c48018a949b34ff38acf475d0, type: 3}

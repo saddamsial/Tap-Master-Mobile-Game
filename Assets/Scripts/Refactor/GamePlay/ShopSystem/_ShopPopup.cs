@@ -55,7 +55,7 @@ namespace Core.GamePlay.Shop
             _GameEvent.OnSelectRewardBlock += UpdateCoinText;
             _GameEvent.OnSelectRewardBlockToWin += UpdateCoinText;
             _GameEvent.OnReceivedRewardByAds += UpdateCoinText;
-            _GameEvent.OnGameWin += () => { UpdateCoinText(_BlockTypeEnum.GoldReward, 0); };
+            _GameEvent.OnGameWin += UpdateCoinTextOnWin;
             _purchaseItemButton = new _PurchaseItemButton(_purchaseButton);
             _itemPriceDatas = _GameManager.Instance.ItemPriceDatas;
             UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
@@ -73,7 +73,7 @@ namespace Core.GamePlay.Shop
             _GameEvent.OnSelectRewardBlock -= UpdateCoinText;
             _GameEvent.OnSelectRewardBlockToWin -= UpdateCoinText;
             _GameEvent.OnReceivedRewardByAds -= UpdateCoinText;
-            _GameEvent.OnGameWin -= () => { UpdateCoinText(_BlockTypeEnum.GoldReward, 0); };
+            _GameEvent.OnGameWin -= UpdateCoinTextOnWin;
         }
 
         public void Show()
@@ -217,6 +217,10 @@ namespace Core.GamePlay.Shop
                 _isCanPurchaseWithAd = false;
                 _adsCoinText.text = "+ 300";
             }
+        }
+
+        private void UpdateCoinTextOnWin(){
+            UpdateCoinText(_BlockTypeEnum.GoldReward, 0);
         }
 
         private void UpdateCoinText(_BlockTypeEnum type, int tmp)
