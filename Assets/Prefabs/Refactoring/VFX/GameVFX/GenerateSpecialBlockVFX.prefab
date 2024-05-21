@@ -4849,5 +4849,5 @@ MonoBehaviour:
       m_Calls: []
   fixedTime: 1
   use3dRotation: 0
-  ParticleType: 0
+  ParticleType: 1
   RectTransform: {fileID: 2313433833850465046}

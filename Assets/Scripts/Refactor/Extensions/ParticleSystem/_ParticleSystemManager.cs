@@ -25,6 +25,7 @@ namespace MyTools.ParticleSystem
             {
                 var obj = UnityEditor.AssetDatabase.LoadAssetAtPath<_BaseMyParticles>($"{itName}");
                 if (obj == null) continue;
+                if(obj.GetComponent<_BaseMyParticles>().ParticleType == _ParticleTypeEnum.None) continue;
                 lstPrefabs.Add(obj);
             }
 

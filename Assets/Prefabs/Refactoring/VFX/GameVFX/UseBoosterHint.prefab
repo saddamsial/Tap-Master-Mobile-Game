@@ -7095,7 +7095,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9327,7 +9327,7 @@ MonoBehaviour:
       m_Calls: []
   fixedTime: 1
   use3dRotation: 0
-  ParticleType: 1
+  ParticleType: 0
   RectTransform: {fileID: 2406807685986197590}
 --- !u!1 &939261108578226270
 GameObject:

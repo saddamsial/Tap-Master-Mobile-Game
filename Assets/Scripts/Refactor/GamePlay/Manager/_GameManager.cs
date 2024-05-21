@@ -4,6 +4,7 @@ using Core.GamePlay.BlockPool;
 using Core.GamePlay.Collection;
 using Core.GamePlay.Shop;
 using Core.SystemGame;
+using MyTools.ParticleSystem;
 using MyTools.ScreenSystem;
 using UnityEngine;
 
@@ -62,17 +63,22 @@ namespace Core.GamePlay
         {
             //_GameEvent.OnGamePlayWin?.Invoke();
             GlobalEventManager.Instance.OnLevelComplete(Level.levelIndex);
-            _ScreenManager.Instance.HideCurrentScreen();
-            _MySoundManager.Instance.PlaySound(_SoundType.Win);
             _GameEvent.OnGameEnd?.Invoke();
-            if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
-            {
-                PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
-            }
-            else
-            {
-                _GameEvent.OnGameWin?.Invoke();
-            }
+            _ScreenManager.Instance.HideCurrentScreen();
+            _ParticleSystemManager.Instance.ShowParticle(_ParticleTypeEnum.WinGame, new Vector3(0, 0, _ParticleSystemManager.Instance.UICamera.nearClipPlane), true,
+                () =>
+                {
+                    if (_PlayerData.UserData.CurrentCollectionPuzzlePiece.Value != -1)
+                    {
+                        PopupSystem.PopupManager.CreateNewInstance<_ReceiveCollectionPopup>().Show(_PlayerData.UserData.CurrentCollectionPuzzlePiece.Key, _PlayerData.UserData.CurrentCollectionPuzzlePiece.Value);
+                    }
+                    else
+                    {
+                        _GameEvent.OnGameWin?.Invoke();
+                    }
+                }
+            );
+            _MySoundManager.Instance.PlaySound(_SoundType.Win);
             _PlayerData.UserData.UpdateWinGameUserDataValue();
         }
 
